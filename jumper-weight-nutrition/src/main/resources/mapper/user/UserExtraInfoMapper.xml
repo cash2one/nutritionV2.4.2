@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jumper.weight.nutrition.user.mapper.UserExtraInfoMapper">
+	<resultMap id="BaseResultMap"
+		type="com.jumper.weight.nutrition.user.entity.UserExtraInfo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="login_ip" property="loginIp" jdbcType="VARCHAR" />
+		<result column="login_time" property="loginTime" jdbcType="TIMESTAMP" />
+		<result column="mobile_type" property="mobileType" jdbcType="INTEGER" />
+		<result column="age" property="age" jdbcType="INTEGER" />
+		<result column="identification" property="identification"
+			jdbcType="VARCHAR" />
+		<result column="real_name" property="realName" jdbcType="VARCHAR" />
+		<result column="contact_phone" property="contactPhone"
+			jdbcType="VARCHAR" />
+		<result column="height" property="height" jdbcType="VARCHAR" />
+		<result column="weight" property="weight" jdbcType="DOUBLE" />
+		<result column="baby_birthday" property="babyBirthday"
+			jdbcType="TIMESTAMP" />
+		<result column="baby_sex" property="babySex" jdbcType="TINYINT" />
+		<result column="common_hospital" property="commonHospital"
+			jdbcType="INTEGER" />
+		<result column="current_identity" property="currentIdentity"
+			jdbcType="TINYINT" />
+		<result column="last_period" property="lastPeriod" jdbcType="TIMESTAMP" />
+		<result column="period_cycle" property="periodCycle" jdbcType="INTEGER" />
+		<result column="period_day" property="periodDay" jdbcType="INTEGER" />
+		<result column="is_china_user" property="isChinaUser" jdbcType="INTEGER" />
+		<result column="ogtt" property="ogtt" jdbcType="VARCHAR" />
+		<result column="hba1c" property="hba1c" jdbcType="DOUBLE" />
+		<result column="glu" property="glu" jdbcType="DOUBLE" />
+		<result column="bp" property="bp" jdbcType="VARCHAR" />
+		<result column="blood_fat" property="bloodFat" jdbcType="VARCHAR" />
+		<result column="baojianhao_hospital_id" property="baojianhaoHospitalId"
+			jdbcType="INTEGER" />
+		<result column="jiean_state" property="jieanState" jdbcType="INTEGER" />
+		<result column="birthday" property="birthday" jdbcType="DATE" />
+		<result column="check_status" property="checkStatus" jdbcType="INTEGER" />
+		<result column="bindHospitalName" property="bindhospitalname"
+			jdbcType="VARCHAR" />
+		<result column="iden_icon" property="idenIcon" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, login_ip, login_time, mobile_type, age, identification,
+		real_name, contact_phone,
+		height, weight, baby_birthday, baby_sex, common_hospital, current_identity,
+		last_period,
+		period_cycle, period_day, is_china_user, ogtt, hba1c, glu, bp, blood_fat,
+		baojianhao_hospital_id,
+		jiean_state, birthday, check_status, bindHospitalName, iden_icon
+	</sql>
+	<select id="findById" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from jumper_anglesound.user_extra_info
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<insert id="insert" parameterType="com.jumper.weight.nutrition.user.entity.UserExtraInfo" useGeneratedKeys="true" keyProperty="id">
+		insert into jumper_anglesound.user_extra_info 
+		(
+			user_id, age, real_name, contact_phone,
+			height, weight, common_hospital, current_identity,
+			last_period, birthday
+		)
+		values (
+			#{userId,jdbcType=INTEGER},	#{age,jdbcType=INTEGER},
+			#{realName,jdbcType=VARCHAR}, #{contactPhone,jdbcType=VARCHAR},
+			#{height,jdbcType=VARCHAR}, #{weight,jdbcType=DOUBLE}, 
+			#{commonHospital,jdbcType=INTEGER},	#{currentIdentity,jdbcType=TINYINT},
+			#{lastPeriod,jdbcType=TIMESTAMP}, #{birthday,jdbcType=DATE}
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.jumper.weight.nutrition.user.entity.UserExtraInfo">
+		update jumper_anglesound.user_extra_info
+		<set>
+			<if test="loginIp != null">
+				login_ip = #{loginIp,jdbcType=VARCHAR},
+			</if>
+			<if test="loginTime != null">
+				login_time = #{loginTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="mobileType != null">
+				mobile_type = #{mobileType,jdbcType=INTEGER},
+			</if>
+			<if test="age != null">
+				age = #{age,jdbcType=INTEGER},
+			</if>
+			<if test="identification != null">
+				identification = #{identification,jdbcType=VARCHAR},
+			</if>
+			<if test="realName != null">
+				real_name = #{realName,jdbcType=VARCHAR},
+			</if>
+			<if test="contactPhone != null">
+				contact_phone = #{contactPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="height != null">
+				height = #{height,jdbcType=VARCHAR},
+			</if>
+			<if test="weight != null">
+				weight = #{weight,jdbcType=DOUBLE},
+			</if>
+			<if test="babyBirthday != null">
+				baby_birthday = #{babyBirthday,jdbcType=TIMESTAMP},
+			</if>
+			<if test="babySex != null">
+				baby_sex = #{babySex,jdbcType=TINYINT},
+			</if>
+			<if test="commonHospital != null">
+				common_hospital = #{commonHospital,jdbcType=INTEGER},
+			</if>
+			<if test="currentIdentity != null">
+				current_identity = #{currentIdentity,jdbcType=TINYINT},
+			</if>
+			<if test="lastPeriod != null">
+				last_period = #{lastPeriod,jdbcType=TIMESTAMP},
+			</if>
+			<if test="periodCycle != null">
+				period_cycle = #{periodCycle,jdbcType=INTEGER},
+			</if>
+			<if test="periodDay != null">
+				period_day = #{periodDay,jdbcType=INTEGER},
+			</if>
+			<if test="isChinaUser != null">
+				is_china_user = #{isChinaUser,jdbcType=INTEGER},
+			</if>
+			<if test="ogtt != null">
+				ogtt = #{ogtt,jdbcType=VARCHAR},
+			</if>
+			<if test="hba1c != null">
+				hba1c = #{hba1c,jdbcType=DOUBLE},
+			</if>
+			<if test="glu != null">
+				glu = #{glu,jdbcType=DOUBLE},
+			</if>
+			<if test="bp != null">
+				bp = #{bp,jdbcType=VARCHAR},
+			</if>
+			<if test="bloodFat != null">
+				blood_fat = #{bloodFat,jdbcType=VARCHAR},
+			</if>
+			<if test="baojianhaoHospitalId != null">
+				baojianhao_hospital_id = #{baojianhaoHospitalId,jdbcType=INTEGER},
+			</if>
+			<if test="jieanState != null">
+				jiean_state = #{jieanState,jdbcType=INTEGER},
+			</if>
+			<if test="birthday != null">
+				birthday = #{birthday,jdbcType=DATE},
+			</if>
+			<if test="checkStatus != null">
+				check_status = #{checkStatus,jdbcType=INTEGER},
+			</if>
+			<if test="bindhospitalname != null">
+				bindHospitalName = #{bindhospitalname,jdbcType=VARCHAR},
+			</if>
+			<if test="idenIcon != null">
+				iden_icon = #{idenIcon,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where user_id = #{userId,jdbcType=INTEGER}
+	</update>
+	
+</mapper>

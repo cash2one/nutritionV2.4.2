@@ -1,0 +1,335 @@
+.conter {
+	overflow: hidden;
+	width: 770px;
+}
+/*撤回消息的样式*/
+.menuMessageCh{
+	position: absolute;
+    right: 54px;
+    height: 30px;
+    top: 55px;
+    z-index: 9;
+    text-align: center;
+    line-height: 30px;
+    background-color: #000;
+    border-radius: 5px;
+} 
+.menuMessageCh a{
+	color: #fff;
+    margin: 0px 10px;
+    font-size:14px;
+}
+.photoMessage{
+    position: absolute;
+    top: -8px;
+    right: 10px;
+    width: 14px;
+    height: 8px;
+    background: url(../../img/arrow2.png) no-repeat 0;
+}
+/*左菜单*/
+.pleft {
+	float: left;
+	height: 590px;
+	width: 190px;
+	padding:5px;
+	_border:1px solid #ccc;
+	_border-right:0;
+	_height:590px;
+	overflow-y: auto;
+	position: relative;
+}
+.pleft ul{
+	
+}
+.pleft ul li{
+	height:40px;
+	line-height: 40px;
+	border-radius: 3px;
+	margin-top:2px;
+	font-size: 14px;
+	overflow:hidden;
+	cursor: pointer;
+}
+.pleft ul li img{
+	width:33px;
+	height: 33px;
+	vertical-align: middle;
+	border-radius: 4px;
+	margin:3px 5px;
+}
+
+
+
+
+/*右菜单*/
+.pright {
+	float: left;
+	height: 600px;
+	width: 560px;
+	border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0,0,0, .3);
+}
+
+.pright .tname {
+	height: 68px;
+	line-height: 68px;
+	text-align: center;
+	font-size: 20px;
+	color: #999;
+	border-bottom: 2px solid #d8dce5;
+	_border-bottom: 2px solid #d8dce5;
+	position:relative;
+}
+.pright .tname .x{
+	position:absolute;
+	display: block;
+	right: 10px;
+	top:8px;
+    width: 12px;
+	cursor: pointer;
+    opacity: .7;
+	z-index: 9;
+}
+.pleft ul li{
+    color:#666666;
+    -webkit-transition: .2s;
+    -moz-transition: .2s;
+    -ms-transition: .2s;
+    -o-transition: .2s;
+    transition: .2s;
+}
+.pright .tname .x:active{
+    opacity: 1;
+}
+/*.pright .tname p{
+	text-decoration: underline;
+	line-height: normal;
+	position:absolute;
+	width:100px;
+	left:50%;
+	margin-left:-50px;
+	top:75px;
+	font-size: 14px;
+	color: #cccfd4;
+    cursor: pointer;
+	z-index: 9;
+}*/
+.chag {
+	text-align: center;
+}
+.chag a {
+	font-size: 14px;
+	color: #9fc6e2;
+    text-decoration: underline;
+}
+.chag a:active{
+    color: #85bade;
+}
+.imMessageBox{
+    width: 100%;
+    height: 360px;
+    border-bottom: 2px solid #d8dce5;
+    _border-bottom: 2px solid #d8dce5;
+    overflow: auto;
+    padding-top: 2px;
+}
+.imMessageBox .rightM, .imMessageBox .leftM{
+    margin: 15px 0;
+    overflow: hidden;
+    color: #333333;
+}
+.imMessageBox .rightM{
+	position: relative;
+	min-height: 115px;
+}
+
+
+
+.imMessageBox .timeM{
+	width: 100%;
+    height: 15px;
+    line-height: 15px;
+    font-size: 12px;
+    text-align: center;
+    color: #aaa;
+}
+.rightM .centerM{
+    margin-right: 12px;
+    position: relative;
+}
+.rightM .nameM{
+	position: absolute;
+    min-width: 90px;
+    height: 18px;
+    right: 50px;
+    top: -3px;
+    overflow: hidden;
+    font-size: 12px;
+    text-align: right;
+}
+.rightM .pointM{
+    position: absolute;
+    right: 40px;
+    width: 10px;
+    height: 9px;
+    _right: 52px;
+    top: 15px;
+    _top:10px;
+    /*background: url(../img/arrow1.gif) no-repeat 0;*/
+    z-index: 9;
+}
+.leftM .pointM{
+	position: absolute;
+	width: 10px;
+    height: 9px;
+    
+    left: 40px;
+    top: 15px;
+    _top:10px;
+    /*background: url(../img/arrow2.gif) no-repeat 0;*/
+    z-index: 9;
+}
+.fr {
+    float: right;
+}
+.centerM i{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.centerM i img{
+	width: 100%;
+    height: 100%;
+    display: block;
+}
+.rightM .messageB{
+    font-size: 16px;
+    min-height: 26px;
+    line-height: 26px;
+    min-width: 30px;
+    max-width: 380px;
+    margin: 15px 18px 0 0;
+    padding: 6px 14px;
+    border-radius: 19px 0px 19px 19px;
+    overflow:hidden;
+}
+.leftM .centerM{
+	overflow: hidden;
+    margin-left: 12px;
+    position: relative;
+    _width:548px;
+}
+.leftM .nameM{
+    position: absolute;
+    width: 90px;
+    height: 18px;
+    left: 50px;
+    top: -3px;
+    overflow: hidden;
+    font-size: 12px;
+    text-align: left;
+}
+.fl {
+    float: left;
+}
+.leftM .messageB{
+    min-height: 26px;
+    line-height: 26px;
+    min-width: 30px;
+    max-width: 380px;
+    margin: 15px 0 0 18px;
+    padding: 6px 14px;
+    font-size: 16px;
+    border-radius: 0px 19px 19px 19px;
+    word-wrap: break-word;
+}
+.imgMessage {
+    height: 35px;
+}
+.imgMessage .imga {
+    width: 21px;
+    height: 18px;
+    margin: 9px 0 0 10px;
+    background: url(../../../resources/img/pic.gif) no-repeat  0px;
+}
+.imgMessage .xxjl {
+    line-height: 35px;
+    font-size: 14px;
+    color: #404040;
+    margin-right: 10px;
+    _height:28px;
+    _padding-top: 8px;
+}
+.xxjl .a_img{
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+}
+.sendMessageInput {
+    height: 120px;
+    width:100%;
+    position: relative;
+}
+.sendMessageInput textarea{
+    color: #333;
+    font-size: 16px;
+    resize: none;
+    overflow: hidden;
+    outline: none;
+    width:550px;
+    padding: 5px;
+    height: 80px;
+    
+}
+.sendMessageBotton{
+    width: 65px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 6px;
+    position: absolute;
+    right: 9px;
+    bottom: 0;
+    font-size: 14px;
+    text-align: center;
+    -webkit-transition: .2s;
+    -moz-transition: .2s;
+    -ms-transition: .2s;
+    -o-transition: .2s;
+    transition: .2s;
+}
+
+.pright,.sendMessageInput textarea{
+	border:none;
+	background-color:#e6e9ef;
+	_background-color:#dadfe6;
+}
+
+/*新增加css*/
+.imUserName{width: 110px;overflow: hidden;margin-left: 5px;}
+.xdd{width: 20px;height: 20px; color:#ffffff;background-color: red;border-radius: 50%;float: right;margin-right: 10px;margin-top: 9px;line-height: 20px;text-align: center;font-size: 12px;display:none;}
+.nosend{
+    background-color: #cccccc !important;
+    color: #fff !important;
+}
+.noFriend{font-size: 14px;
+    color: #333333;
+    position: absolute;
+    width: 154px;
+    height: 20px;
+    left: 50%;
+    top: 50%;
+    margin: -10px 0 0 -77px;
+    white-space: nowrap;}
+
+/*发送图片弹出窗 */
+#uploadWindow{ width: 500px; height: 250px; border: 1px solid #DFDFDF; position: absolute; left: 50%; top:50%; margin: -125px 0 0 -250px; background-color:#ffffff;z-index: 999; display:none;}
+#uploadWindow .uploadTitle{ height: 50px; border-bottom:1px solid #dfdfdf ;}
+.uploadTitle p{height: 50px; line-height: 50px; margin-left: 18px; color: #3a97da; font-size: 16px;}
+.uploadTitle a{width: 12px;height: 12px; background: url(../../../resources/img/close.gif) no-repeat; margin: 19px 23px 0 0;}
+.uploadCenter{height: 200px;position: relative;}
+.uploadCenter form{position: absolute; top: 80px; left: 80px;}
+.imgW,.imgH,.sUrl,.oUserId{display:none;}
+#loadMore,.loadMore{display:block; height:38px; line-height:38px; height: 38px;text-align: center;font-size: 16px;color: #2786E4;border-top: 1px solid #ccc;}
+.loadColor{color:#cccccc !important;}

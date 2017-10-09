@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xmlns:p="http://www.springframework.org/schema/p"
+	  xmlns:context="http://www.springframework.org/schema/context"
+	  xmlns:aop="http://www.springframework.org/schema/aop"
+	  xmlns:tx="http://www.springframework.org/schema/tx"
+	  xmlns:util="http://www.springframework.org/schema/util"
+	  xsi:schemaLocation="http://www.springframework.org/schema/beans
+					    http://www.springframework.org/schema/beans/spring-beans.xsd
+					    http://www.springframework.org/schema/context
+					    http://www.springframework.org/schema/context/spring-context.xsd
+					    http://www.springframework.org/schema/tx
+					    http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+					    http://www.springframework.org/schema/aop
+					    http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+					    http://www.springframework.org/schema/util
+					    http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+	
+	
+	<!-- 数据源 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+	    <property name="driverClassName">
+	      <value>${jdbc_driverClassName}</value>
+	    </property>
+	    <property name="url">
+	      <value>${jdbc_url}</value>
+	    </property>
+	    <property name="username">
+	      <value>${jdbc_username}</value>
+	    </property>
+	    <property name="password">
+	      <value>${jdbc_password}</value>
+	    </property>
+	    <!-- 连接池最大使用连接数 -->
+	    <property name="maxActive">
+	      <value>${jdbc_maxActive}</value>
+	    </property>
+	    <!-- 初始化连接大小 -->
+	    <property name="initialSize">
+	      <value>${jdbc_initialSize}</value>
+	    </property>
+	    <!-- 获取连接最大等待时间 -->
+	    <property name="maxWait">
+	      <value>${jdbc_maxWait}</value>
+	    </property>
+	    <!-- 连接池最大空闲 -->
+	    <property name="maxIdle">
+	      <value>${jdbc_maxIdle}</value>
+	    </property>
+	    <!-- 连接池最小空闲 -->
+	    <property name="minIdle">
+	      <value>${jdbc_minIdle}</value>
+	    </property>
+	    <!-- 自动清除无用连接 -->
+	    <property name="removeAbandoned">
+	      <value>${jdbc_removeAbandoned}</value>
+	    </property>
+	    <!-- 清除无用连接的等待时间 -->
+	    <property name="removeAbandonedTimeout">
+	      <value>${jdbc_removeAbandonedTimeout}</value>
+	    </property>
+	    <!-- 连接属性 -->
+	    <property name="connectionProperties">
+	      <value>${jdbc_connectionProperties}</value>
+	    </property>
+    </bean>
+     
+     <!-- 配置MyBatis，将spring和mybatis整合 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:conf/mybatis-config.xml"></property>
+		<!-- 加载mapper文件 -->
+		<property name="mapperLocations" value="classpath:mapper/**/*.xml"></property>
+		
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageHelper">
+					<property name="properties">
+						<!-- 属性一行一个，具体属性参考mybatis-config.xml中的属性 -->
+						<value>
+							helperDialect=mysql
+							<!-- 该参数默认为false -->
+							<!-- 设置为true时，会将RowBounds第一个参数offset当成pageNum页码使用 -->
+							<!-- 和startPage中的pageNum效果一样 -->
+							offsetAsPageNum=true
+							<!-- 该参数默认为false -->
+							<!-- 设置为true时，使用RowBounds分页会进行count查询 -->
+							rowBoundsWithCount=true
+							<!-- 分页合理化 -->
+							reasonable=true
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
+	</bean>
+	
+	<!-- mybatis自动映射 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.jumper.weight.nutrition.*.mapper"></property>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	</bean>
+	
+    <!-- 配置事务 -->  
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    
+    <!-- 注解事物 -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+    
+	<!-- 事物管理 通知 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="query*" read-only="true" />
+			<tx:method name="is*" read-only="true" />
+			<tx:method name="list*" read-only="true" />
+			<!-- java.lang.RuntimeException -->
+			<!-- <tx:method name="*" propagation="REQUIRED" rollback-for="java.lang.Throwable" /> -->
+			<tx:method name="*" propagation="REQUIRED" rollback-for="java.lang.RuntimeException" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- 事物代理 -->
+	<aop:config>
+	 	<aop:pointcut id="serviceMethods" expression="execution(* com.jumper.weight.nutrition.*.service..*(..))"/>  
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods"/>
+	</aop:config>
+	
+	<!-- 开启AOP监听 只对当前配置文件有效，启用对事务注解的支持 -->
+	<aop:aspectj-autoproxy expose-proxy="true" />
+     
+</beans>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.jumper.weight.nutrition.hospital.mapper.WeightHospitalSettingMapper">
+	<resultMap id="BaseResultMap"
+		type="com.jumper.weight.nutrition.hospital.entity.WeightHospitalSetting">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="hospital_id" property="hospitalId" jdbcType="INTEGER" />
+		<result column="hide_diet" property="hideDiet" jdbcType="INTEGER" />
+		<result column="hide_sport" property="hideSport" jdbcType="INTEGER" />
+		<result column="hide_foodtab" property="hideFoodtab" jdbcType="INTEGER" />
+		<result column="hide_exchange" property="hideExchange"
+			jdbcType="INTEGER" />
+		<result column="safe_formula" property="safeFormula" jdbcType="INTEGER" />
+		<result column="nutrition_consult" property="nutritionConsult" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, hospital_id, hide_diet, hide_sport, hide_foodtab, hide_exchange, safe_formula, nutrition_consult
+	</sql>
+	<select id="findById" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from weight_hospital_setting
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<!-- 通过医院id查询 -->
+	<select id="findSettingByHospId" resultMap="BaseResultMap"	parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from weight_hospital_setting
+		where hospital_id = #{hospitalId,jdbcType=INTEGER}
+	</select>
+	
+	<insert id="insert"
+		parameterType="com.jumper.weight.nutrition.hospital.entity.WeightHospitalSetting">
+		insert into weight_hospital_setting 
+		(
+		hospital_id, hide_diet, hide_sport, hide_foodtab, hide_exchange, nutrition_consult
+		)
+		values (
+		#{hospitalId,jdbcType=INTEGER},	#{hideDiet,jdbcType=INTEGER},
+		#{hideSport,jdbcType=INTEGER}, #{hideFoodtab,jdbcType=INTEGER}, 
+		#{hideExchange,jdbcType=INTEGER}, #{nutritionConsult,jdbcType=INTEGER}
+		)
+	</insert>
+	<update id="update"
+		parameterType="com.jumper.weight.nutrition.hospital.entity.WeightHospitalSetting">
+		update weight_hospital_setting
+		<set>
+			<if test="hospitalId != null">
+				hospital_id = #{hospitalId,jdbcType=INTEGER},
+			</if>
+			<if test="hideDiet != null">
+				hide_diet = #{hideDiet,jdbcType=INTEGER},
+			</if>
+			<if test="hideSport != null">
+				hide_sport = #{hideSport,jdbcType=INTEGER},
+			</if>
+			<if test="hideFoodtab != null">
+				hide_foodtab = #{hideFoodtab,jdbcType=INTEGER},
+			</if>
+			<if test="hideExchange != null">
+				hide_exchange = #{hideExchange,jdbcType=INTEGER},
+			</if>
+			<if test="nutritionConsult != null">
+				nutrition_consult = #{nutritionConsult,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 根据hospIds列表查询医院安全体重范围计算公式列表 -->
+	<select id="listHospSafeFormula" parameterType="java.util.List" resultMap="BaseResultMap">
+		select id, hospital_id, safe_formula from weight_hospital_setting where hospital_id in
+		<foreach collection="list" item="hospId" open="(" close=")" separator=","> 
+			#{hospId}
+		</foreach>
+	</select>
+</mapper>

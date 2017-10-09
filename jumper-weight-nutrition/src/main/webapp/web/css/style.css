@@ -1,0 +1,1409 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    _font-size: 12px;
+    font-family: '微软雅黑';
+    box-sizing: border-box;
+}
+.errorP {
+    position: absolute;
+    height: 20px;
+    color: #ff334e;
+    line-height: 14px;
+    bottom: -16px;
+    font-style: normal;
+    text-align: left;
+    right:20%;
+    width:160px;
+    _bottom: -25px;
+}
+#addDay{
+    width: 116px;
+    height:0;
+    vertical-align:bottom;
+    opacity: 0;
+    filter:Alpha(Opacity=0);
+}
+.addDayLab{
+    +margin-top: 4px;
+    +margin-right: 10px;
+}
+
+html, body {
+    overflow:auto; /* overflow-y:auto;overflow-x:hidden; */
+    min-width:1090px;
+    background-color: #ebebeb;
+    height: 100%;
+    _height: auto;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+    -webkit-appearance: none !important;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #1990EC;
+    cursor: pointer;
+}
+
+li {
+    list-style: none;
+}
+
+/*head*/
+.head-left {
+    float: left;
+}
+
+.head-right {
+    float: right;
+}
+
+.head-right ul li {
+    float: left;
+    margin-right: 25px;
+}
+
+.head-right ul li .this-text {
+    float: left;
+}
+
+.head-right ul li .this {
+    float: left;
+    padding: 1px 4px;
+    line-height: 16px;
+    color: #fff;
+    border-radius: 3px;
+    background: #1b66a0;
+    margin-top: 16px;
+}
+
+.head {
+    width: 100%;
+    /* min-width: 1280px; */
+    line-height: 50px;
+    height: 50px;
+    background-color: #4696E7;
+    color: #fff;
+}
+
+.head-left img {
+    padding-left: 15px;
+    *padding-top: 0;
+    +margin-top: 10px;
+}
+
+.head-right ul li img.icon-img {
+    float: left;
+    border-radius: 6px;
+    margin-right: 10px;
+    width: 30px;
+    height: 30px;
+    margin-top: 7px;
+}
+
+.head-rgiht ul .iconli span {
+    float: left;
+    margin-top: 10px;
+}
+
+.this-text {
+    margin-right: 8px;
+    color: #fff;
+}
+
+.head-right ul li span {
+    color: #fff;
+}
+
+/*公共样式*/
+.backW {
+    background: white;
+}
+
+.bor1 {
+    border: 1px solid #CCCCCC;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.ov {
+    overflow: hidden;
+
+}
+.tBox_5{
+    + clear: both;
+    height: 468px;
+}
+.box {
+    box-sizing: border-box;
+}
+
+.blue {
+    color: #1990ec;
+}
+
+.red {
+    color: #eb3452;
+}
+
+.green {
+    color: #23c266;
+}
+
+/*container-left*/
+.container {
+    position: relative;
+    background-color: #ebebeb; /*背景色修改 2017.05.09——wuye*/
+    left: 0;
+    top: 0;
+    margin-top: 50px;
+    _margin-top: 0;
+    /* min-width: 1280px; */
+}
+
+.container-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    height: 900px;
+    width: 150px;
+    z-index: 9;
+    border-right: 1px #ddd solid;
+}
+
+.container-left ul li {
+    height: 50px;
+    line-height: 50px;
+    padding-left: 15px;
+    color: #333;
+    cursor: pointer;
+}
+
+.container-left ul li img {
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.container-left ul .active {
+    background-color: #eee;
+    color: #1990ec;
+}
+
+.container-left ul .active2 {
+    background-color: #e7e7e7;
+}
+
+/*container-right*/
+.container-right {
+    /*margin-left: 150px;*/
+    _position: absolute;
+    _top: 0;
+   /*  _left: 150px; */
+    _margin: 0;
+    z-index: 9;
+    background-color: #ebebeb; /*背景色修改 2017.05.09——wuye*/
+    overflow-y: auto;
+    /* position: relative;增加样式,使IE下子按钮定位正确 2017.05.09——wuye   试试去掉先   苹果电脑上会影响 topnav显示 */
+}
+
+.con-right-top {
+    height: 50px;
+    line-height: 50px;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    background: #fff;
+    position: fixed;
+    top:0;
+    z-index:999;
+    _position: static;
+}
+
+.con-right-top span {
+    color: #5d5d5d;
+    margin-left: 20px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.con-right-top .active {
+    color: #1990ec;
+}
+
+.con-right-cen {
+    margin: 20px;
+   +margin: 0;
+    background-color: #fff;
+    clear: both;
+    overflow: hidden;
+}
+
+.con-right-ul {
+    height: 48px;
+    line-height: 49px;
+   
+}
+
+.con-right-ul ul li {
+    float: left;
+    width: 25%;
+    _width: 24.7%;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    border-right: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.con-right-ul ul .active {
+    background-color: #2e8fdd;
+    color: #fff;
+}
+
+.con-right-cen .cen-conter {
+    margin: 20px;
+    _margin: 20px 20px 20px 20px;
+    padding-bottom: 20px;
+    /* overflow: hidden;
+    position: relative;
+    min-height: 300px; */
+}
+
+.con-right-cen .cen-conter .text { /*样式有变更 2017.05.09——wuye*/
+    height: 50px;
+   /* +height: 40px; */
+    line-height: 50px;
+   /* +line-height: 40px; */
+    border-bottom: 1px solid #ccc;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.cen-table {
+    width: 100%
+}
+
+.cen-table tr td {
+    position: relative;
+    width: 16%;
+    padding: 15px 0 0 0;
+    text-align: center;
+    height: 50px
+}
+
+.cen-table tr td label {
+    /* width: 34.2%;  */
+    min-width: 52px;
+    float: left;
+    margin: 0;
+    height: 20px;
+    line-height: 20px;
+    text-align: left;
+}
+
+.cen-table tr td div select {
+    border: 1px solid #ccc;
+    width: 90px;
+    height: 20px;
+    line-height: 20px;
+    margin: 0;
+    padding: 0;
+    margin-top: 3px;
+    _margin-top: 8px;
+}
+
+.cen-table tr td div p {
+    text-align: left;
+    line-height: 35px;
+    padding-left: 2%;
+}
+
+.niancenger {
+    width: 100%;
+    text-align: center;
+}
+
+.lianbut {
+    cursor: pointer;
+    background: #1990ec;
+    border: 1px solid #1990ec;
+    color: #fff;
+    padding: 3px;
+    _padding: 5px;
+    width: 70px;
+    margin-left: 10px;
+    border-radius: 3px;
+}
+
+.lianbut:hover {
+    background: #1681D4;
+    color: #fff;
+}
+
+/*膳食调查*/
+.record li {
+    float: left;
+    margin-right: 40px;
+    line-height: 50px;
+}
+
+.mainL {
+    height: 460px;
+    width: 160px;
+    border-right: 1px solid #CCCCCC;
+}
+
+.inputBox1 {
+    padding: 20px 0 0 22px;
+    overflow: hidden;
+}
+
+
+.inputBox1 label {
+    cursor: pointer;
+    float: left;
+    width: 66px;
+    line-height: 30px;
+
+}
+
+.chaXun {
+    width: 100%;
+    background: #e6e6e6;
+    padding: 12px 0;
+    margin-top: 20px;
+}
+
+.chaXun label {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.chaXun input {
+    vertical-align: middle;
+    width: 110px;
+    +width:98px;
+    height: 30px;
+    line-height: 12px;
+    margin-left: 2px;
+    padding: 4px;
+    +height: 20px;
+    +line-height: 20px;;
+}
+
+.foodBtn {
+    width: 182px;
+    padding: 8px;
+}
+
+.foodBtn span {
+    display: inline-block;
+    padding: 6px 8px;
+    overflow: hidden;
+    cursor: pointer;
+    margin: 2px;
+}
+
+.foodBtn .foodBtnActive {
+    background: #abd9f5;
+}
+
+.btn_blue {
+    background: #1990ec;
+    border-radius: 4px;
+    height: 12px;
+    font-size:12px;
+    padding: 1px 4px;
+    color: white;
+    cursor: pointer;
+}
+
+.btn_blue:hover {
+    background: #0a65c7;
+    color:white;
+}
+
+.tableBox {
+    width: 100%;
+}
+
+.endText1 {
+    margin: 11px 10px 20px 0;
+    /*width: 100%;
+    clear: both;*/
+}
+
+.tabR {
+    width: 400px;
+    background: white;
+}
+
+@media only screen and (min-width: 1800px) and (max-width: 1920px) {
+    .tBox_1 {
+        width: 54% !important;
+    }
+}
+
+@media only screen and (min-width: 1660px) and (max-width: 1800px) {
+    .tBox_1 {
+        width: 50% !important;
+    }
+}
+
+@media only screen and (min-width: 1560px) and (max-width: 1660px) {
+    .tBox_1 {
+        width: 49% !important;
+    }
+}
+
+@media only screen and (min-width: 1360px) and (max-width: 1560px) {
+    .tBox_1 {
+        width: 43% !important;
+    }
+}
+
+
+@media only screen and (min-width: 1881px) {
+	.tBox_6{width: 57% !important;_width: 55%}
+    .tBox_3{width: 54% !important;}
+}
+@media only screen and (max-width: 1880px) {
+	.tBox_6{width: 56% !important;_width: 54%}
+    .tBox_3{width: 53% !important;}
+}
+@media only screen and (max-width: 1800px) {
+    .tBox_6 {width: 55% !important;_width: 53%}
+    .tBox_3{width: 52% !important;}
+}
+@media only screen and (max-width: 1600px) {
+    .tBox_6{width: 54% !important;_width: 52%}
+    .tBox_3{width: 51% !important;}
+}
+@media only screen and (max-width: 1500px) {
+    .tBox_6 {width: 53% !important;_width: 51%}
+    .tBox_3{width: 50% !important;}
+}
+@media only screen and (max-width: 1400px) {
+    .tBox_6 {width: 52% !important;_width: 50%}
+    .tBox_3{width: 48% !important;}
+}
+@media only screen and (max-width: 1300px) {
+    .tBox_6 {width: 49.6% !important;_width: 48%}
+    .tBox_3{width: 42.6% !important;}/* 2017-06-07 */
+}
+@media only screen and (max-width: 1000px) {
+    .tBox_6 {width: 48% !important;_width: 47%}
+    .tBox_3{width: 40% !important;}/* 2017-06-07 */
+}
+.btnBottom {
+    margin: 20px 0 60px;
+    text-align: center;
+}
+
+.btnBottom a {
+    display: inline-block;
+    height: 40px;
+    width: 90px;
+    color: #1990ec;
+    border: 1px solid #1990ec;
+    border-radius: 4px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 14px;
+    margin: 0 10px;
+    position: relative;
+    transition: .2s;
+}
+
+.btnBottom a:hover {
+    color: #1990ec !important;
+    background: #bed9eb;
+}
+
+.btnBottom a:active {
+    height: 38px;
+    line-height: 38px;
+}
+
+/*//方案制定*/
+.searchL {
+    width: 172px;
+    +width: 160px;
+    height: 438px;
+    background: white;
+    padding: 10px;
+    border-right: none;
+}
+
+.sInput {
+    width: 110px;
+    height: 30px;
+    vertical-align: middle
+    padding:0 4px;
+    float: left;
+    line-height: 30px;
+}
+
+.searchIcon {
+    width: 40px;
+    height: 30px;
+    text-align: center;
+    padding: 0;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    background: #1990ec;
+   +width: 42px;
+   +height: 35px;
+   +margin-left: -4px;
+   +margin-top:-1px;
+}
+
+.searchIcon i {
+    color: white;tabstyle1
+    line-height: 32px !important;
+    vertical-align: top !important;
+}
+
+.sBtn {
+    display: block;
+    margin: 20px auto !important;
+}
+
+.daoruList {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    overflow-y: auto;
+}
+
+.daoruList li {
+    white-space: nowrap;
+    height:30px;
+    padding:4px 0 0 0;
+}
+
+.daoruList li div {
+    float: left;
+    vertical-align: middle;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.daoruListFirst {
+    margin-right: 6px;
+    width: 86px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pen {
+    color: #6da1d4 !important;
+    margin: 0 6px;
+}
+
+.layui-icon {
+    cursor: pointer;
+}
+
+.endText1 span {
+    color: #1990ec;
+    font-weight: bold;
+}
+
+.InputBottom {
+    margin-top: 10px;
+}
+
+.bigBlockInput {
+    vertical-align: middle;
+    width: 99%;
+    padding: 4px;
+    font-size: 14px;
+    line-height: 28px;
+    resize: none
+}
+
+.InputBottomL {
+    margin-top: 8px;
+    margin-bottom: 4px;
+    display: block;
+    width: 20%;
+}
+
+.daoruBtn {
+    color: #1990ec;
+    cursor: pointer;
+    font-style: italic;
+}
+
+.InputBottom {
+    /*position: relative;*/
+    overflow: hidden;
+    /* float: left; 防止ie6下不显示*/
+    width: 99%;
+    height: 150px;
+    +height: 160px;
+
+}
+
+.InputBottom .counter {
+    color: #999;
+}
+.tBox_4{
+    overflow: hidden;
+    + clear: both;
+}
+.delCheck {
+    height: 28px;
+    width: 36px;
+}
+
+.delCheck i {
+    font-size: 24px;
+    color: #1990ec;
+}
+
+/*首页样式*/
+.indexTable {
+    width: 90%;
+    margin: 100px auto;
+}
+
+.indexTable td {
+    text-align: center;
+}
+
+.indexBox {
+    background: white;
+    overflow: hidden;
+    color: #43494d;
+    margin: 10px;
+    width: 96%;
+    height: 200px;
+    border-radius: 8px;
+}
+.indexBox .indexText{
+	font-size: 16px;
+}
+.indexNum {
+    font-size: 50px;
+    margin-top: 20px;
+    line-height: 100px;
+    font-weight: bold;
+}
+
+.laNameTabel {
+    width: 220px;
+    line-height: 20px;
+    padding: 4px;
+}
+
+.inputWidth100 {
+    width: 80px !important;
+}
+
+.daoruList .layui-icon {
+    font-size: 18px;
+    margin: 0 2px;
+    color: #1990ec;
+}
+
+.daoruList .layui-icon:hover {
+    color: white;
+    background: #5eaeeb;
+    border-radius: 4px;
+}
+
+
+
+.titleArrow {
+    float: right;
+    margin-right: -24px;
+    height: 48px;
+ 	_margin-top:-40px;
+}
+
+/*common start*/
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+.clearfix {
+    overflow: auto;
+    zoom: 1;
+}
+
+/*button style*/
+a.bigbtn-blue {
+    height: 26px;
+    line-height: 26px;
+    background: #1990EC;
+    border-radius: 2px;
+    padding: 0 10px;
+    color: #FFF;
+    display: inline-block;
+    margin-top: 6px;
+}
+
+a.bigbtn-blue:hover {
+    background: #1681D4;
+}
+
+a.sumitblue {
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    background: #1990EC;
+    border-radius: 2px;
+    padding: 0 18px;
+    color: #FFF;
+    font-size: 15px;
+}
+
+a.sumitblue:hover {
+    background: #1681D4;
+}
+
+
+.mainbtn{
+	height: 36px;
+	line-height: 36px;
+	*height: 40px;
+	*line-height: 40px;
+    *margin-top:0;
+    vertical-align:middle;
+    background: #1990EC;
+    border-radius: 2px;
+    padding: 0 20px;
+    color: #FFF;
+    display: inline-block;
+}
+
+.mainbtn:hover {
+    background: #1681D4;
+    color: #fff;
+}
+
+.mainbtn:active {
+    background: #1681D4;
+    color: #fff;
+}
+
+.lianbut-green {
+    cursor: pointer;
+    background: #24C266;
+    border: 1px solid #24C266;
+    color: #fff;
+    padding: 4px 10px;
+    _padding: 5px 12px;
+    width: 70px;
+    border-radius: 3px;
+    font-weight: normal;
+    margin-left: 10px;
+}
+
+.lianbut-green:hover {
+    background: #20AE5C;
+}
+
+/*color style*/
+.fontbule {
+    color: #1990EC;
+}
+
+.fontred {
+    color: #EB3452;
+}
+
+.fontyellow {
+    color: #FBBA37;
+}
+
+.fontgreen {
+    color: #24C266;
+}
+
+.fontgrey {
+    color: #999;
+}
+
+.fontblack {
+    color: #333;
+}
+
+/*common end*/
+.cen-table tr td div.inputcontrain {
+    width: 100%;
+    border-radius: 2px;
+}
+
+.cen-table tr td div.inputcontrain input {
+    border: none;
+    width: 61%;
+    float: right;
+    border: 1px solid #ccc;
+}
+
+.cen-table tr td div.inputcontrain .inputright {
+    margin-top: 3px;
+    width: 35px;
+    float: right;
+    border: 1px solid #ccc;
+    border-left: none;
+    height: 28px;
+    line-height: 28px;
+    background: #eee;
+    text-align: center;
+    border-radius: 0 2px 2px 0;
+    font-size: 14px;
+    color: #999;
+}
+
+.con-right-top span:hover {
+    color: #1990EC;
+}
+
+.headinfo {
+    margin: 20px;
+    background-color: #fff;
+    clear: both;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 15px;
+}
+
+.headinfo ul li {
+    float: left;
+    margin-right: 3%;
+}
+
+.headinfo ul li a {
+    display: block;
+    margin-top: 7px;
+}
+
+/*tab style*/
+.panel {
+}
+
+.tabstyle1 {
+    border: 1px solid #e6eff5;
+    background: #e6eff5;
+    margin-top: 55px;
+    *margin-top: 20px;
+    border-radius: 0 0 2px 2px;
+}
+
+.tabnav1 {
+    list-style: none;
+    margin: -40px -1px 0 0;
+    *margin: -60px -1px 0 -1px;
+    padding: 0;
+    height: 40px;
+    overflow: hidden;
+}
+
+.tabnav1 li {
+    display: inline;
+}
+
+.tabnav1 li a {
+    top: 1px;
+    display: block;
+    float: left;
+    border-radius: 2px 2px 0 0;
+    background: #eee;
+    line-height: 32px;
+    padding: 0 16px;
+    text-decoration: none;
+    color: grey;
+    margin-top: 8px;
+    margin-right: 1px;
+    transition: .2s;
+}
+
+.tabnav1 li a:hover {
+    background: #e6eff5;
+    color: #1990EC;
+    line-height: 40px;
+    margin-top: 0;
+}
+
+.tabnav1 li.active a {
+    background: #e6eff5;
+    color: #1990EC;
+    line-height: 40px;
+    margin-top: 0;
+}
+
+.panel2 {
+    margin: 15px;
+}
+
+.tabstyle2 {
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 0 0 2px 2px;
+}
+
+.tabnav2 {
+    list-style: none;
+    margin: 20px -1px -1px 0;
+    padding: 0;
+    height: 40px;
+    overflow: hidden;
+}
+
+.tabnav2 li {
+    display: inline;
+}
+
+.tabnav2 li a {
+    top: 1px;
+    display: block;
+    float: left;
+    border-radius: 2px 2px 0 0;
+    border: 1px solid #ccc;
+    background: #eee;
+    line-height: 32px;
+    padding: 0 16px;
+    text-decoration: none;
+    color: grey;
+    margin-top: 8px;
+    margin-right: -1px;
+    transition: all .2s;
+    -webkit-transition: all .2s;
+}
+
+.tabnav2 li a:hover {
+    background: #fff;
+    color: #1990EC;
+    line-height: 40px;
+    margin-top: 0;
+}
+
+.tabnav2 li.active a {
+    background: #fff;
+    color: #1990EC;
+    line-height: 40px;
+    margin-top: 0;
+    border-bottom: none;
+}
+
+.datarec {
+    height: 300px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.datarec p {
+    line-height: 250px;
+}
+
+/*tab style end*/
+
+/*table style*/
+table.tablerec {
+    width: 100%;
+}
+
+table.tablerec th {
+    height: 40px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+table.tablerec td {
+    height: 50px;
+    text-align: center;
+    text-align: left;
+    padding: 0 15px;
+}
+
+table.tablerec tr td span {
+    margin-right: 20px;
+}
+#styletable1 tr {
+    border-bottom: 1px #ddd dashed;
+}
+
+#styletable1 tr:last-child {
+    border: none;
+}
+
+/*table style end*/
+.navside {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 24px;
+    color: #666;
+    font-weight: bold;
+    border-right: 1px #ddd solid;
+    border-bottom: 1px #ddd solid;
+}
+
+.record {
+    margin: 20px;
+}
+
+.record-1 {
+    margin-top: 15px;
+}
+
+.bottomint {
+    vertical-align: middle;
+    height: 45px;
+}
+
+.bottomint label {
+    margin-left: 15px;
+}
+
+.bottomint input {
+    height: 45px;
+    line-height: 45px;
+    margin-left: 10px;
+    border: none;
+    width: 89%;
+}
+
+.footbtn {
+    width: 100%;
+    text-align: center;
+    margin: auto;
+    margin: 20px 0 40px 0;
+}
+
+.footbtn a {
+    padding: 12px 25px;
+}
+
+.contentpath {
+    margin-left: 20px;
+    color: #999;
+}
+
+.contentpath a {
+    color: #999;
+}
+
+.contentpath a:hover {
+    color: #1990EC;
+}
+
+.datechoose-after {
+    height: 38px;
+    width: 250px;
+    float: left;
+    line-height: 38px;
+}
+
+.datechoose-after span a {
+    color: #999;
+    padding: 5px 10px;
+}
+
+.datechoose-after span a:hover {
+    color: #1990EC;
+}
+
+.datechoose-after span a.active {
+    color: #1990EC;
+}
+
+.Z-content {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.Z-history {
+    border-bottom: 1px solid #ddd;
+}
+
+.Z-history-title {
+    padding: 15px;
+}
+
+.Z-history-title span {
+    margin-right: 15px;
+}
+
+.Z-history-name {
+    font-weight: bold;
+}
+
+.Z-advise {
+    padding: 0 15px 15px 15px;
+}
+
+.Z-btn {
+    padding: 0 15px 10px 7px;
+    height: 40px;
+    line-height: 40px;
+}
+
+.inf_form .con-right-cen {
+    margin: 0;
+}
+
+.table-outborder {
+    border: 1px solid #ddd;
+}
+
+#styletable th {
+    text-align: left;
+    padding: 0 15px;
+    height: 45px;
+    line-height: 45px;
+}
+
+table#styletable {
+    margin: 0;
+}
+
+/* 孕妇管理-表单 */
+.searchIcon1 {
+    width: 50px;
+    height: 35px;
+    text-align: center;
+    padding: 0;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    background: #1990ec;
+}
+
+.searchIcon1 i {
+    color: white;
+    line-height: 35px !important;
+    vertical-align: top !important;
+}
+
+.bor2 {
+    border: 1px solid #ddd;
+}
+
+.fl {
+    float: left;
+}
+
+.bInput {
+    width: 350px;
+    height: 32px;
+    vertical-align: middle;
+    padding-left: 8px;
+    border: none;
+    line-height:34px;
+}
+
+.search2 {
+    margin: 20px 0 18px 30px;
+}
+
+.forminline {
+    /*position: relative;*/
+    /*display: inline-block;*/
+    /**display: inline;*/
+    margin-bottom: 5px;
+    margin-right: 10px;
+    vertical-align: middle;
+    *float: left;
+}
+
+.formint-inline {
+    position: relative;
+    display: inline-block;
+    *display: inline;
+    height: 40px;
+    line-height: 40px;
+    *float: left;
+}
+
+.formint-inline label {
+    *position: relative;
+    margin-right: 10px;
+    *display: inline;
+    *float: left;
+}
+
+.forminline select {
+    border: 1px solid #ddd;
+    width: 90%;
+    height: 35px;
+    line-height: 35px;
+    margin: 0;
+    padding: 0;
+    margin-top: 3px;
+    _margin-top: 8px;
+    margin-left:4px;
+    *float: left;
+}
+
+.choosedate {
+    margin-top: 15px;
+    *margin-top: 3px;
+}
+
+.form-label {
+    float: left;
+    display: block;
+    padding: 9px 15px 9px 0;
+    font-weight: 400;
+    text-align: right;
+    line-height: 20px;
+}
+
+.input-inline {
+    float: left;
+    width: 190px;
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* 张磊-医生建议*/
+.InputBottomL {
+    margin-top: 8px;
+    margin-bottom: 4px;
+    display: block;
+    width: 20%;
+    _clear: both;
+    font-size: 14px;
+}
+.bigBlockInput {
+    vertical-align: middle;
+    width: 99%;
+    padding: 4px;
+    font-size: 14px;
+    line-height: 28px;
+    height: 90px;
+    resize: none;
+}
+.inputConten input{
+    padding-left: 4px ;
+    height: 20px ;
+    float: left;
+    
+}
+                /*带单位input*/
+                .divelative{
+                	/* width: 90px; */
+                    float: left ;
+                    vertical-align: middle;
+                    margin-left: 4px ;
+                    display: inline;
+                }
+                .divelative input{
+                    float: left ;
+					padding-left: 4px ;
+                    height: 20px;
+                    line-height: 16px ;
+                    width: 62px;
+                    border: 1px solid #ccc;
+                    font-size:12px;
+				}
+				
+.divelative .unit{
+    float: left ;
+    text-align: center;
+    width: 28px;
+    height: 20px;
+    background: #f0f0f0;
+    color: #999999;
+    line-height:16px;
+    border: 1px solid #ccc;
+    border-left:none ;
+    font-size:12px;
+}
+.posiA {
+    float: right;
+    margin-top: -50px;
+}
+.SetMain{
+    background: white;
+    margin: 20px auto;
+    width: 1000px;
+    padding: 20px 40px 40px;
+}
+.kuai{vertical-align: top ; display: block;height: 30px;width: 6px;background: #1990EC;margin-right: 8px;}
+.menZhen tbody tr{cursor: pointer;}
+#selectAll{vertical-align: middle;}
+body .layui-layer-hui {
+	background: #666666 !important;
+}
+.lookAllMealsInfo {
+	margin-top: 20px;
+	display: inline-block;
+}
+.pageBox{
+	height:40px;
+	width:auto;
+}
+/* ///////////////////////样式重置测试 务必放在最下面////////////////////////////////////////////////////////////////////////////////////// */
+			.tabstyle1{
+			  /*  +height:572px; 待定~*/
+			}
+			.con-right-cen{
+				_margin:20px;
+			}
+			.tabnav1{
+				margin: 0;
+				margin-bottom:-1px;
+			}
+			.tabstyle1{
+				margin-top:0;
+			}
+			.panel{
+				padding-top:20px;
+			}
+			/* 兼容ie6屏幕宽度 */
+			.con-right-top,.headinfo,.con-right-cen,.tabstyle2{
+				_width:auto;
+			}
+			.con-right-cen .cen-conter {
+				overflow:hidden;
+				width: auto;
+    			margin-top: 0;
+    			padding-bottom: 0;
+			}
+			.pB20{
+				padding-bottom:20px!important;
+			}
+			.daoruStyle{
+				color:#1990ec;
+				font-weight: bold;
+			}
+/* ////////////////////样式重置测试 务必放在最下面////////////////////////////////////////////////////////////////////////////////////////// */
+
+.evenTr{
+	background: #fff;
+}
+.oddTr{
+	background: #f0f0f0;
+}
+.hoverBg{
+	background: #1992ec;
+}
+html body .layui-table tr.activeBg{
+	background: #fff8bb;
+}

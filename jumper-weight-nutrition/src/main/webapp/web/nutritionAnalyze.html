@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <!--触发标准模式，这个是最有效的方法。-->
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <meta name=”renderer” content=”webkit|ie-comp|ie-stand” />
+    <title>营养分析</title>
+    <link rel="stylesheet" href="css/layercss/layui.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/layR.css" />
+
+    <style>
+        .container-right{
+            margin-left: 0;
+            _left:0;
+        }
+        .container-main{
+            margin: 20px;
+            overflow: hidden;
+			margin-top:20px;
+        }
+       
+        .cellBox{
+            padding: 20px;
+            background: white;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .cellBox_1,.cellBox_2{
+            width: 100%;
+        }
+        .cellBox .layui-table th{
+            border-top: 1px solid #CCCCCC;
+        }
+        .cellBox .layui-table th{
+            background: #eeeeee;
+        }
+        .cellBox .layui-table td,.cellBox .layui-table th{
+            border-left: 1px solid #CCCCCC;
+            border-right: 1px solid #CCCCCC;
+        }
+        .cellBox .layui-table tr{
+            border-bottom: 1px solid #CCCCCC;
+        }
+        .icon_ana{
+            height: 24px;
+            width: 24px;
+            margin: -2px 10px 0 0;
+            float: left;
+            vertical-align: middle;
+            background-image: url("img/icon_ana_1.gif");
+        }
+        .cellBox_title{
+            font-size: 16px;
+            font-weight: bold;
+            color: #627d99;
+            margin-bottom: 20px;
+        }
+        .icon_1{background-position:0 -24px;}
+        .icon_3{background-position:0 -48px;}
+        .LeftBox{
+            float: left;
+            width: 44%;
+            +width: 35%;
+        }
+        .RightBox{
+            margin-left: 1%;
+            float: left;
+            width: 55%;
+            min-width: 55%;
+            +width: 56%;
+        }
+        .anaL{
+            text-align: center;
+            margin-top:50px;
+            _margin-top:0;
+        }
+        .anaL .title_a{
+            font-size: 22px;
+        }
+        .topT{
+        	margin-bottom: 20px;
+        	height: 40px;
+        	padding-top: 10px;
+        }
+        .btnBottom a{
+        	margin: 0;
+        }
+        
+    </style>
+
+</head>
+<body>
+
+<div class="container" style="clear:both">
+   <div class="container-right">
+        <div class="con-right-top">
+            <span class="active" id="outpatient">门诊</span>
+			<span id="userManage">孕妇档案</span>
+			<span id="standardRecipes">营养方案</span>
+			<span id="statistics">统计</span>
+			<span id="settings">设置</span>
+			<span id="noRead" style="float:right;margin-right:66px;"><img style="width:30px;" alt="" src="img/email.png"><span style="margin-left:0px;">（0）</span></span>
+        </div>
+            <div class="container-main">
+            <div class="topT">营养分析 （分析日期：<span id="dateList"></span>）<img class="ana_tips" src="img/q.gif" alt=""><div class="btnBottom marLeft150 fr" style="margin:0;margin-top:-10px;_margin-top:-26px;"><a id="goBack">返回</a></div></div>
+            
+            <div class="LeftBox">
+                <div class="cellBox cellBox_1 ">
+                    <h1 class="cellBox_title"><i class="icon_ana icon_1"></i><span>各类食物摄入量分析</span></h1>
+                    <div id="container_1" style="min-width:400px;height:411px;"></div>
+                </div>
+                <div class="cellBox cellBox_2">
+                    <h1 class="cellBox_title"><i class="icon_ana icon_2"></i><span>营养素摄入量分析</span></h1>
+                    <table class="layui-table">
+                        <thead>
+                        	<tr><th>营养素</th><th>摄入量</th><th>推荐量</th><th>百分比（%）</th><th>评价</th></tr>
+                        </thead>
+                        <tbody>
+	                        <tr><td>钙（mg）</td><td id="caIntake"></td><td id="caRecommend"></td><td id="caPer"></td><td id="caStatus"></td></tr>
+					    	<tr><td>铁（mg）</td><td id="feIntake"></td><td id="feRecommend"></td><td id="fePer"></td><td id="feStatus"></td></tr>
+					    	<tr><td>锌（mg）</td><td id="znIntake"></td><td id="znRecommend"></td><td id="znPer"></td><td id="znStatus"></td></tr>
+					    	<tr><td>硒（μg）</td><td id="seIntake"></td><td id="seRecommend"></td><td id="sePer"></td><td id="seStatus"></td></tr>
+					    	<tr><td>铜（mg）</td><td id="cuIntake"></td><td id="cuRecommend"></td><td id="cuPer"></td><td id="cuStatus"></td></tr>
+					    	<tr><td>钠（mg）</td><td id="naIntake"></td><td id="naRecommend"></td><td id="naPer"></td><td id="naStatus"></td></tr>
+					    	<tr><td>碘（mg）</td><td id="iIntake"></td><td id="iRecommend"></td><td id="iPer"></td><td id="iStatus"></td></tr>
+					    	<tr><td>磷（mg）</td><td id="pIntake"></td><td id="pRecommend"></td><td id="pPer"></td><td id="pStatus"></td></tr>
+					    	<tr><td>钾（mg）</td><td id="kIntake"></td><td id="kRecommend"></td><td id="kPer"></td><td id="kStatus"></td></tr>
+					    	<tr><td>镁（mg）</td><td id="mgIntake"></td><td id="mgRecommend"></td><td id="mgPer"></td><td id="mgStatus"></td></tr>
+					    	<tr><td>锰（mg）</td><td id="mnIntake"></td><td id="mnRecommend"></td><td id="mnPer"></td><td id="mnStatus"></td></tr>
+					    	<tr><td>维生素A（μgRE）</td><td id="vaIntake"></td><td id="vaRecommend"></td><td id="vaPer"></td><td id="vaStatus"></td></tr>
+					    	<tr><td>维生素B1（mg）</td><td id="vb1Intake"></td><td id="vb1Recommend"></td><td id="vb1Per"></td><td id="vb1Status"></td></tr>
+					    	<tr><td>维生素B2（mg）</td><td id="vb2Intake"></td><td id="vb2Recommend"></td><td id="vb2Per"></td><td id="vb2Status"></td></tr>
+					    	<tr><td>维生素B6（mg）</td><td id="vb6Intake"></td><td id="vb6Recommend"></td><td id="vb6Per"></td><td id="vb6Status"></td></tr>
+					    	<tr><td>维生素C（mg）</td><td id="vcIntake"></td><td id="vcRecommend"></td><td id="vcPer"></td><td id="vcStatus"></td></tr>
+					    	<tr><td>维生素E（mg）</td><td id="veIntake"></td><td id="veRecommend"></td><td id="vePer"></td><td id="veStatus"></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="RightBox">
+                <div class="cellBox cellBox_2">
+                    <h1 class="cellBox_title"><i class="icon_ana icon_2"></i><span>能量来源分析</span></h1>
+                    <table class="layui-table">
+                        <thead>
+                        	<tr><th>营养素</th><th>摄入量</th><th>推荐量</th><th>百分比（%）</th><th>评价</th></tr>
+                        </thead>
+                        <tbody>
+	                        <tr><td>能量（kcal）</td><td id="energyIntake"></td><td id="energyRecommend"></td><td id="energyPer"></td><td id="energyStatus"></td></tr>
+	                        <tr><td>蛋白质（g）</td><td id="proteinIntake"></td><td id="proteinRecommend"></td><td id="proteinPer"></td><td id="proteinStatus"></td></tr>
+	    					<tr><td>脂肪（g）</td><td id="fatIntake"></td><td id="fatRecommend"></td><td id="fatPer"></td><td id="fatStatus"></td></tr>
+					    	<tr><td>碳水化合物（g）</td><td id="carbonIntake"></td><td id="carbonRecommend"></td><td id="carbonPer"></td><td id="carbonStatus"></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="cellBox cellBox_1 ">
+                    <h1 class="cellBox_title"><i class="icon_ana icon_3"></i><span>三大能量物质来源分析</span></h1>
+                    <table  style="width:90%;min-width:600px;">
+                    	<tr>
+                    		<td><div id="container_2" style="width:420px;height:380px;float: left"></div></td>
+                    		<td><div id="container_3" style="width:280px;height:300px;float: right"></div></td>
+                    	</tr>
+                    </table>
+                </div>
+                <div class="cellBox cellBox_1 ">
+                    <h1 class="cellBox_title"><i class="icon_ana icon_3"></i><span>餐次供能比</span></h1>
+                    <div id="container_4" style="height:300px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<script src="../sfile/js/json2.js"></script>
+<script type="text/javascript" src="js/jquery-1.7.2.min.js" ></script>
+<script src="../sfile/js/jquery.cookie.js"></script>
+<script src="../sfile/js/common.js"></script>
+<script src="../sfile/js/main.js"></script>
+<script type="text/javascript" src="js/layer/layer.js"></script>
+<script type="text/javascript" src="js/layui/layui.js"></script>
+<script type="text/javascript" src="js/highcharts.js"></script>
+<!-- <script type="text/javascript" src="js/hcharts.js"></script> -->
+<script type="text/javascript" src="js/highchartsThemes/GirdLight.js"></script>
+<script type="text/javascript" src="js/ajax/nutritionCharts.js"></script>
+<script>
+//ie6固定宽度
+	($(function(){
+		var ie6=!-[1,]&&!window.XMLHttpRequest;
+		if(ie6){
+			if($(window).width() < 1100){
+   					$('.container-main').width(1100);
+				}
+			$(window).resize(function(){
+   				if($(window).width() < 1100){
+   					$('.container-main').width(1100);
+				}
+			});
+		}
+	}));
+//动态获取视窗高度
+    ($(function () {
+    
+        var heights=$(window).height()-60;
+        $(".container-left,.container,.container-right").height(heights);
+        $('.ana_tips').mouseover(function () {
+            layer.tips('膳食调查的天数为1天时，显示1天的营养摄入量分析结果<br>膳食调查天数大于1天时，显示每日平均营养摄入量分析结果','.ana_tips',{
+                tips: [3, '#1990ec'],
+                time: 6000
+            });
+            $('.layui-layer-tips').css('width', '360px');
+        });
+        $('.ana_tips').mouseout(function () {
+           $('.layui-layer-tips').hide(200);
+        });
+        //去掉图表数据边框
+		setTimeout(function(){
+			$("tspan.highcharts-text-outline").css("fill","none");
+			$("tspan.highcharts-text-outline").css("stroke","none");
+			$("tspan").css("font-size","12px");
+		},1200);
+    }));
+    $(window).resize(function () {
+        var heights=$(window).height()-60;
+        $(".container-left,.container,.container-right").height(heights);
+    });
+
+</script>
+</html>
+

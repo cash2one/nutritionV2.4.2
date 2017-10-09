@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--css文件加载顺序不能动-->
+    <link href="css/mui.min.css" rel="stylesheet">
+    <link href="css/mui.picker.min.css" rel="stylesheet">
+    <link href="css/css.css" rel="stylesheet">
+    <link href="css/reset.css" rel="stylesheet">
+    <link href="css/muiReset.css" rel="stylesheet">
+    <title>我的食谱</title>
+    <style style='display:none' contentEditable>
+        ul, li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #outer {
+            height: 45px;
+            margin: 0 auto;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 46px;
+            position: relative;
+            overflow: hidden;
+            background: #ffffff;
+        }
+
+        #inner {
+            position: absolute;
+            left: 0;
+            top: 1px;
+            height: 44px;
+            line-height: 44px;
+            width: 300px;
+            text-align: left;
+            clear: both;
+            overflow: hidden;
+        }
+
+        #inner li {
+            width: auto;
+            height: 44px;
+            float: left;
+            display: inline;
+            text-align: center;
+            transition: .2s;
+        }
+
+        .active {
+            background: #f5f5f5;
+            color: #ff8d9a !important;
+            border-bottom: 3px solid #ff8d9a;
+        }
+
+        #inner li a {
+            font-size: 14px;
+		    color: #666666;
+		    padding: 0 16px;
+		    width: auto;
+		    height: 44px;
+		    line-height: 44px;
+		    text-decoration: none;
+		    width: 94px;
+		    text-overflow: ellipsis;
+		    white-space: nowrap;
+		    overflow: hidden;
+		    display: inline-block;
+        }
+
+        .mui-table-view {
+            margin-top: 10px;
+        }
+
+        .pTitle {
+            word-break: break-all;
+            width: 80px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        #dietAdvice{
+        	white-space: normal;
+        }
+    </style>
+</head>
+<body>
+<div id="outer">
+    <ul id="inner">
+      <!--   <li><a href="">食谱1</a></li>
+        <li><a href="">食谱1</a></li>
+        <li><a href="">食食谱谱1</a></li>
+        <li><a href="">食食谱食谱谱1</a></li>
+        <li><a href="">食谱食谱食谱1</a></li>
+        <li><a href="">食谱1</a></li>
+        <li><a href="">食谱食谱食谱食谱1</a></li> -->
+    </ul>
+</div>
+<div id="contentBox">
+   <!--  <div class="pTitle">早餐</div>
+    <ul class="mui-table-view">
+        <li class="mui-table-view-cell mui-media"><img class="mui-media-object mui-pull-left" src="images/muwu.jpg"><div class="mui-media-body">玉米<p class='mui-ellipsis'>200克 <span>（1根玉米=200克）</span></p></div></li>
+        <li class="mui-table-view-cell mui-media"><img class="mui-media-object mui-pull-left" src="images/muwu.jpg"><div class="mui-media-body">面包<p class='mui-ellipsis'>100克.</p></div></li>
+    </ul> -->
+    <!-- <div id="dietAdviceBox" style="display:block;"> -->
+    <!-- </div> -->
+</div>
+<div class="pTitle dietAdvice" style="display:none;">饮食建议</div>
+	    <ul class="mui-table-view dietAdvice" style="display:none;">
+	        <li class="mui-table-view-cell mui-media" style="margin-bottom: 20px;">
+                <div class="mui-media-body">
+                    <p class='mui-ellipsis' id="dietAdvice"></p>
+                </div>
+	        </li>
+	    </ul>
+	    <input type="hidden" id="advice" value=""/>
+<div id="contentBox_null" style="text-align: center;display:none;">
+    <img src="images/kong.png" alt="" width="200" style="margin: 20% auto">
+    <p style="font-size: 12px; color: #999999;">「目前还没有食谱」</p>
+</div>
+<div id="contentBox_recipes_null" style="text-align: center;display:none;">
+    <img src="images/kong.png" alt="" width="200" style="margin: 20% auto">
+    <p style="font-size: 12px; color: #999999;">「暂无记录」</p>
+</div>
+
+<script src="js/mui.min.js"></script>
+<script src="js/rem.js"></script>
+<!-- iOS不支持import -->
+<!-- <link rel="import" href="foot.html"> -->
+<script src="../sfile/js/jquery-1.10.1.min.js"></script>
+<script src="../sfile/js/jquery.cookie.js"></script>
+<script src="../sfile/js/common.js"></script>
+<script src="js/ajax/viewRecipes.js"></script>
+<script src="js/topBar.js"></script>
+<script>
+    $(function () {
+      
+        //判断菜单的数量 来改变样式;
+        function topBarNumber() {
+            var a = $("#inner"), b = $("#inner li"), c = $("#inner li a");
+            b.eq(0).addClass("active");
+            if (b.length == 1) {
+                a.css("width", "100%");
+                b.css("width", "100%").addClass("active");
+            } else if (b.length == 2) {
+                a.css("width", "100%");
+                b.css("width", "50%");
+                topBr()
+            } else if (b.length == 3) {
+                a.css("width", "100%");
+                b.css("width", "33.33%");
+                var k = document.getElementsByTagName("li");
+                topBr();
+            } else if (b.length == 4) {
+                a.css("width", "100%");
+                b.css("width", "25%");
+                c.css("border-left", "1px solid #ebebeb;");
+                topBr();
+            } else if (b.length > 4) {
+                c.css("border-left", "1px solid #ebebeb;");
+                topBr();
+            }
+            function topBr() {
+                mui("#outer").on('tap', '#inner li', function () {
+                    $(this).addClass('active').siblings().removeClass('active');
+                });
+            }
+        }
+
+        //页面延时显示
+        setTimeout(function () {
+            document.body.style.display = "block";
+        }, 10);
+        setTimeout(function(){
+        	  topBarNumber();
+        },310)
+    });
+</script>
+
+</body>
+</html>

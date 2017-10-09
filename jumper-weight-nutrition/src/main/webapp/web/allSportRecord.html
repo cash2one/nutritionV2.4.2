@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>查看全部运动记录</title>
+		<!--触发标准模式，这个是最有效的方法。-->
+		<meta http-equiv="X-UA-Compatible" content="edge" />
+		<meta name=”renderer” content=”webkit|ie-comp|ie-stand” />
+		<link rel="stylesheet" href="css/layui.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/layR.css" />
+		<style>
+			.tablerec{
+				margin-top: 0;
+			}
+			table.tablerec td {
+			    width: 30%;
+			}
+			.container{
+				_height:800px;
+			}
+			.tabstyle2{
+				_height:100px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container" style="clear:both">
+			<div class="container-right">
+				<div  class="con-right-top">
+					<span id="outpatient">门诊</span>
+					<span class="active" id="userManage">孕妇档案</span>
+					<span id="standardRecipes">营养方案</span>
+					<span id="statistics">统计</span>
+					<span id="settings">设置</span>
+					<span id="noRead" style="float:right;margin-right:66px;"><img style="width:30px;" alt="" src="img/email.png"><span style="margin-left:0px;">（0）</span></span>
+				</div>
+				
+				<div class="container-right-content"> <!--增加布局DIV，使内容与头部分开-->
+				
+				<!-- 头部用户信息 -->	
+				<div class="headinfo" id="headUserInfo">
+					
+				</div>
+				
+				<div class="contentpath">
+					<a id="user-sportRecord">运动记录 </a> > 
+					<span class="fontblack">全部时期</span>
+				</div>
+				
+				<div class="con-right-cen">
+					<div class="cen-conter">
+						<div class="text" style="font-weight: normal;">
+							<div class="layui-form-item choosedate">
+    								<label class="form-label">日期</label>
+    								<div class="input-inline">
+     									<input class="layui-input" placeholder="开始日期" id="startDate" readonly="readonly">
+   									</div>
+   									<div class="input-inline">
+      									<input class="layui-input" placeholder="截止日期" id="endDate" readonly="readonly">
+    								</div>
+    								<div class="datechoose-after">
+										<a class="mainbtn" id="search-btn">查询</a>
+										<span><a class="showAllRecord">全部</a></span>
+										<span><a class="showMonthRecord">30天内</a></span>
+    								</div>
+  								</div>
+						</div>						
+						<!-- 分页列表 -->
+						<div id="pageList">
+						</div>
+					</div>
+					
+				</div>
+				<div id="page" style="float: right;"></div>
+			
+				</div>
+				
+			</div>
+		</div>
+		
+	<!-- 跳转类型，0表示弹出层，1表示页面跳转 -->
+   	<input type="hidden" value="0" name="jumpType">	
+	<!--------------------  弹出层     ---------------------- --->
+	<div id="userInfoHtml"></div>
+	
+	</body>
+	<script src="../sfile/js/json2.js"></script>
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js" ></script>
+	<script type="text/javascript" src="js/layui/layui.js"></script>
+	<script>
+		/*--------------------  layui 日历     ---------------------- --*/
+		layui.use('laydate', function() {
+			var laydate = layui.laydate;
+			var start = {
+				min : '',
+				max : laydate.now(),
+				istoday : false,
+				choose : function(datas) {
+					end.min = datas; //开始日选好后，重置结束日的最小日期
+					end.start = datas //将结束日的初始值设定为开始日
+				}
+			};
+	
+			var end = {
+				min : '',
+				max : laydate.now(),
+				istoday : false,
+				choose : function(datas) {
+					start.max = datas; //结束日选好后，重置开始日的最大日期
+				}
+			};
+			document.getElementById('startDate').onclick = function() {
+				start.elem = this;
+				laydate(start);
+			}
+			document.getElementById('endDate').onclick = function() {
+				end.elem = this
+				laydate(end);
+			}
+	
+		});
+	
+		
+	
+	</script>
+	<script src="../sfile/js/jquery.cookie.js"></script>
+	<script src="../sfile/js/common.js"></script>
+	<script src="../sfile/js/main.js"></script>
+	<script src="../sfile/js/jquery.validate.min.js"></script>
+    <script src="../sfile/js/messages_zh.js"></script>
+	<script src="js/ajax/saveUserInfo.js"></script>
+	<script src="js/ajax/allSportRecord.js"></script>
+</html>

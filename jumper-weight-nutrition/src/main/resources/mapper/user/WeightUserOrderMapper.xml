@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jumper.weight.nutrition.user.mapper.WeightUserOrderMapper">
+	<resultMap id="BaseResultMap" type="com.jumper.weight.nutrition.user.entity.WeightUserOrder">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="current_weight" property="currentWeight" jdbcType="DOUBLE" />
+		<result column="weight_exception_type" property="weightExceptionType" jdbcType="INTEGER" />
+		<result column="last_weight_time" property="lastWeightTime" jdbcType="TIMESTAMP" />
+		<result column="current_sugar" property="currentSugar" jdbcType="DOUBLE" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, current_weight, weight_exception_type, last_weight_time, current_sugar
+	</sql>
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from weight_user_order
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<!-- 查询所有 -->
+	<select id="listAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from weight_user_order
+	</select>
+
+	<!-- 批量更新 -->
+	<update id="updateBatch" parameterType="java.util.List">
+		<foreach collection="list" item="order" separator=";">
+			update weight_user_order
+			<set>
+				<if test="order.userId != null">
+					user_id = #{order.userId,jdbcType=INTEGER},
+				</if>
+				<if test="order.currentWeight != null">
+					current_weight = #{order.currentWeight,jdbcType=DOUBLE},
+				</if>
+				<if test="order.weightExceptionType != null">
+					weight_exception_type = #{order.weightExceptionType,jdbcType=INTEGER},
+				</if>
+				<if test="order.lastWeightTime != null">
+					last_weight_time = #{order.lastWeightTime,jdbcType=TIMESTAMP},
+				</if>
+				<if test="order.currentSugar != null">
+					current_sugar = #{order.currentSugar,jdbcType=DOUBLE}
+				</if>
+			</set>
+			where id = #{order.id,jdbcType=INTEGER}
+		</foreach>
+	</update>
+	
+	<!-- 批量添加 -->
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into weight_user_order 
+		(
+		user_id, current_weight, weight_exception_type, last_weight_time, current_sugar
+		)
+		values 
+		<foreach collection="list" item="order" separator=",">
+			(
+			#{order.userId,jdbcType=INTEGER}, #{order.currentWeight,jdbcType=DOUBLE},
+			#{order.weightExceptionType,jdbcType=INTEGER}, #{order.lastWeightTime,jdbcType=TIMESTAMP},
+			#{order.currentSugar,jdbcType=DOUBLE}
+			)
+		</foreach>
+	</insert>
+
+</mapper>

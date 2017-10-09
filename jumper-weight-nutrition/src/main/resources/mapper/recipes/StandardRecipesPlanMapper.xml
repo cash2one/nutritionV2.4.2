@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jumper.weight.nutrition.recipes.mapper.StandardRecipesPlanMapper" >
+  <resultMap id="BaseResultMap" type="com.jumper.weight.nutrition.recipes.entity.StandardRecipesPlan" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="hospital_id" property="hospitalId" jdbcType="INTEGER" />
+    <result column="diet_advice" property="dietAdvice" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, hospital_id, diet_advice, add_time
+  </sql>
+  
+  <!-- 条件获取食谱方案列表 -->
+  <select id="findStandardRecipesPlans" parameterType="map" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"></include>
+  		from standard_recipes_plan where hospital_id=#{hospitalId}
+  			<if test="keywords != null and keywords != ''">
+  				and instr(name,#{keywords})
+  			</if>
+  			ORDER BY CONVERT( name USING gbk ) COLLATE gbk_chinese_ci ASC
+  </select>
+  
+  <!-- 根据id删除方案 -->
+  <delete id="delete" parameterType="int" >
+    delete from standard_recipes_plan
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <!-- 插入方案信息paramT -->
+  <insert id="insert" parameterType="com.jumper.weight.nutrition.recipes.entity.StandardRecipesPlan" 
+  	flushCache="true" keyColumn="GENERATED_KEY" keyProperty="id" useGeneratedKeys="true">
+    insert into standard_recipes_plan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="hospitalId != null" >
+        hospital_id,
+      </if>
+      <if test="dietAdvice != null" >
+        diet_advice,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="hospitalId != null" >
+        #{hospitalId,jdbcType=INTEGER},
+      </if>
+      <if test="dietAdvice != null" >
+        #{dietAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 修改方案信息 -->
+  <update id="update" parameterType="com.jumper.weight.nutrition.recipes.entity.StandardRecipesPlan" >
+    update standard_recipes_plan
+    <set>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="hospitalId != null" >
+        hospital_id = #{hospitalId,jdbcType=INTEGER},
+      </if>
+      <if test="dietAdvice != null" >
+        diet_advice = #{dietAdvice,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!-- 通过id查询方案信息 -->  
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from standard_recipes_plan
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 通过方案名查询方案是否已存在| -->
+  <select id="findStandardRecipesPlanByName" parameterType="com.jumper.weight.nutrition.recipes.entity.StandardRecipesPlan" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+    from standard_recipes_plan
+    where name=#{name}
+    <if test="id!=0 and id!=null and id!=''">
+    	and id!=#{id}
+    </if>
+  </select>
+ 
+</mapper>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jumper.weight.nutrition.record.mapper.UserRecordsSetsMapper">
+	<resultMap id="BaseResultMap" type="com.jumper.weight.nutrition.record.entity.UserRecordsSets">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="record_type" property="recordType" jdbcType="INTEGER" />
+		<result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+		<result column="data" property="data" jdbcType="VARCHAR" />
+		<result column="object_id" property="objectId" jdbcType="INTEGER" />
+		<result column="record_state" property="recordState" jdbcType="INTEGER" />
+		<result column="is_handle" property="isHandle" jdbcType="BIT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, record_type, add_time, data, object_id, record_state,
+		is_handle
+	</sql>
+	<select id="findById" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from jumper_anglesound.user_records_sets
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<insert id="insert" parameterType="com.jumper.weight.nutrition.record.entity.UserRecordsSets">
+		insert into jumper_anglesound.user_records_sets 
+		(
+		user_id, record_type, add_time, data, object_id, record_state, is_handle
+		)
+		values (
+		#{userId,jdbcType=INTEGER},	#{recordType,jdbcType=INTEGER},
+		#{addTime,jdbcType=TIMESTAMP}, #{data,jdbcType=VARCHAR}, 
+		#{objectId,jdbcType=INTEGER}, #{recordState,jdbcType=INTEGER}, 
+		#{isHandle,jdbcType=BIT}
+		)
+	</insert>
+	<update id="updateByPrimaryKey" parameterType="com.jumper.weight.nutrition.record.entity.UserRecordsSets">
+		update jumper_anglesound.user_records_sets
+		set user_id = #{userId,jdbcType=INTEGER},
+		record_type = #{recordType,jdbcType=INTEGER},
+		add_time = #{addTime,jdbcType=TIMESTAMP},
+		data = #{data,jdbcType=VARCHAR},
+		object_id = #{objectId,jdbcType=INTEGER},
+		record_state = #{recordState,jdbcType=INTEGER},
+		is_handle = #{isHandle,jdbcType=BIT}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

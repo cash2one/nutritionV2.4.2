@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jumper.weight.nutrition.sport.mapper.UserSportRecordMapper">
+	<resultMap id="BaseResultMap" type="com.jumper.weight.nutrition.sport.entity.UserSportRecord">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="sport_id" property="sportId" jdbcType="INTEGER" />
+		<result column="sport_name" property="sportName" jdbcType="VARCHAR" />
+		<result column="calories" property="calories" jdbcType="DOUBLE" />
+		<result column="add_date" property="addDate" jdbcType="DATE" />
+		<result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+		<result column="time_length" property="timeLength" jdbcType="DOUBLE" />
+		<result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, sport_id, sport_name, calories, add_date, start_time,
+		time_length, end_time,
+		remark
+	</sql>
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from user_sport_record
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<insert id="insert" parameterType="com.jumper.weight.nutrition.sport.entity.UserSportRecord">
+		insert into user_sport_record (id, user_id, sport_id,
+		sport_name, calories, add_date,
+		start_time, time_length, end_time,
+		remark)
+		values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER},
+		#{sportId,jdbcType=INTEGER},
+		#{sportName,jdbcType=VARCHAR}, #{calories,jdbcType=DOUBLE}, #{addDate,jdbcType=DATE},
+		#{startTime,jdbcType=TIMESTAMP}, #{timeLength,jdbcType=DOUBLE},
+		#{endTime,jdbcType=TIMESTAMP},
+		#{remark,jdbcType=VARCHAR})
+	</insert>
+	<update id="update" parameterType="com.jumper.weight.nutrition.sport.entity.UserSportRecord">
+		update user_sport_record
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="sportId != null">
+				sport_id = #{sportId,jdbcType=INTEGER},
+			</if>
+			<if test="sportName != null">
+				sport_name = #{sportName,jdbcType=VARCHAR},
+			</if>
+			<if test="calories != null">
+				calories = #{calories,jdbcType=DOUBLE},
+			</if>
+			<if test="addDate != null">
+				add_date = #{addDate,jdbcType=DATE},
+			</if>
+			<if test="startTime != null">
+				start_time = #{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="timeLength != null">
+				time_length = #{timeLength,jdbcType=DOUBLE},
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 批量更新 -->
+	<update id="updateBatch" parameterType="java.util.List">
+		<foreach collection="list" item="record" separator=";">
+			update user_sport_record set 
+			sport_name = #{record.sportName,jdbcType=VARCHAR}, calories = #{record.calories,jdbcType=DOUBLE},
+			start_time = #{record.startTime,jdbcType=TIMESTAMP}, time_length = #{record.timeLength,jdbcType=DOUBLE},
+			end_time = #{record.endTime,jdbcType=TIMESTAMP}
+			where id = #{record.id,jdbcType=INTEGER}
+		</foreach>
+	</update>
+	
+	<!-- 批量添加 -->
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into user_sport_record 
+		(
+		user_id, sport_id,	sport_name, calories, add_date,
+		start_time, time_length, end_time, remark
+		)
+		values 
+		<foreach collection="list" item="record" separator=",">
+			(
+			#{record.userId,jdbcType=INTEGER}, #{record.sportId,jdbcType=INTEGER},
+			#{record.sportName,jdbcType=VARCHAR}, #{record.calories,jdbcType=DOUBLE}, 
+			#{record.addDate,jdbcType=DATE}, #{record.startTime,jdbcType=TIMESTAMP}, 
+			#{record.timeLength,jdbcType=DOUBLE}, #{record.endTime,jdbcType=TIMESTAMP},
+			''
+			)
+		</foreach>
+	</insert>
+	
+	<delete id="delete" parameterType="int">
+		delete from user_sport_record
+		where id = #{recordId}
+	</delete>
+	
+	<!-- 删除用户某天的运动记录 -->
+	<delete id="deleteByDate">
+		delete from user_sport_record
+		where user_id = #{userId} and add_date = #{date}
+	</delete>
+	
+	<!-- 查询用户某天的运动记录 -->
+	<select id="listByDate" resultMap="BaseResultMap">
+		select * from user_sport_record
+		where user_id = #{userId} and add_date = #{date}
+	</select>
+	
+	<!-- 按日期分组分页显示用户运动日期 -->
+	<select id="listSportDate" parameterType="com.jumper.weight.nutrition.sport.vo.VoQuerySportRecord" resultType="java.lang.String">
+		select add_date from user_sport_record where user_id = #{userId}
+		<if test="startDate != null">
+			and add_date <![CDATA[>=]]> #{startDate} 
+		</if>
+		<if test="endDate != null">
+			and add_date <![CDATA[<=]]> #{endDate}
+		</if>
+		GROUP BY add_date ORDER BY add_date desc
+	</select>
+</mapper>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jumper.weight.nutrition.sport.mapper.SportInfoMapper">
+	<resultMap id="BaseResultMap" type="com.jumper.weight.nutrition.sport.entity.SportInfo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="calorie" property="calorie" jdbcType="DOUBLE" />
+		<result column="img" property="img" jdbcType="VARCHAR" />
+		<result column="effect" property="effect" jdbcType="VARCHAR" />
+		<result column="attention" property="attention" jdbcType="VARCHAR" />
+		<result column="click_count" property="clickCount" jdbcType="BIGINT" />
+		<result column="met" property="met" jdbcType="DOUBLE" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, name, calorie, img, effect, attention, click_count, met
+	</sql>
+	<select id="findById" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from sport_info
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<insert id="insert" parameterType="com.jumper.weight.nutrition.sport.entity.SportInfo">
+		insert into sport_info (id, name, calorie,
+		img, effect, attention,
+		click_count)
+		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		#{calorie,jdbcType=DOUBLE},
+		#{img,jdbcType=VARCHAR}, #{effect,jdbcType=VARCHAR}, #{attention,jdbcType=VARCHAR},
+		#{clickCount,jdbcType=BIGINT})
+	</insert>
+	
+	<update id="update" parameterType="com.jumper.weight.nutrition.sport.entity.SportInfo">
+		update sport_info
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="calorie != null">
+				calorie = #{calorie,jdbcType=DOUBLE},
+			</if>
+			<if test="img != null">
+				img = #{img,jdbcType=VARCHAR},
+			</if>
+			<if test="effect != null">
+				effect = #{effect,jdbcType=VARCHAR},
+			</if>
+			<if test="attention != null">
+				attention = #{attention,jdbcType=VARCHAR},
+			</if>
+			<if test="clickCount != null">
+				click_count = #{clickCount,jdbcType=BIGINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 通过运动名模糊查询 -->
+	<select id="listSportsByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select id, name, calorie, met from sport_info where 1=1
+		<if test="_parameter != null">
+			and name like CONCAT('%', #{query}, '%')
+		</if> 
+	</select>
+	
+	<select id="listByIds" parameterType="java.util.List" resultMap="BaseResultMap">
+		select id, name, calorie, met from sport_info 
+		where id in 
+		(
+			<foreach collection="list" item="sportId" separator=",">
+				#{sportId}
+			</foreach>
+		)
+	</select>
+	
+</mapper>

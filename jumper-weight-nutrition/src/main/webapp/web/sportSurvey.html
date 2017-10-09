@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+        <!--触发标准模式，这个是最有效的方法。-->
+        <meta http-equiv="X-UA-Compatible" content="edge" />
+        <meta name=”renderer” content=”webkit|ie-comp|ie-stand” />
+        <title>运动调查</title>
+
+		<link rel="stylesheet" href="css/layui.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/layR.css" />
+        <!--[if lte IE 6]>
+			<style>
+				.cen-table tr td{height:30px;}
+
+				.con-right-ul{
+					height:38px;
+					line-height:38px;
+				}
+				.container-right{
+					background:#dbe7ef;
+				}
+				.tBox_1{
+					height: 460px!important;
+				}
+			</style>
+		<![endif]-->
+        <style>
+			.tBox_1{
+				width: 100%!important;
+			}
+			.searchL{
+				border-right:1px solid #CCCCCC ;
+			}
+			.searchIcon{
+            	_margin-left:-5px;
+            	_margin-top: 0;
+            	_height:35px;
+            }
+            .daoruList li div {
+			    cursor: pointer;
+			}
+			.daoruListFirst{
+				width:132px;
+				padding-left:8px;
+			}
+			.daoruList li div{
+				margin-top:0;
+				
+			}
+			.endText1 {
+    			margin: 13px 0 20px 0;
+			}
+			.sportInupt{
+				margin-top:4px;
+				width:100%;
+			}
+			.layui-tab-content{
+				_height:520px;
+			}
+			html body{
+	        	_overflow: hidden;/* 为了在ie6iframe时有高度的滚动条 */
+	        	_height:920px;
+	        }
+        </style>
+	</head>
+	<body>
+		<div class="container" style="clear:both">
+			<div class="container-right">
+				<div class="con-right-top">
+					<span class="active" id="outpatient">门诊</span>
+					<span id="userManage">孕妇档案</span>
+					<span id="standardRecipes">营养方案</span>
+					<span id="statistics">统计</span>
+					<span id="settings">设置</span>
+					<span id="noRead" style="float:right;margin-right:66px;"><img style="width:30px;" alt="" src="img/email.png"><span style="margin-left:0px;">（0）</span></span>
+				</div>
+				<!-- 头部用户信息 -->	
+				<div class="headinfo" id="headUserInfo">
+				</div>
+				<div class="con-right-cen con-right-ul">
+                    <ul>
+                        <li class="active" style="border-right:none">1 . 填写信息</li>
+                        <li class="active" style="border-right:none">2 . 膳食调查 </li>
+                        <li class="active">3 . 运动调查 <img src="img/a.jpg" class="titleArrow"/></li>
+                        <li style="border-right:none">4 . 方案制定</li>
+                    </ul>
+				</div>
+				<div class="con-right-cen">
+					<div class="cen-conter">
+                        <p class="text">运动调查列表</p>
+                        <div class="fr" style="margin-top: -44px;_margin-top: -50px;">
+                            <input id="addDay"  type="text" style=""/>
+                            <label  for="addDay" class="layui-btn addDayLab" style="background: #2e8fdd;">新增调查天数</label>
+                        </div>
+                        <!--tab-->
+                        <div class="layui-tab" lay-filter="demo" lay-allowclose="true">
+                        	<!-- 运动调查日期列表 -->
+                            <ul class="layui-tab-title" id="dateList">
+                            	
+                            </ul>
+                            <div class="layui-tab-content">
+                                <div class="layui-tab-item layui-show eventArea">
+                                    <!--tab内容-->
+                                    <table class="ov" style="width: 100%;">
+                                            <tr>
+                                                <td width="182px">
+                                                    <div class="searchL fl bor1 sportsArea" style="height:460px;_height: 496px;">
+                                                        <input class="sInput " style="_width:100px;" type="text" name="query" placeholder="搜索运动"><button class="searchIcon layui-btn enterBtnEvent" id="search-btn"><i class="layui-icon">&#xe615;</i></button>
+                                                        <p class="" style="font-size: 12px;margin: 8px;margin-left: 0;color: #999999;">活动名称</p>
+                                                        <!-- 运动列表 -->
+                                                        <ul class="daoruList" id="sportList">
+                                                        	
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="backW bor1 tBox_1 sportRecordArea" style="width:100%;border-left:none;height: 460px;">
+                                                        <div style="overflow-y:auto;width: 100%;height: 360px;+height: 396px; ">
+                                                            <table class="layui-table" style="width: 97%;" >
+                                                                <thead>
+	                                                                <tr>
+	                                                                    <th>活动名称</th>
+	                                                                    <th>小时</th>
+	                                                                    <th>分钟</th>
+	                                                                    <th>能量（kcal）</th>
+	                                                                    <th>操作</th>
+	                                                                </tr>
+                                                                </thead>
+                                                                <!-- 运动调查记录列表 -->
+                                                                <tbody id="recordList">
+                                                                	
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="ov" style="width: 100%;height: 30px;padding-right: 20px;">
+                                                            <p class="endText1 fr">共消耗能量: <span class="totalCalorie"></span>kcal</p>
+                                                            <p class="endText1 fr" >合计时间: <span class="totalTime"></span></p>
+                                                        </div>
+                                                        <p class="endText1" style="padding: 5px 12px 12px 12px;margin-top:5px;background:#ebebeb;">自定义运动<input class="sportInupt" type="text" name="userDefinedSport"/></p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+					</div>
+				</div>
+                <div class="btnBottom">
+                    <a class="survey-go-back">返回</a>
+                    <a id="nextStep">下一步</a>
+                    <a id="jumperOver">跳过</a>
+                </div>
+			</div>
+		</div>
+		
+		<!-- 跳转类型，0表示弹出层，1表示页面跳转 -->
+	   	<input type="hidden" value="0" name="jumpType">	
+		<!--------------------  弹出层     ---------------------- --->
+		<div id="userInfoHtml"></div>
+		
+	</body>
+	<script src="../sfile/js/json2.js"></script>
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js" ></script>
+	<script type="text/javascript" src="js/layui/layui.js"></script>
+    <!-- <script type="text/javascript" src="js/fn.js"></script> -->
+	<script src="../sfile/js/jquery.cookie.js"></script>
+	<script src="../sfile/js/common.js"></script>
+	<script src="../sfile/js/main.js"></script>
+	<script type="text/javascript" src="js/ajax/sportSurvey.js"></script>
+	<script src="../sfile/js/jquery.validate.min.js"></script>
+    <script src="../sfile/js/messages_zh.js"></script>
+	<script src="js/ajax/saveUserInfo.js"></script>
+	<script>
+		$(function() {
+			//table  tr列表删除按钮js
+		    $(document).on("click", ".trDel", function() {
+		        $(this).parent().parent("tr").attr("id","target");
+		        $("#target").remove();
+                //更新合计时间和总消耗能量
+				showTotalByChange();
+		    });
+	    });
+	</script>
+</html>

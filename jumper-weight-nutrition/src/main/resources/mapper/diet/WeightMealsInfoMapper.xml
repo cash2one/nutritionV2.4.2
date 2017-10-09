@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jumper.weight.nutrition.diet.mapper.WeightMealsInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.jumper.weight.nutrition.diet.entity.WeightMealsInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="meals_type" property="mealsType" jdbcType="TINYINT" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="eat_date" property="eatDate" jdbcType="DATE" />
+    <result column="record_type" property="recordType" jdbcType="TINYINT" />
+    <result column="food_id" property="foodId" jdbcType="INTEGER" />
+    <result column="food_name" property="foodName" jdbcType="VARCHAR" />
+    <result column="food_weight" property="foodWeight" jdbcType="REAL" />
+    <result column="calorie" property="calorie" jdbcType="REAL" />
+    <result column="sugar_point" property="sugarPoint" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, meals_type, add_time, eat_date, record_type, food_id, food_name, food_weight, 
+    calorie, sugar_point
+  </sql>
+  
+  <!-- 条件查询用户饮食记录 -->
+  <select id="findUserMealsInfoList" parameterType="map" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"></include>
+  		from weight_meals_info where user_id=#{userId} and record_type=1
+  			<if test="startTime != null and startTime != ''">
+  				<![CDATA[
+  					and eat_date>=#{startTime}
+  				]]>
+  			</if>
+  			<if test="endTime != null and endTime != ''">
+  				<![CDATA[
+  					and eat_date<=#{endTime}
+  				]]>
+  			</if>
+  			<if test="mealsType != 0 and mealsType != null and mealsType != ''">
+  				and meals_type=#{mealsType}
+  			</if>
+  </select>
+  
+  <!-- 获取用户饮食记录分页日期 -->
+  <select id="findUserPageEatDates" parameterType="map" resultType="String">
+  	SELECT DISTINCT eat_date from weight_meals_info 
+  		where user_id=#{userId} and record_type=1 
+  		<if test="startTime != null and startTime != ''">
+  				<![CDATA[
+  					and eat_date>=#{startTime}
+  				]]>
+  			</if>
+  			<if test="endTime != null and endTime != ''">
+  				<![CDATA[
+  					and eat_date<=#{endTime}
+  				]]>
+  			</if>
+  		 ORDER BY eat_date desc
+  </select>
+  
+  <!-- 获取用户饮食记录分页数据 -->
+  <select id="findAllUserMealsInfoList" parameterType="map" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"></include>
+  		from weight_meals_info where user_id=#{userId} and record_type=1 and eat_date=#{eatDate}
+  			ORDER BY meals_type asc
+  </select>
+  
+  <!-- 条件查询用户饮食记录 -->
+  <select id="findUserMealsInfoByConds" parameterType="com.jumper.weight.nutrition.diet.entity.WeightMealsInfo" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"></include>
+  		from weight_meals_info where record_type=1 and user_id=#{userId} and eat_date=#{eatDate} and meals_type=#{mealsType} and food_id=#{foodId}
+  </select>
+  
+  <!-- 删除用户饮食记录 -->
+  <delete id="delete" parameterType="int">
+  	delete from weight_meals_info where id=#{id}
+  </delete>
+  
+  <!-- 批量添加用户饮食记录 -->
+  <insert id="insertBatch" parameterType="list">
+  	insert into weight_meals_info
+  		(user_id, meals_type, add_time, eat_date, record_type, food_id, food_name, food_weight, calorie, sugar_point)
+  			values
+		  		<foreach collection="list" item="meals" separator=",">
+		  			(#{meals.userId},#{meals.mealsType},#{meals.addTime},#{meals.eatDate},#{meals.recordType},#{meals.foodId},
+		  				#{meals.foodName},#{meals.foodWeight},#{meals.calorie},#{meals.sugarPoint})
+		  		</foreach>
+  </insert>
+  
+  <!-- 批量修改 -->
+  <update id="updateBatch" parameterType="list">
+  	<foreach collection="list" item="meals" index="index" open="" close="" separator=";">
+  		update weight_meals_info set
+		      food_name = #{meals.foodName,jdbcType=VARCHAR},
+		      food_weight = #{meals.foodWeight,jdbcType=REAL},
+		      calorie = #{meals.calorie,jdbcType=REAL}
+		    where id = #{meals.id,jdbcType=BIGINT}
+  	</foreach>
+  </update>
+  
+  <!-- 查询报告页用户饮食记录 -->
+  <select id="findUserMealsInfoByDietDate" parameterType="map" resultMap="BaseResultMap">
+  		select <include refid="Base_Column_List"></include>
+  		from weight_meals_info where user_id=#{userId} and record_type=1 and eat_date in
+	  	<foreach collection="dietMsg" item="eatDate" open="(" close=")" separator=",">
+	  		#{eatDate}
+	  	</foreach>
+  </select>
+  
+  <!-- 删除用户一整天的饮食记录 -->
+  <delete id="deleteUserMealsInfo" parameterType="map">
+  	delete from weight_meals_info where user_id=#{userId} and eat_date=#{eatDate}
+  </delete>
+  
+  <!-- 重命名用户饮食记录日期 -->
+  <update id="reNameUserMealsInfo" parameterType="map">
+  	update weight_meals_info set eat_date=#{newDate} where user_id=#{userId} and eat_date=#{oldDate}
+  </update>
+  
+  <!--  -->
+  <select id="findUserLatestSevenDays" parameterType="int" resultType="String">
+  	select DISTINCT eat_date from weight_meals_info where user_id=#{userId} and record_type=1 order by eat_date desc limit 7
+  </select>
+  
+  <!-- 条件获取用户饮食记录条数 -->
+  <select id="findCount" parameterType="map" resultType="int">
+  	select count(DISTINCT eat_date) from weight_meals_info where user_id=#{userId} and record_type=1
+		<if test="startTime != null and startTime != ''">
+			<![CDATA[
+				and eat_date>=#{startTime}
+			]]>
+		</if>
+		<if test="endTime != null and endTime != ''">
+			<![CDATA[
+				and eat_date<=#{endTime}
+			]]>
+		</if>
+  </select>
+  
+  <!-- 获取近7天用户饮食记录总食物个数 -->
+  <select id="findFoodCount" parameterType="map" resultType="int">
+  	select count(DISTINCT food_id)  from weight_meals_info where user_id=#{userId} and record_type=1 and eat_date in
+  		<foreach collection="dateList" item="eatDate" open="(" close=")" separator=",">
+  			#{eatDate}
+  		</foreach>
+  </select>
+  
+</mapper>

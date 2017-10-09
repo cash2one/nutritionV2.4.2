@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jumper.weight.nutrition.user.mapper.HospitalUserInfoMapper">
+	<resultMap id="BaseResultMap" type="com.jumper.weight.nutrition.user.entity.HospitalUserInfo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="hospital_id" property="hospitalId" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="outpatient_num" property="outpatientNum" jdbcType="VARCHAR" />
+		<result column="pregnant_type" property="pregnantType" jdbcType="INTEGER" />
+		<result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+		<result column="weight_status" property="weightStatus" jdbcType="INTEGER" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="real_name" property="realName" jdbcType="VARCHAR" />
+		<result column="height" property="height" jdbcType="INTEGER" />
+		<result column="weight" property="weight" jdbcType="DOUBLE" />
+		<result column="expected_date" property="expectedDate" jdbcType="DATE" />
+		<result column="birthday" property="birthday" jdbcType="DATE" />
+		<result column="health_num" property="healthNum" jdbcType="VARCHAR" />
+		<result column="is_diabetes" property="isDiabetes" jdbcType="INTEGER" />
+	</resultMap>
+	<!-- 连表查询结果集 -->
+	<resultMap id="MultiResultMap" extends="BaseResultMap" type="com.jumper.weight.nutrition.user.entity.HospitalUserInfo">
+		<result column="current_weight" property="currentWeight" jdbcType="DOUBLE" />
+		<result column="last_weight_time" property="lastWeightTime" jdbcType="TIMESTAMP" />
+		<result column="current_sugar" property="currentSugar" jdbcType="DOUBLE" />
+	</resultMap>
+		
+	<sql id="Base_Column_List">
+		id, hospital_id, user_id, outpatient_num, pregnant_type, add_time, weight_status,
+		mobile, real_name, height, weight, expected_date, birthday, health_num, is_diabetes
+	</sql>
+	<select id="findById" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from hospital_user_info
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<insert id="insert" parameterType="com.jumper.weight.nutrition.user.entity.HospitalUserInfo">
+		insert into hospital_user_info 
+		(
+			hospital_id, user_id, outpatient_num, pregnant_type, add_time,
+			mobile, real_name, height, weight, expected_date, birthday
+			<if test="healthNum != null">,health_num</if>
+			<if test="isDiabetes != null">,is_diabetes</if>
+		)
+		values (
+			#{hospitalId,jdbcType=INTEGER},	#{userId,jdbcType=INTEGER},
+			#{outpatientNum,jdbcType=VARCHAR}, #{pregnantType,jdbcType=INTEGER}, 
+			#{addTime,jdbcType=TIMESTAMP}, #{mobile,jdbcType=VARCHAR},
+			#{realName,jdbcType=VARCHAR}, #{height,jdbcType=INTEGER},
+			#{weight,jdbcType=DOUBLE}, #{expectedDate,jdbcType=DATE}, 
+			#{birthday,jdbcType=DATE}
+			<if test="healthNum != null">,#{healthNum,jdbcType=VARCHAR}</if>
+			<if test="isDiabetes != null">,#{isDiabetes,jdbcType=INTEGER}</if>
+		)
+	</insert>
+	<update id="update" parameterType="com.jumper.weight.nutrition.user.entity.HospitalUserInfo">
+		update hospital_user_info
+		<set>
+			<if test="hospitalId != null">
+				hospital_id = #{hospitalId,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="outpatientNum != null">
+				outpatient_num = #{outpatientNum,jdbcType=VARCHAR},
+			</if>
+			<if test="pregnantType != null">
+				pregnant_type = #{pregnantType,jdbcType=INTEGER},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="realName != null">
+				real_name = #{realName,jdbcType=VARCHAR},
+			</if>
+			<if test="height != null">
+				height = #{height,jdbcType=DOUBLE},
+			</if>
+			<if test="weight != null">
+				weight = #{weight,jdbcType=DOUBLE},
+			</if>
+			<if test="expectedDate != null">
+				expected_date = #{expectedDate,jdbcType=DATE},
+			</if>
+			<if test="birthday != null">
+				birthday = #{birthday,jdbcType=DATE},
+			</if>
+			<if test="healthNum != null">
+				health_num = #{healthNum,jdbcType=VARCHAR},
+			</if>
+			<if test="isDiabetes != null">
+				is_diabetes = #{isDiabetes,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 通过医院id用户id查询医院用户 -->
+	<select id="findHospUserByUIdHospId" resultMap="BaseResultMap">
+		select * from hospital_user_info where user_id = #{userId} and hospital_id = #{hospitalId} limit 1
+	</select>
+	
+	<!-- 通过医院id手机号查询医院用户 -->
+	<select id="findHospUserByMobHosp" resultMap="BaseResultMap">
+		select * from hospital_user_info where mobile = #{mobile} and hospital_id = #{hospitalId} limit 1
+	</select>
+	
+	<!-- 通过医院id用户id集合查询医院用户列表 -->
+	<select id="listHospUserByUIdHospId" resultMap="BaseResultMap">
+		select * from hospital_user_info where hospital_id = #{hospitalId} 
+		and user_id in 
+		<foreach collection="userIds" item="userId" open="(" close=")" separator=",">
+			#{userId}
+		</foreach> 
+	</select>
+	
+	<!-- 通过医院id和用户id删除 -->
+	<delete id="deleteByHospUId">
+		delete from hospital_user_info where hospital_id = #{hospitalId} and user_id = #{userId}
+	</delete>
+	
+	<!-- 批量更新当前体重状态 -->
+	<update id="updateBatch" parameterType="java.util.List">
+		<foreach collection="list" item="obj" separator=";">
+			update hospital_user_info
+			set weight_status = #{obj.weightStatus,jdbcType=INTEGER}
+			where id = #{obj.id,jdbcType=INTEGER}
+		</foreach>
+	</update>
+	
+	<!-- 查询所有，用作定时器维护体重状态 -->
+	<select id="listAll" resultMap="BaseResultMap">
+		select id, hospital_id, user_id, weight_status, height, weight, expected_date, pregnant_type from hospital_user_info
+	</select>
+	
+	<!-- 连体重，血糖表查询所有医院用户的最新体重，血糖记录 用作定时器维-->
+	<select id="listHospUserPhysical" resultMap="MultiResultMap">
+		select a.id, a.user_id, b.average_value as current_weight, b.add_time as last_weight_time, c.average_value as current_sugar
+		from hospital_user_info as a
+		LEFT JOIN 
+		(
+			select user_id, average_value, add_time
+			from jumper_anglesound.user_weight_record as t 
+			where t.add_time = (select max(add_time) from jumper_anglesound.user_weight_record where user_id = t.user_id)
+		) as b on a.user_id = b.user_id
+		LEFT JOIN
+		(
+			select * from (
+			select user_id, average_value, test_time_state from jumper_anglesound.user_sugar_record as t
+					where DATE_FORMAT(add_time,'%Y-%m-%d') = (select MAX(DATE_FORMAT(add_time,'%Y-%m-%d')) from jumper_anglesound.user_sugar_record where user_id = t.user_id)
+			) as tt where tt.test_time_state = 
+			(
+				select MAX(test_time_state) from (
+					select user_id, average_value, test_time_state from jumper_anglesound.user_sugar_record as t
+					where DATE_FORMAT(add_time,'%Y-%m-%d') = (select MAX(DATE_FORMAT(add_time,'%Y-%m-%d')) from jumper_anglesound.user_sugar_record where user_id = t.user_id)
+				) as tt1 where tt1.user_id = tt.user_id
+			)
+		) as c on a.user_id = c.user_id
+		GROUP BY a.user_id;
+	</select>
+	
+</mapper>

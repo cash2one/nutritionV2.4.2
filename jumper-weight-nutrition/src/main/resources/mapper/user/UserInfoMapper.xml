@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jumper.weight.nutrition.user.mapper.UserInfoMapper">
+	<resultMap id="BaseResultMap" type="com.jumper.weight.nutrition.user.entity.UserInfo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+		<result column="country" property="country" jdbcType="INTEGER" />
+		<result column="province" property="province" jdbcType="INTEGER" />
+		<result column="city" property="city" jdbcType="INTEGER" />
+		<result column="user_img" property="userImg" jdbcType="VARCHAR" />
+		<result column="expected_date_of_confinement" property="expectedDateOfConfinement"
+			jdbcType="DATE" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="reg_time" property="regTime" jdbcType="TIMESTAMP" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="is_switch_push_msg" property="isSwitchPushMsg"
+			jdbcType="INTEGER" />
+		<result column="open_id" property="openId" jdbcType="VARCHAR" />
+		<result column="user_type" property="userType" jdbcType="INTEGER" />
+		<result column="gold" property="gold" jdbcType="INTEGER" />
+		<result column="pregnant_stage" property="pregnantStage"
+			jdbcType="INTEGER" />
+		<result column="pregnant_week" property="pregnantWeek"
+			jdbcType="INTEGER" />
+		<result column="sina_open_id" property="sinaOpenId" jdbcType="VARCHAR" />
+		<result column="qq_open_id" property="qqOpenId" jdbcType="VARCHAR" />
+		<result column="weixin_open_id" property="weixinOpenId"
+			jdbcType="VARCHAR" />
+		<result column="medical_num" property="medicalNum" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- 连表查询结果集 -->
+	<resultMap type="com.jumper.weight.nutrition.user.entity.UserInfo" id="MultiResultMap" extends="BaseResultMap">
+		<result column="real_name" property="realName" />
+		<result column="age" property="age" />
+		<result column="height" property="height" />
+		<result column="weight" property="weight" />
+		<result column="current_identity" property="currentIdentity" />
+		<result column="last_period" property="lastPeriod" />
+		<result column="birthday" property="birthday" />
+		<result column="currentWeight" property="currentWeight"/>
+		<result column="lastWeightTime" property="lastWeightTime"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, mobile, email, nick_name, country, province, city, user_img,
+		expected_date_of_confinement,
+		status, reg_time, password, is_switch_push_msg, open_id, user_type, gold,
+		pregnant_stage,
+		pregnant_week, sina_open_id, qq_open_id, weixin_open_id, medical_num
+	</sql>
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from jumper_anglesound.user_info
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from jumper_anglesound.user_info
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.jumper.weight.nutrition.user.entity.UserInfo" useGeneratedKeys="true" keyProperty="id">
+		insert into jumper_anglesound.user_info 
+		(
+			mobile, nick_name, expected_date_of_confinement,
+			status, reg_time, password,	is_switch_push_msg
+		)
+		values (
+			#{mobile,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR},
+			#{expectedDateOfConfinement,jdbcType=DATE},	#{status,jdbcType=INTEGER}, 
+			#{regTime,jdbcType=TIMESTAMP}, #{password,jdbcType=VARCHAR}, 
+			#{isSwitchPushMsg,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.jumper.weight.nutrition.user.entity.UserInfo">
+		update jumper_anglesound.user_info
+		<set>
+			<if test="mobile != null">
+				mobile = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="nickName != null">
+				nick_name = #{nickName,jdbcType=VARCHAR},
+			</if>
+			<if test="country != null">
+				country = #{country,jdbcType=INTEGER},
+			</if>
+			<if test="province != null">
+				province = #{province,jdbcType=INTEGER},
+			</if>
+			<if test="city != null">
+				city = #{city,jdbcType=INTEGER},
+			</if>
+			<if test="userImg != null">
+				user_img = #{userImg,jdbcType=VARCHAR},
+			</if>
+			<if test="expectedDateOfConfinement != null">
+				expected_date_of_confinement =
+				#{expectedDateOfConfinement,jdbcType=DATE},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="regTime != null">
+				reg_time = #{regTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="isSwitchPushMsg != null">
+				is_switch_push_msg = #{isSwitchPushMsg,jdbcType=INTEGER},
+			</if>
+			<if test="openId != null">
+				open_id = #{openId,jdbcType=VARCHAR},
+			</if>
+			<if test="userType != null">
+				user_type = #{userType,jdbcType=INTEGER},
+			</if>
+			<if test="gold != null">
+				gold = #{gold,jdbcType=INTEGER},
+			</if>
+			<if test="pregnantStage != null">
+				pregnant_stage = #{pregnantStage,jdbcType=INTEGER},
+			</if>
+			<if test="pregnantWeek != null">
+				pregnant_week = #{pregnantWeek,jdbcType=INTEGER},
+			</if>
+			<if test="sinaOpenId != null">
+				sina_open_id = #{sinaOpenId,jdbcType=VARCHAR},
+			</if>
+			<if test="qqOpenId != null">
+				qq_open_id = #{qqOpenId,jdbcType=VARCHAR},
+			</if>
+			<if test="weixinOpenId != null">
+				weixin_open_id = #{weixinOpenId,jdbcType=VARCHAR},
+			</if>
+			<if test="medicalNum != null">
+				medical_num = #{medicalNum,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 搜素用户昵称 -->
+	<select id="findByNickName" resultMap="BaseResultMap">
+		select id,nick_name from jumper_anglesound.user_info where nick_name like CONCAT('%', #{nickName}, '%') limit #{size}
+	</select>
+	
+	<!-- 连表user_extra_info查询用户信息 -->
+	<select id="findUserByUserId" parameterType="int" resultMap="MultiResultMap">
+		select 
+		a.id, a.mobile, a.expected_date_of_confinement,
+		b.real_name, b.birthday, b.age, b.weight, b.height, b.last_period, b.current_identity
+		from jumper_anglesound.user_info as a LEFT JOIN jumper_anglesound.user_extra_info as b on a.id = b.user_id
+		where a.id = #{userId}
+	</select>
+	
+	<!-- 连表user_extra_info查询用户列表信息 -->
+	<select id="listUserByUserId" parameterType="java.util.List" resultMap="MultiResultMap">
+		select 
+		a.id, a.mobile, a.expected_date_of_confinement,
+		b.real_name, b.birthday, b.age, b.weight, b.height, b.last_period, b.current_identity
+		from jumper_anglesound.user_info as a LEFT JOIN jumper_anglesound.user_extra_info as b on a.id = b.user_id
+		where a.id in
+		<foreach collection="list" item="userId" open="(" close=")" separator=","> 
+			#{userId}
+		</foreach>
+	</select>
+	
+	<!-- 通过手机号查询 -->
+	<select id="findByMobile" parameterType="java.lang.String" resultMap="MultiResultMap">
+		select 
+		a.id, a.mobile, a.expected_date_of_confinement,
+		b.real_name, b.birthday, b.age, b.weight, b.height, b.last_period, b.current_identity
+		from jumper_anglesound.user_info as a LEFT JOIN jumper_anglesound.user_extra_info as b on a.id = b.user_id
+		where a.mobile = #{mobile}
+	</select>
+	
+	<!-- 连医院用户信息表查询所有体重用户信息 -->
+	<select id="listOutpUsersInfo" resultMap="MultiResultMap">
+		select b.id, b.mobile, b.expected_date_of_confinement, c.real_name, c.height, c.weight, c.birthday,
+		d.average_value as currentWeight, d.add_time as lastWeightTime
+		from hospital_user_info as a 
+		LEFT JOIN jumper_anglesound.user_info as b on a.user_id = b.id 
+		LEFT JOIN jumper_anglesound.user_extra_info as c on a.user_id = c.user_id 
+		LEFT JOIN (
+			select user_id, average_value, add_time
+			from jumper_anglesound.user_weight_record as t 
+			where t.add_time = (select max(add_time) from jumper_anglesound.user_weight_record where user_id = t.user_id)
+		) as d
+		on a.user_id = d.user_id
+		where b.id is not null GROUP BY b.id
+	</select>
+	
+</mapper>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jumper.weight.nutrition.user.mapper.HospitalUserManageMapper">
+	<resultMap id="BaseResultMap" type="com.jumper.weight.nutrition.user.entity.HospitalUserManage">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="hospital_id" property="hospitalId" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+		<result column="last_outpatient_time" property="lastOutpatientTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<!-- 连表查询结果集 -->
+	<resultMap id="MultiResultMap" extends="BaseResultMap" type="com.jumper.weight.nutrition.user.entity.HospitalUserManage">
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="real_name" property="realName" jdbcType="VARCHAR" />
+		<result column="height" property="height" jdbcType="INTEGER" />
+		<result column="weight" property="weight" jdbcType="DOUBLE" />
+		<result column="p_week" property="pWeek" jdbcType="INTEGER" />
+		<result column="expected_date" property="expectedDate"
+			jdbcType="DATE" />
+		<result column="current_weight" property="currentWeight"
+			jdbcType="DOUBLE" />
+		<result column="weight_exception_type" property="weightExceptionType" jdbcType="INTEGER" />
+		<result column="birthday" property="birthday" jdbcType="DATE" />
+		<result column="current_bmi" property="currentBmi"
+			jdbcType="DOUBLE" />
+		<result column="weight_status" property="weightStatus" jdbcType="INTEGER" />
+		<result column="last_weight_time" property="lastWeightTime" jdbcType="TIMESTAMP" />
+		<result column="current_sugar" property="currentSugar" jdbcType="DOUBLE" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, hospital_id, user_id, add_time, last_outpatient_time
+	</sql>
+	<select id="findById" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from hospital_user_manage
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<insert id="insert" parameterType="com.jumper.weight.nutrition.user.entity.HospitalUserManage" useGeneratedKeys="true">
+		insert into hospital_user_manage 
+		(
+		hospital_id, user_id, add_time, last_outpatient_time
+		)
+		values (
+		#{hospitalId,jdbcType=INTEGER},	#{userId,jdbcType=INTEGER},
+		#{addTime,jdbcType=TIMESTAMP}, #{lastOutpatientTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.jumper.weight.nutrition.user.entity.HospitalUserManage">
+		update hospital_user_manage
+		<set>
+			<if test="hospitalId != null">
+				hospital_id = #{hospitalId,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="addTime != null">
+				add_time = #{addTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastOutpatientTime != null">
+				last_outpatient_time = #{lastOutpatientTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 连排序表查询孕妇管理列表 -->
+	<select id="listUserManageByPage" parameterType="com.jumper.weight.nutrition.user.vo.VoQueryUserManage" resultMap="MultiResultMap">
+		select a.id, a.user_id, c.real_name, c.expected_date, c.height, c.weight, c.birthday, c.mobile, c.weight_status, 
+		b.current_weight, b.last_weight_time, b.current_sugar
+		from hospital_user_manage as a,
+		weight_user_order as b,
+		hospital_user_info as c
+		where a.user_id = b.user_id and a.user_id = c.user_id
+		and a.hospital_id = #{hospitalId} and a.hospital_id = c.hospital_id
+		<if test="query != null">
+			and (c.real_name like CONCAT('%',#{query},'%') or c.mobile like CONCAT('%',#{query},'%'))
+		</if>
+		<!-- <if test="weightStatus == 0">and b.current_bmi <![CDATA[<]]> 18.5</if>
+		<if test="weightStatus == 1">and b.current_bmi <![CDATA[>=]]> 18.5 and b.current_bmi <![CDATA[<]]> 25</if>
+		<if test="weightStatus == 2">and b.current_bmi <![CDATA[>=]]> 25 and b.current_bmi <![CDATA[<]]> 30</if>
+		<if test="weightStatus == 3">and b.current_bmi <![CDATA[>=]]> 30</if> -->
+		<if test="weightStatus != null">
+			and c.weight_status = #{weightStatus}
+		</if>
+		<if test="startExpDate != null">
+			and c.expected_date <![CDATA[>=]]> #{startExpDate}
+		</if>
+		<if test="endExpDate != null">
+			and c.expected_date <![CDATA[<=]]> #{endExpDate}
+		</if>
+		<if test="weightExceptionType != null">
+			and b.weight_exception_type = #{weightExceptionType}
+		</if>
+		<if test="isDiabetes != null">
+			and c.is_diabetes = #{isDiabetes}
+		</if>
+		order by
+		<choose>
+			<when test="orderRow == 'real_name'">
+				CONVERT(c.real_name USING gbk ) COLLATE gbk_chinese_ci
+			</when>
+			<when test="orderRow == 'p_week'">
+				c.expected_date
+			</when>
+			<otherwise>
+				${orderRow}
+			</otherwise>
+		</choose>
+		<if test="orderType == 0">
+			<choose>
+				<when test="orderRow == 'birthday' or orderRow == 'p_week'">desc</when>
+				<otherwise>asc</otherwise>
+			</choose>
+		</if>
+		<if test="orderType == 1">
+			<choose>
+				<when test="orderRow == 'birthday' or orderRow == 'p_week'">asc</when>
+				<otherwise>desc</otherwise>
+			</choose>
+		</if>
+	</select>
+	
+	<!-- 通过医院id和用户id查询 -->
+	<select id="findByHospUser" resultMap="BaseResultMap">
+		select * from hospital_user_manage
+		where hospital_id = #{hospitalId} and user_id = #{userId}
+	</select>
+	
+	<!-- 连排序表查询称重时间段内的孕妇管理列表 -->
+	<select id="listUmByDuring" resultMap="MultiResultMap">
+		select a.id, a.user_id, c.weight_status, b.last_weight_time
+		from hospital_user_manage as a,
+		weight_user_order as b,
+		hospital_user_info as c 
+		where a.user_id = b.user_id and a.user_id = c.user_id
+		and a.hospital_id = #{hospitalId} and a.hospital_id = c.hospital_id
+		<if test="startDate != null">
+			and DATE_FORMAT(b.last_weight_time,'%Y-%m-%d') <![CDATA[>=]]> #{startDate}
+		</if>
+		<if test="endDate != null">
+			and DATE_FORMAT(b.last_weight_time,'%Y-%m-%d') <![CDATA[<=]]> #{endDate}
+		</if>
+	</select>
+	
+	<!-- 通过医院id和userId删除档案 -->
+	<delete id="deleteByHospUId">
+		delete from hospital_user_manage where hospital_id = #{hospitalId} and user_id = #{userId}
+	</delete>
+</mapper>

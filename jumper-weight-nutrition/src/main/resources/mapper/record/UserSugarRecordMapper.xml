@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.jumper.weight.nutrition.record.mapper.UserSugarRecordMapper">
+	<resultMap id="BaseResultMap" type="com.jumper.weight.nutrition.record.entity.UserSugarRecord">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="average_value" property="averageValue"
+			jdbcType="DOUBLE" />
+		<result column="sugar_state" property="sugarState" jdbcType="INTEGER" />
+		<result column="test_time_state" property="testTimeState"
+			jdbcType="INTEGER" />
+		<result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+		<result column="business_type" property="businessType"
+			jdbcType="INTEGER" />
+		<result column="token" property="token" jdbcType="INTEGER" />
+		<result column="server_add_time" property="serverAddTime"
+			jdbcType="BIGINT" />
+		<result column="jid" property="jid" jdbcType="BIGINT" />
+		<result column="hospital_id" property="hospitalId" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, average_value, sugar_state, test_time_state, add_time,
+		business_type, token, server_add_time, jid, hospital_id
+	</sql>
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from jumper_anglesound.user_sugar_record
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 查询用户最近一条血糖记录（按最晚的餐次查） -->
+	<select id="findUserLastSugar" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select user_id, average_value, test_time_state from jumper_anglesound.user_sugar_record where user_id = #{userId} 
+		and DATE_FORMAT(add_time,'%Y-%m-%d') = (select MAX(DATE_FORMAT(add_time,'%Y-%m-%d')) from jumper_anglesound.user_sugar_record where user_id = #{userId}) 
+		order by test_time_state desc LIMIT 1
+	</select>
+</mapper>

@@ -1,0 +1,151 @@
+applet, object, iframe, body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dd, dl, dt, li, ol, ul, fieldset, form, label, legend, caption, img, header, section {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+}
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+li{
+    list-style-type: none;
+}
+body{
+    font-family:Microsoft YaHei, Verdana, Arial, sans-serif;
+}
+.fl{float: left;}
+.fr{float: right;}
+.oh{overflow: hidden;}
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {color: #999;}
+　　input:-moz-placeholder, textarea:-moz-placeholder {color:#999;}
+　　input::-moz-placeholder, textarea::-moz-placeholder {color:#999;}
+　　input:-ms-input-placeholder, textarea:-ms-input-placeholder {color:#999;}
+@font-face {font-family: 'iconfont';
+    src: url('iconfont.eot'); /* IE9*/
+    src: url('iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('iconfont.woff') format('woff'), /* chrome、firefox */
+    url('iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+.iconfont{
+    font-family:"iconfont" !important;
+    font-size:18px;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: .2px;
+    -moz-osx-font-smoothing: grayscale;}
+#head .imgBox{
+    position: relative;
+    width: 100%;
+    height: 400px;
+    background: url("../images/loginBG3.jpg") no-repeat center;
+    color: white;
+}
+#head .imgBox p{
+    position: absolute;
+    top: 180px;
+    left: 50%;
+    margin-left: -280px;
+    line-height: 80px;
+    font-size: 50px;
+    text-shadow: 0 2px 4px rgba(0,0,0,.2);
+    text-align: center;
+}
+#head .imgBox img{
+    vertical-align: middle;
+    margin-right: 60px;
+    opacity: .8;
+}
+#main{
+    position: relative;
+    top:180px;
+    left: 50%;
+    width: 580px;
+    height: 375px;
+    margin: -290px;
+    padding: 24px 60px;
+    border-radius: 6px;
+    background: rgba(255,255,255,.8);
+    box-shadow: 0 10px 30px rgba(0,0,0,.15);
+}
+#main p{
+    font-size: 24px;
+    color: #333;
+}
+#main span{
+    color: #ff4d4d;
+    font-size: 14px;
+    line-height: 40px;
+    display: block;
+    height: 40px;
+}
+
+.login-item{
+    margin-top: 30px;
+}
+.login-item input{
+    background: none;
+    font-family: "Microsoft yahei";
+    width: 88%;
+    color: #333;
+    font-size: 18px;
+    border: none;
+    padding-left: 20px;
+    outline: none;
+}
+.login-item label i,.list,.inputDe{
+    transition: .2s;
+}
+.login-item label i{
+    font-size: 23px;
+    color: #999;
+}
+.list{
+    padding-bottom: 6px;
+    border-bottom: 1px #CCCCCC solid;
+}
+.inputDe{
+    cursor: pointer;
+    display: none;
+}
+.list:hover .inputDe{
+    transition: .2s;
+    display: block;
+}
+.loginBtn{
+    font-family: "Microsoft YaHei";
+    width: 100%;
+    height: 50px;
+    background: #ff669e;
+    border-radius: 6px;
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    line-height: 50px;
+    border: none;
+    margin-top: 60px;
+    cursor: pointer;
+    outline: none;
+    transition: .4s;
+}
+.loginBtn:hover{
+    background: #ff4d8e;
+}
+#btn{
+    border:none;
+    background: #ffccdf;
+    color: #ff669e;
+    font-size: 16px;
+    padding: 4px 8px;
+    font-family: "Microsoft YaHei";
+    float: right;
+    margin-top: -40px;
+    outline: none;
+    cursor: pointer;
+    line-height: 32px;
+    border-radius: 4px;
+}
+.yz .list{width: 260px;}
+.yz .list input{width: 140px;}

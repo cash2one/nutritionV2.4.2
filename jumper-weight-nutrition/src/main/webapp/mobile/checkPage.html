@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--css文件加载顺序不能动-->
+    <link href="css/mui.min.css" rel="stylesheet">
+    <link href="css/css.css" rel="stylesheet">
+    <link href="css/reset.css" rel="stylesheet">
+    <link href="css/muiReset.css" rel="stylesheet">
+    <title>体重营养管理</title>
+    <style>
+       /* .mui-icon-checkmarkempty{
+            margin: -20px 0 0 -20px;
+            font-size: 140px;
+            text-align: center;
+            color: #89c777;
+        }*/
+
+        .mui-btn{
+            position: absolute;
+            bottom: 10%;
+            width: 80%;
+            left: 10%;
+            margin-bottom: 0;
+        }
+
+       .pText,.pText2{
+           font-size: 12px;
+           width: 84%;
+           margin: 10px 0 0 8%;
+           line-height: 24px;
+       }
+        .pText2{
+            position: absolute;
+            bottom: 4%;
+            text-align: center;
+        }
+		.h4Title {
+		    margin: 24px 8%;
+		    font-weight: normal;
+		    color: #666666;
+		}
+		.realNameDD{
+			overflow : hidden; 
+			text-overflow : ellipsis; 
+			white-space : nowrap;
+		}
+    </style>
+</head>
+<body style="background: white">
+	<h4 class="h4Title" style="display: none;">请确认就诊信息</h4>
+    <div class="idBox deg135">
+        <dl class="idCard">
+            <dt class="hospitalName"></dt>
+            <dd class="realNameDD"><span>就诊人</span><span class="realName"></span></dd>
+            <dd><span>手机</span><span class="mobile"></span></dd>
+            <dd><span>门诊</span><span>营养门诊</span></dd>
+        </dl>
+        <p class="bgText">就诊卡</p>
+    </div>
+    <div class="liucheng" style="display: none;">
+	    <p class="pText">请进行以下步骤以便帮助医生了解您目前的营养情况：</p>
+	    <ul class="step">
+	        <li>填写个人信息</li>
+	        <li></li>
+	        <li>饮食记录</li>
+	        <li></li>
+	        <li>运动记录</li>
+	    </ul>
+    </div>
+    <button type="button" class="mui-btn mui-btn-danger mui-btn-block checkInfo">确认</button>
+	<p class="pText2" style="display: none;">点击 [ 确认 ] 按钮进入队列等候就诊</p>
+</body>
+<!-- iOS不支持import -->
+<!-- <link rel="import" href="foot.html"> -->
+<script src="js/mui.min.js"></script>
+<script src="js/mui.picker.min.js"></script>
+<script src="js/mui.poppicker.js"></script>
+<script src="../sfile/js/jquery-1.10.1.min.js"></script>
+<script src="../sfile/js/jquery.cookie.js"></script>
+<script src="../sfile/js/common.js"></script>
+<script src="js/ajax/checkPage.js"></script>
+</html>

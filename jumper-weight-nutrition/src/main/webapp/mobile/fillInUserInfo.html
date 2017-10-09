@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--css文件加载顺序不能动-->
+    <link href="css/mui.min.css" rel="stylesheet">
+    <link href="css/mui.picker.min.css" rel="stylesheet">
+    <link href="css/css.css" rel="stylesheet">
+    <link href="css/reset.css" rel="stylesheet">
+    <link href="css/muiReset.css" rel="stylesheet">
+    <title>完善个人信息</title>
+    <style>
+		
+    </style>
+</head>
+<body>
+   <!--  <div class="bar">
+        <div class="barLine" style="right: 100%"></div>
+        <p class="barText1" style="color: #8bde6f;" >完善信息</p>
+        <p class="barText2">饮食记录</p>
+        <p class="barText3">运动记录</p>
+    </div> -->
+    <p class="pTitle">请完善您的个人信息</p>
+    <form class="mui-input-group" id="postForm">
+    	<div class="mui-input-row">
+            <label>姓名</label>
+            <input  id="realName"
+                    oninput="if(value.length>6)value=value.slice(0,6)"
+                    onkeyup="value=value.replace(/[\d]/g,'')"
+                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[\d]/g,''))"
+                    type="text"
+                    class="mui-input-clear"
+                    maxlength=6
+                    name="realName"
+                    placeholder="请输入姓名"
+            />
+        </div>
+        <div class="mui-input-row">
+            <label>出生日期</label>
+            <div id='demo2' class="btn ResultBox birthday" type="text"
+                 data-options='{"type":"date","beginYear":1950,"endYear":1999}'></div>
+        </div>
+        <div class="mui-input-row">
+            <label>孕前体重</label>
+            <input id="weight"
+            		oninput="if(value.length>5)value=value.slice(0,5);" 
+                    onafterpaste="this.value=this.value.replace(/[^\.\d]/g,'');if(value.length>5)value=value.slice(0,5);"
+                    type="number"
+                    name="weight"
+                    class="mui-input-clear"
+                    placeholder="请输入孕前体重"
+                    maxlength="5"/>
+            <span class="mui-icon mui-unit">kg</span>
+        </div>
+        <div class="mui-input-row">
+            <label>目前体重</label>
+            <input id="averageValue"
+            		oninput="if(value.length>5)value=value.slice(0,5);" 
+                    onafterpaste="this.value=this.value.replace(/[^\.\d]/g,'');if(value.length>5)value=value.slice(0,5);"
+                    type="number"
+                    name="averageValue"
+                    class="mui-input-clear"
+                    placeholder="请输入目前体重"
+                    maxlength="5"/>
+            <span class="mui-icon mui-unit">kg</span>
+        </div>
+        <div class="mui-input-row">
+            <label>身高</label>
+            <input
+                    oninput="this.value=this.value.replace(/[\D]/g,'');if(value.length>3)value=value.slice(0,3);"
+                    onafterpaste="this.value=this.value.replace(/[\D]/g,'');if(value.length>3)value=value.slice(0,3);"
+                    type="tel"
+                    name="height"
+                    runat="server"
+                    class="mui-input-clear"
+                    placeholder="请输入身高"/>
+            <span class="mui-icon mui-unit">cm</span>
+        </div>
+        <div class="mui-input-row">
+            <label>怀孕类型</label>
+            <div id="pregnantType" class="pregnantType ResultBox">单胎</div>
+            <!-- <div id="pregnantType" class="btn ResultBox pregnantType">单胎</div> -->
+        </div>
+        <div class="mui-input-row">
+            <label>预产期</label>
+            <div id='expectedDate' class="btn ResultBox expectedDate" type="text"
+                 data-options='{"type":"date","beginYear":1980,"endYear":2060}'></div>
+        </div>
+        <div class="mui-input-row">
+            <label>就诊卡号</label>
+            <!-- onafterpaste="this.value=this.value.replace(/[^\w\.\/]/ig,'')" 
+            	this.value=(this.value.match(/^[0-9a-zA-Z]+$/) != null)?this.value:this.value.substring(0, this.value.length-1) -->
+            <input
+					oninput="this.value=this.value.replace(/[\W_]/ig,'');if(value.length>30)value=value.slice(0,30);" 
+                    onafterpaste="this.value=this.value.replace(/[\W_]/ig,'');if(value.length>30)value=value.slice(0,30);"
+                    type="text"
+                    name="outpatientNum"
+                    runat="server"
+                    class="mui-input-clear"
+                    placeholder="选填"/>
+        </div>
+        <div class="mui-input-row">
+            <label>就诊原因</label>
+            <div id='reason' class="btnc ResultBox3 careCause" value="" ></div>
+        </div>
+    </form>
+    <div class="mui-content-padded">
+        <button type="button" class="mui-btn mui-btn-danger mui-btn-block nextStep">下一步</button>
+    </div>
+</body>
+<!--<script src="js/Zepto.js"></script>-->
+<script src="js/mui.min.js"></script>
+<script src="js/mui.picker.min.js"></script>
+<script src="js/mui.poppicker.js"></script>
+<script src="js/rem.js"></script>
+<script>
+	//年龄的选择范围是16-45岁
+	var minDate = new Date().getFullYear() - 45;
+	var maxDate = new Date().getFullYear() - 16;
+	var birthday = "";
+    (function($) {
+        $.init();
+        /* var result = $('#result')[0]; */
+        var btns = $('.btn'),btnc = $('.btnc');
+         btns.each(function(i, btn) {
+            btn.addEventListener('tap', function() {
+                var optionsJson = this.getAttribute('data-options') || '{}';
+                var options = JSON.parse(optionsJson);
+                var $this = this;
+                var id = this.getAttribute('id');
+                if(id == "demo2"){
+                	 options.beginYear = minDate;
+                     options.endYear = maxDate;
+                }else if(id == "expectedDate"){
+                	//设置预产期的正确范围
+                	var now=new Date();
+                	options.beginYear=now.getFullYear();
+                	options.beginMonth=now.getMonth()+1;
+                	options.beginDay=now.getDate();
+                	var endDateStr = formatDate(new Date());
+                	var endDate = TOOL.getPregancyDay(endDateStr);
+                	options.endDate = new Date(stringToDate(endDate));
+                }
+                var picker = new $.DtPicker(options);
+                birthday = (birthday == "") ? "1990-01-01" : birthday;
+                picker.setSelectedValue(birthday);
+                document.activeElement.blur();//收回软键盘
+                picker.show(function(rs) {
+                	$this.innerText= rs.text;
+                    picker.dispose();
+                });
+            }, false);
+        }); 
+        /* btns.each(function(i, btn) {
+            btn.addEventListener('tap', function() {
+                var optionsJson = this.getAttribute('data-options') || '{}';
+                var options = JSON.parse(optionsJson);
+                options.beginYear = minDate;
+                options.endYear = maxDate;
+                var id = this.getAttribute('id');
+                var picker = new $.DtPicker(options);
+                birthday = (birthday == "") ? "1990-01-01" : birthday;
+                picker.setSelectedValue(birthday);
+                document.activeElement.blur();//收回软键盘
+                picker.show(function(rs) {
+                    $("#demo2")[0].innerText= rs.text;
+                    picker.dispose();
+                });
+            }, false);
+        }); */
+        
+    })(mui);
+	(function($, doc) {
+		$.init();
+		$.ready(function() {
+			var userPicker = new $.PopPicker();
+			var reasonData = new Array();
+			$.ajax({
+				url:basePath+"/settings/findHospitalOutpatientReason",
+				type:"post",
+				dataType:"json",
+				data:{hospitalId:hospitalId, type:0},
+				async:false,
+				success:function(json){
+					if(json.msg == 1){
+						var data = json.data;
+						for (var i = 0; i < data.length; i++) {
+							var reasons = {
+								value:data[i].id,
+								text:data[i].outpatientReason,
+								isSkipDiet:data[i].isSkipDiet,
+								isSkipSport:data[i].isSkipSport
+							};
+							reasonData.push(reasons);
+						}
+					}
+				}
+			});
+			userPicker.setData(reasonData);
+			var showUserPickerButton = doc.getElementById('reason');
+			var userResult = doc.getElementsByClassName('ResultBox3')[0];
+			showUserPickerButton.addEventListener('tap', function(event) {
+				userPicker.show(function(items) {
+					userResult.innerText = items[0].text;
+					showUserPickerButton.setAttribute("value", items[0].value);
+					showUserPickerButton.setAttribute("isSkipDiet", items[0].isSkipDiet);
+					showUserPickerButton.setAttribute("isSkipSport", items[0].isSkipSport);
+					var isSkipDiet = items[0].isSkipDiet;
+					var isSkipSport = items[0].isSkipSport;
+					if (isSkipDiet && isSkipSport) {
+						console.log("完成");
+						doc.getElementsByClassName("nextStep")[0].innerText = "完成";
+					} else {
+						doc.getElementsByClassName("nextStep")[0].innerText = "下一步";
+					}
+					//返回 false 可以阻止选择框的关闭
+					//return false;
+				});
+			}, false);
+			//-----------------------------------------
+		});
+	})(mui, document);
+	
+	//单胎多胎选择
+    (function($, doc) {
+        $.init();
+        $.ready(function() {
+            //普通示例
+            var userPicker = new $.PopPicker();
+            userPicker.setData([{
+                text: '单胎'
+            }, {
+                text: '多胎'
+            }]);
+            var showUserPickerButton = doc.getElementById('pregnantType');
+            var userResult = doc.getElementsByClassName('pregnantType')[0];
+            showUserPickerButton.addEventListener('tap', function(event) {
+                userPicker.show(function(items) {
+                    userResult.innerText = items[0].text;
+                    //返回 false 可以阻止选择框的关闭
+                    //return false;
+                });
+            }, false);
+        });
+        $("input").on('click',function () {
+            var target=this;
+            setTimeout(function () {
+                target.scrollIntoView(true);
+            },100)
+        })
+    })(mui, document);
+
+    //页面延时显示
+    setTimeout(function(){document.body.style.display="block";},10);
+</script>
+<!-- iOS不支持import -->
+<!-- <link rel="import" href="foot.html"> -->
+<script src="../sfile/js/jquery-1.10.1.min.js"></script>
+<script src="../sfile/js/jquery.cookie.js"></script>
+<script src="../sfile/js/common.js"></script>
+<script src="js/ajax/fillInUserInfo.js"></script>
+</html>

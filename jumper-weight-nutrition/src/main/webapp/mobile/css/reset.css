@@ -1,0 +1,71 @@
+/*
+!*属性重置 全局单位是rem不是px*!
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+button,article, aside, canvas, details, embed, figure,
+figcaption, footer, header, hgroup, menu, nav,
+output, ruby, section, summary, time, mark,
+audio, video,input{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    background: transparent;
+    outline: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body, html{width: 100%;}
+html{ line-height: initial;}
+body{ font-size: 0.32rem;background: #f0f3f5;}
+body, input, button, select, textarea, h1, h2, h3, h4, h5, h6
+{font-family: 'Helvetica Neue', 'STHeiti', 'Microsoft YaHei',Helvetica,Arial,sans-serif;}
+
+ol{margin: 0;list-style-type:demical;}
+ol li{ list-style-position:outside;}
+table{width: 100%;border-collapse: collapse; border-spacing: 0;}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
+button{background: transparent;}
+blockquote, q { quotes: none; }
+blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
+strong { font-weight: bold; }
+img { border: 0; max-width: 100%; }
+a{ text-decoration: none; outline: none;-webkit-tap-highlight-color: rgba(255,0,0,0);}
+input::-webkit-input-placeholder {
+    color: #dce0e6;
+}*/
+h1, h2, h3, h4, h5, h6{
+    margin: 0;
+    padding: 0;
+}
+ul li{list-style-type: none;}
+/*控件样式*/
+.fl{float: left}
+.fr{float: right}
+.oH{overflow: hidden}
+.white{color: white;}
+.red{color: #ff6789;}
+.blue{ color: #4595e6;}
+.greed{ color: #3ac273;}
+.backRed{background: #ff6789;}
+.backBlue{background: #4595e6;}
+.backgreed{background: #3ac273;}
+body .m20{margin: .2rem;}
+body .mT20{margin-top: .2rem;}
+body .mR20{margin-right: .2rem;}
+body .mB20{margin-bottom: .2rem;}
+body .mL20{margin-left: .2rem;}
+body .p20{padding: .2rem;}
+body .pT20{padding-top: .2rem;}
+body .pR20{padding-right: .2rem;}
+body .pB20{padding-bottom: .2rem;}
+body .pL20{padding-left: .2rem;}
+body .radius8{border-radius: .08rem;}

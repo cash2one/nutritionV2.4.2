@@ -1,0 +1,29 @@
+.tureBtn_1, .table_btn_yellow, .table_btn_red {
+	margin: 0px 10px 0px 20px;
+}
+.link-a {
+	 text-decoration:none!important;  /*超链接无下划线*/
+}
+
+/* huangzg 2016-10-27 add ============ */
+.ui-jqgrid td input[type='checkbox'] { 
+	margin: 3px!important;
+}
+
+#cb_table1{
+	margin: 3px!important;
+}
+
+.ui-jqgrid-sortable {
+	text-align: center!important;
+}
+
+.glyphicon {
+	color: #fd035e;
+}
+
+.table_btn_red {
+	background: red;
+}
+
+/* huangzg 2016-10-27 add ============ */

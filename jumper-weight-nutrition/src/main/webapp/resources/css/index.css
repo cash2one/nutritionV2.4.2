@@ -1,0 +1,72 @@
+/*index.css*/
+.imBox{width:96%; height: 94%; margin:0 auto; border: 1px solid #1bb1e3; margin-top: 8px;margin-bottom: 6px;padding-bottom: 6px; overflow: hidden; position: relative;}
+.imBox .imTitle{width: 100%; height: 49px; background: url(../img/headIcon.gif);}
+.imTitle p{ font-size: 16px; line-height: 49px;  margin-left: 22px;}
+/*height: 650px; height: auto !important; min-height: 650px;*/
+.imLeftBox{ width:18%;  overflow:auto; border-right: 1px solid #b8e2fa;}
+.imLeftBox #userList{ width: 100%;overflow: auto;}
+#userList li{ width: 100%; height: 50px; border-bottom: 1px solid #f0f7fa; cursor: pointer;}
+#userList li .leftImg{width: 36px; height: 36px; margin: 5px 14px 0px 10px; position: relative;}
+.leftImg img{ width: 100%; height: 100%;} 
+.leftImg .xdd{width: 8px; height: 8px; background: url(../img/tsIcon.gif) no-repeat; position: absolute; top: 0px; right: 0px;display: none;}
+#userList li .rightTitle{ width:65%; overflow: hidden; margin-top:4px; font-size: 14px;}
+#userList li .rightTitle .titleTop{ overflow: hidden;}
+#userList li .rightTitle .titleTop .ttName{ color: #45b3e5;}
+#userList li .rightTitle .titleTop .ttTime{color: #999999;}
+#userList li .rightTitle .titleBottom{font-size: 16px; width: 100%; height: 20px; overflow: hidden;}
+/*Right height: 650px; height: auto !important; min-height: 650px; */
+.imRigthBox{ width:82%; overflow: hidden;    position: absolute; right: 0px;}
+.imRigthBox .imRigthTitle{ height: 60px; border-bottom: 1px solid #B8E2FA;}
+.imRigthTitle .showUserImg{width: 40px; height: 40px; margin: 9px 14px 0px 10px; }
+.showUserImg img{ width: 100%; height: 100%;} 
+.userMessage{ color: #999999;    margin-top: 6px;}
+.userMessage .userXx{ font-size: 16px; overflow: hidden;}
+.userXx h4{ font-size: 18px; color: #45b3e6;}
+.userXx .sex{ margin: 0px 8px 0px 15px;}
+.userXx .age{ margin-right: 8px;}
+.userDqyz{ overflow: hidden;}
+.userDqyz .week{margin-left: 5px; margin-right: 18px;}
+.userDqyz .yzq{ margin-left: 5px;}
+.imRigthTitle .register{width:110px; height: 36px; line-height: 36px; margin: 12px 18px 0px 0px; text-align: center; background-color: #45b3e6; color: #ffffff;}
+
+/*鑱婂ぉ绐楀彛   height: 400px; height: auto !important; min-height: 400px;*/
+#imMessageCenterBox{overflow: auto; position: relative; padding-top: 20px;}
+#imMessageCenterBox .leftMessage,#imMessageCenterBox .rightMessage{overflow: hidden; margin: 10px 0px;}
+.leftMessageBody{width: 50%;width:auto!important; max-width:50%;  padding:10px;background-color: #e6e9eb; position: relative; margin-left: 16px;color: #333333;   }
+.leftMessageBody img{display: block;}
+.leftMessageBody .talkS{width: 7px; height: 8px; position: absolute; background:url(../img/leftJt.gif) no-repeat; left: -7px; top: 10px;}
+.messageTime{ text-align: center; color: #333333;}
+.timeMargin{margin-left: -22px;}
+
+.rightMessageBody{width: 50%;width:auto!important; max-width:50%;  padding:10px;background-color: #9bd7fa; position: relative; margin-right: 16px;color: #333333;}
+.rightMessageBody img{display: block;}
+.rightMessageBody .talkB{width: 8px; height: 10px; position: absolute; background:url(../img/rightJt.gif) no-repeat; right: -8px; top: 12px;}
+
+.sendMessageImg{ height: 40px; background-color: #dcedf5;}
+.sendMessageImg p{ width: 30px; height: 24px; cursor: pointer; margin:8px 0px 0px 20px;}
+.sendMessageImg p img{ width: 100%; height: 100%;}
+
+.sendMessage{height: 140px; position: relative;}
+.sendMessage textarea{ height: 140px; width: 98%; margin-left: 10px; border: none; outline: none; font-size: 16px; color: #999999;}
+
+.sendMessage #sendMessage{width:110px; height: 36px; line-height:36px; text-align: center; background-color: #45b3e6; color: #ffffff; position: absolute; right: 15px; bottom: 26px;}
+.sendMessage .noSend{width:110px; height: 36px; line-height:36px; text-align: center; background-color: #cccccc; color: #ffffff; position: absolute; right: 15px; bottom: 26px;}
+#messageMore{position: absolute; width: 80px;top: 5px; left:50%; margin-left: -40px; font-size: 16px; color: #45b3e6;}
+
+
+/*鍙戦�鍥剧墖寮瑰嚭绐�*/
+#uploadWindow{ width: 500px; height: 250px; border: 1px solid #DFDFDF; position: absolute; left: 50%; top:50%; margin: -125px 0 0 -250px; background-color:#ffffff;z-index: 999; display:none;}
+#uploadWindow .uploadTitle{ height: 50px; border-bottom:1px solid #dfdfdf ;}
+.uploadTitle p{height: 50px; line-height: 50px; margin-left: 18px; color: #3a97da; font-size: 16px;}
+.uploadTitle a{width: 12px;height: 12px; background: url(../css/icon/close.png) no-repeat; margin: 19px 23px 0 0;}
+.uploadCenter{height: 200px;position: relative;}
+.uploadCenter form{position: absolute; top: 80px; left: 80px;}
+.imgW,.imgH,.sUrl,.oUserId{display:none;}
+#loadMore,.loadMore{display:block; height:38px; line-height:38px; height: 38px;text-align: center;font-size: 16px;color: #2786E4;border-top: 1px solid #ccc;}
+.loadColor{color:#cccccc !important;}
+
+
+/* 语音新添加 */
+.audioI{width:32px; height:32px; overflow:hidden;}
+.audioI img{width:100%; height:100%;}
+.dataYl,.aAudio{display:none;}

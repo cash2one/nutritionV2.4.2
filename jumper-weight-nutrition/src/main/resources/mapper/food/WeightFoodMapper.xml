@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jumper.weight.nutrition.food.mapper.WeightFoodMapper" >
+  <resultMap id="BaseResultMap" type="com.jumper.weight.nutrition.food.entity.WeightFood" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="calorie" property="calorie" jdbcType="DOUBLE" />
+    <result column="protein" property="protein" jdbcType="DOUBLE" />
+    <result column="carbo" property="carbo" jdbcType="DOUBLE" />
+    <result column="fat" property="fat" jdbcType="DOUBLE" />
+    <result column="fiber" property="fiber" jdbcType="DOUBLE" />
+    <result column="cholesterin" property="cholesterin" jdbcType="DOUBLE" />
+    <result column="Na" property="na" jdbcType="DOUBLE" />
+    <result column="Ca" property="ca" jdbcType="DOUBLE" />
+    <result column="Fe" property="fe" jdbcType="DOUBLE" />
+    <result column="VA" property="va" jdbcType="DOUBLE" />
+    <result column="VB1" property="vb1" jdbcType="DOUBLE" />
+    <result column="VB2" property="vb2" jdbcType="DOUBLE" />
+    <result column="VE" property="ve" jdbcType="DOUBLE" />
+    <result column="VC" property="vc" jdbcType="DOUBLE" />
+    <result column="nickName" property="nickname" jdbcType="VARCHAR" />
+    <result column="gi_value" property="giValue" jdbcType="DOUBLE" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="diet_people" property="dietPeople" jdbcType="VARCHAR" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="compare_img" property="compareImg" jdbcType="VARCHAR" />
+    <result column="frequent" property="frequent" jdbcType="INTEGER" />
+    <result column="Se" property="se" jdbcType="DOUBLE" />
+    <result column="P" property="p" jdbcType="DOUBLE" />
+    <result column="Ka" property="ka" jdbcType="DOUBLE" />
+    <result column="Mg" property="mg" jdbcType="DOUBLE" />
+    <result column="Cu" property="cu" jdbcType="DOUBLE" />
+    <result column="F" property="f" jdbcType="DOUBLE" />
+    <result column="Cr" property="cr" jdbcType="DOUBLE" />
+    <result column="Mn" property="mn" jdbcType="DOUBLE" />
+    <result column="Mo" property="mo" jdbcType="DOUBLE" />
+    <result column="I" property="i" jdbcType="DOUBLE" />
+    <result column="VB3" property="vb3" jdbcType="DOUBLE" />
+    <result column="VB5" property="vb5" jdbcType="DOUBLE" />
+    <result column="VB6" property="vb6" jdbcType="DOUBLE" />
+    <result column="VB7" property="vb7" jdbcType="DOUBLE" />
+    <result column="VB9" property="vb9" jdbcType="DOUBLE" />
+    <result column="VB12" property="vb12" jdbcType="DOUBLE" />
+    <result column="VD" property="vd" jdbcType="DOUBLE" />
+    <result column="DHA" property="dha" jdbcType="DOUBLE" />
+    <result column="Zn" property="zn" jdbcType="DOUBLE" />
+    <result column="morning_fre" property="morningFre" jdbcType="INTEGER" />
+    <result column="lunch_fre" property="lunchFre" jdbcType="INTEGER" />
+    <result column="dinner_fre" property="dinnerFre" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="suitable" property="suitable" jdbcType="INTEGER" />
+    <result column="unit_remark" property="unitRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, name, category_id, calorie, protein, carbo, fat, fiber, cholesterin, Na, Ca, 
+    Fe, VA, VB1, VB2, VE, VC, nickName, gi_value, description, diet_people, img, compare_img, 
+    frequent, Se, P, Ka, Mg, Cu, F, Cr, Mn, Mo, I, VB3, VB5, VB6, VB7, VB9, VB12, VD, 
+    DHA, Zn, morning_fre, lunch_fre, dinner_fre, state, remarks, suitable, unit_remark
+  </sql>
+ 
+  <!-- 通过食材名称模糊查询食材信息 -->
+  <select id="findFoodByName" parameterType="String" resultType="com.jumper.weight.nutrition.food.vo.VOWeightFood">
+  	select id,name,unit_remark unitRemark,calorie from weight_food where state=1
+  	<if test="_parameter != null and _parameter != ''">
+  		and instr(name,#{foodName})
+  	</if>
+  	order by frequent desc limit 15
+  </select>
+  
+  <!--  -->
+  <select id="findFoodByIds" resultType="com.jumper.weight.nutrition.food.entity.WeightFood">
+  	select weight_food.*,ca.name as categoryName
+  		from weight_food,weight_food_category ca where weight_food.category_id=ca.id and weight_food.id in
+  			<foreach collection="array" item="foodId" index="index" open="(" close=")" separator=",">
+  				#{foodId}
+  			</foreach>
+  </select>
+ 	
+</mapper>

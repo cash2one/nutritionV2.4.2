@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jumper.weight.nutrition.report.mapper.WeightReportMapper" >
+  <resultMap id="BaseResultMap" type="com.jumper.weight.nutrition.report.entity.WeightReport" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="hospital_id" property="hospitalId" jdbcType="INTEGER" />
+    <result column="outpatient_id" property="outpatientId" jdbcType="INTEGER" />
+    <result column="hospital_name" property="hospitalName" jdbcType="VARCHAR" />
+    <result column="user_msg" property="userMsg" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+     <result column="report_number" property="reportNumber" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, hospital_id, outpatient_id, hospital_name, user_msg, add_time, report_number
+  </sql>
+  
+  <!-- 通过id查询报告记录 -->
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from weight_report
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 通过门诊id查询报告 -->
+  <select id="findWeightReportByOutpatientId" parameterType="int" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from weight_report
+    where outpatient_id = #{outpatientId,jdbcType=INTEGER} limit 1
+  </select>
+  
+  <!-- 添加报告信息 -->
+  <insert id="insert" parameterType="com.jumper.weight.nutrition.report.entity.WeightReport" 
+  	flushCache="true" keyColumn="GENERATED_KEY" keyProperty="id" useGeneratedKeys="true">
+    insert into weight_report
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="hospitalId != null" >
+        hospital_id,
+      </if>
+      <if test="outpatientId != null" >
+        outpatient_id,
+      </if>
+      <if test="hospitalName != null" >
+        hospital_name,
+      </if>
+      <if test="userMsg != null" >
+        user_msg,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="reportNumber != null" >
+        report_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="hospitalId != null" >
+        #{hospitalId,jdbcType=INTEGER},
+      </if>
+      <if test="outpatientId != null" >
+        #{outpatientId,jdbcType=INTEGER},
+      </if>
+      <if test="hospitalName != null" >
+        #{hospitalName,jdbcType=VARCHAR},
+      </if>
+      <if test="userMsg != null" >
+        #{userMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reportNumber != null" >
+        #{reportNumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 修改报告信息 -->
+  <update id="update" parameterType="com.jumper.weight.nutrition.report.entity.WeightReport" >
+    update weight_report
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="hospitalId != null" >
+        hospital_id = #{hospitalId,jdbcType=INTEGER},
+      </if>
+      <if test="outpatientId != null" >
+        outpatient_id = #{outpatientId,jdbcType=INTEGER},
+      </if>
+      <if test="hospitalName != null" >
+        hospital_name = #{hospitalName,jdbcType=VARCHAR},
+      </if>
+      <if test="userMsg != null" >
+        user_msg = #{userMsg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 通过门诊id删除报告信息 -->
+  <delete id="deleteWeightReportByOutpatientId" parameterType="int">
+  	delete from weight_report where outpatient_id=#{outpatientId}
+  </delete>
+  
+</mapper>

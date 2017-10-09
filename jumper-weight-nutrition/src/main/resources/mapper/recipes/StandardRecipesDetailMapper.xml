@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jumper.weight.nutrition.recipes.mapper.StandardRecipesDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.jumper.weight.nutrition.recipes.entity.StandardRecipesDetail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="recipes_plan_id" property="recipesPlanId" jdbcType="INTEGER" />
+    <result column="recipes_msg" property="recipesMsg" jdbcType="LONGVARCHAR" />
+    <result column="intake_calorie" property="intakeCalorie" jdbcType="INTEGER" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, recipes_plan_id, recipes_msg, intake_calorie, add_time
+  </sql>
+  
+  <!-- 通过方案查询标准食谱 -->
+  <select id="findStandardRecipesByPlan" parameterType="int" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"></include>
+  		from standard_recipes_detail where recipes_plan_id=#{planId} order by add_time
+  </select>
+  
+  <!-- 删除方案下的食谱 -->
+  <delete id="deleteRecipesDetailByPlan" parameterType="int">
+  	delete from standard_recipes_detail where recipes_plan_id=#{planId}
+  </delete>
+  
+  <!-- 根据id删除食谱 -->
+  <delete id="delete" parameterType="int" >
+    delete from standard_recipes_detail where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <!-- 插入食谱信息 -->
+  <insert id="insert" parameterType="com.jumper.weight.nutrition.recipes.entity.StandardRecipesDetail" 
+  	flushCache="true" keyColumn="GENERATED_KEY" keyProperty="id" useGeneratedKeys="true">
+    insert into standard_recipes_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="recipesPlanId != null" >
+        recipes_plan_id,
+      </if>
+      <if test="recipesMsg != null" >
+        recipes_msg,
+      </if>
+      <if test="intakeCalorie != null" >
+        intake_calorie,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="recipesPlanId != null" >
+        #{recipesPlanId,jdbcType=INTEGER},
+      </if>
+      <if test="recipesMsg != null" >
+        #{recipesMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="intakeCalorie != null" >
+        #{intakeCalorie,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 修改食谱信息 -->
+  <update id="update" parameterType="com.jumper.weight.nutrition.recipes.entity.StandardRecipesDetail" >
+    update standard_recipes_detail
+    <set>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="recipesPlanId != null" >
+        recipes_plan_id = #{recipesPlanId,jdbcType=INTEGER},
+      </if>
+      <if test="recipesMsg != null" >
+        recipes_msg = #{recipesMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="intakeCalorie != null" >
+        intake_calorie = #{intakeCalorie,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 通过id查询食谱信息 -->
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from standard_recipes_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  
+</mapper>

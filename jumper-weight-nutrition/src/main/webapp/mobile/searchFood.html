@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--css文件加载顺序不能动-->
+    <link href="css/mui.min.css" rel="stylesheet">
+    <link href="css/css.css" rel="stylesheet">
+    <link href="css/reset.css" rel="stylesheet">
+    <link href="css/muiReset.css" rel="stylesheet">
+    <link href="css/jquery.autocomplete.css" rel="stylesheet">
+    <title>添加食材</title>
+    <style>
+        input[type='text']{
+            height: inherit;
+            padding: inherit;
+            margin-bottom: inherit;
+        }
+        .mui-icon{
+            font-size: 16px;
+        }
+        body{
+            display: none;
+        }
+        @media only screen and (min-width: 320px){
+            .mui-popup{top:32%;}
+        }
+        @media only screen and (min-width: 375px){
+            .mui-popup{top:40%;}
+        }
+		html, body {
+		    height: 100%;
+		    margin: 0px;
+		    padding: 0px;
+		    overflow: hidden;
+		    -webkit-touch-callout: none;
+		    -webkit-user-select: none;
+		}
+    </style>
+</head>
+<body>
+    <div class="con-wrap2">
+        <input type="text" placeholder="输入食物名" class="se-input" id="search-food-input">
+        <!--<a href="#" class="quxiao">取消</a>-->
+        <img class="searchDetele" id="searchDetele" src="images/search_detele@2x.png" />
+    </div>
+    <div class="sousuoMain" style="overflow: hidden;">
+        <div class="sousuoMainList" id="searchFoodList">
+           <!--  <a><span class="searchName" foodId="1" calorie="120">鸡蛋</span><span class="addMenu fr greed mui-icon mui-icon-plus"></span></a>
+            <a><span class="searchName" foodId="2" calorie="120">鸡腿</span><span class="addMenu fr greed mui-icon mui-icon-plus"></span></a>
+            <a><span class="searchName" foodId="3" calorie="120">鸡翅</span><span class="addMenu fr greed mui-icon mui-icon-plus"></span></a>
+            <a><span class="searchName" foodId="4" calorie="120">鸡肉</span><span class="addMenu fr greed mui-icon mui-icon-plus"></span></a>
+            <a><span class="searchName" foodId="5" calorie="120">白菜</span><span class="addMenu fr greed mui-icon mui-icon-plus"></span></a>
+            <a><span class="searchName" foodId="6" calorie="120">青菜</span><span class="addMenu fr greed mui-icon mui-icon-plus"></span></a>
+            <a><span class="searchName" foodId="7" calorie="120">萝卜</span><span class="addMenu fr greed mui-icon mui-icon-plus"></span></a>
+            <a><span class="searchName" foodId="8" calorie="120">通心面</span><span class="addMenu fr greed mui-icon mui-icon-plus"></span></a> -->
+        </div>
+    </div>
+    <div class="searchBox">
+        <div class="sousuoMainList" id="foodList">
+        
+        	<p class="searchBoxText">还是空的哦 ~ 请添加点食材吧 ^_^ ~</p>
+        </div>
+    </div>
+    <div class="searchBtm" style="position:fixed;bottom:0;">
+        <span class="searchT" onclick="searchBoxShow();">已添加 <span class="searchNum "><i class="mui-spinner" style="width: 12px;height: 10px;"></i></span> 种食物<i class="mui-icon mui-icon-arrowup" id="arrow" style="transition: .2s"></i></span>
+        <button class="searchEnd fr" id="saveMealsInfo">完成</button>
+    </div>
+</body>
+<script src="js/Zepto.js"></script>
+<script src="js/mui.min.js"></script>
+<script src="js/rem.js"></script>
+<script src="js/fn.js"></script>
+<script src="../sfile/js/jquery-1.10.1.min.js"></script>
+<script src="../sfile/js/jquery.cookie.js"></script>
+<script src="../sfile/js/common.js"></script>
+<script src="../sfile/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="../sfile/js/jquery.autocomplete.js"></script>
+<script src="js/ajax/searchFood.js"></script>
+
+<script type="text/javascript" charset="utf-8">
+    var searchT = document.getElementsByClassName("searchT")[0];
+    var addNum = document.getElementsByClassName("addNum");
+    var searchBox = document.getElementsByClassName("searchBox")[0];
+    var aName = searchBox.getElementsByClassName("addFoodName");
+    var arrow =  document.getElementById("arrow");
+    var flag =true;
+    window.onload=function () {
+        //底部"已添加0种食物"箭头方向初始化
+        arrow.style.transform="rotate(180deg)";
+        //mui初始化
+        mui.init({
+            swipeBack: true //启用右滑关闭功能
+        });
+        menuLength();
+       /*  $(".inputNum").attr("type","number").attr("onkeyup","this.value=this.value.replace(/\D/g,'')");
+        $(".sousuoMainList a").on('tap', function(e) {
+                //e.detail.gesture.preventDefault(); //修复iOS 8.x平台存在的bug，使用plus.nativeUI.prompt会造成输入法闪一下又没了
+            var foodName=$(this).children(".searchName").text();
+            var foodId = $(this).children(".searchName").attr("foodId");
+            var calorie = $(this).children(".searchName").attr("calorie");
+            var btnArray = ['取消', '确定'];
+            var remark = "";
+            if (aName.length==0){
+                prompt(foodId,foodName,btnArray,remark,calorie);
+            }else {
+                var success=false;
+                $(".addFoodName").each(function (){if(foodName == $(this).text()){success = true;return false;}});
+                success?mui.toast("有这个食材了"):prompt(foodId,foodName,btnArray,remark,calorie);
+            }
+        }); */
+        //重置searchBox高度
+        if(aName.length==0){
+        	searchBox.style.height = 0;
+        }else if(aName.length>0){
+        	searchBox.style.height = "200px";
+        }
+    };
+    function prompt(param) {
+    	var _foodId = param.id;
+    	var _foodName = param.name;
+    	var _calorie = param.calorie;
+    	var _remark = param.remark;
+    	var _btnArray = param.btnArray;
+    	if(_remark==null || _remark==""){
+    		_remark = '不确定份量可先输入“1”';
+    	}
+        mui.prompt('', _remark, '请输入食物的份量(克)',_btnArray, function(e) {
+            if (e.index ==1) {
+                if(e.value==''||e.value==0||isNaN(e.value)){
+                	mui.toast('请输入正确的份量');
+                	return false;
+                }else{
+                    //$("#foodList").append('<a class="addFoodList"><span class="addFoodName">'+_foodName+'</span><span class="addNum">'+ e.value+'克'+'</span><span class="removeMenu fr red mui-icon mui-icon-trash" mealsId="0" foodId="'+_foodId+'" foodName="'+_foodName+'" foodWeight="'+e.value+'" calorie="'+_calorie+'" onclick="removeP(this)"></span></a>');
+                    $(".searchBoxText").before('<a class="addFoodList"><span class="addFoodName">'+_foodName+'</span><span class="addNum">'+ e.value+'克'+'</span><span class="removeMenu fr red mui-icon mui-icon-trash" mealsId="0" foodId="'+_foodId+'" foodName="'+_foodName+'" foodWeight="'+e.value+'" calorie="'+_calorie+'" onclick="removeP(this)"></span></a>');
+                    $(".searchBoxText").html('可以继续添加食材 ~');
+                    menuLength();
+                    if (searchBox.style.opacity==0){searchBoxShow();}
+                }
+            } else {
+                menuLength();
+            }
+        });
+        $(".inputNum")
+        .attr("type","number")
+        .attr("oninput","if(value.length>5)value=value.slice(0,5)")
+        .css("height","30px");
+        setTimeout(function(){
+        	openSoftKeyboard();
+        	$(".inputNum").focus();
+        },200);
+        
+    }
+    
+    //计算已添加的食物个数
+    function menuLength() {
+        $(".searchNum").eq(0).html(aName.length);
+    }
+    function removeP(d) {
+            var btnArray = ['否', '是'];
+            mui.confirm('', '删除该食材?', btnArray, function(e) {
+                if (e.index == 1) {
+                    //删除操作
+                    $(d).parent().remove();
+                    menuLength();
+                    if(aName.length==0){
+                        $(".searchBoxText").html('T_T 空了哦 ~ 请添加点食材把 ~');
+                    }
+                    //此处写删除后传数据给后台
+                    var id = $(d).attr("mealsId");
+                    if(id != "0" && id != null && id != ''){
+                    	$.ajax({
+                    		url:basePath+"/diet/deleteUserMealsInfo",
+                    		type:"POST",
+                    		dataType:"json",
+                    		data:{mealsInfoId:id},
+                    		success:function(json){
+                    			if(json.msg==0){
+                    				mui.toast("删除失败，请稍后重试！");
+                    			}else if(json.msg==1){
+                    				mui.toast("删除成功！");
+                    			}
+                    		}
+                    	});
+                    }else{
+                    	mui.toast("删除成功！");
+                    }
+                }
+            })
+    }
+    function searchBoxShow(){
+        if (flag){
+            searchBox.style.bottom="45px";
+            searchBox.style.opacity=1;
+            searchBox.style.height = "200px";
+            arrow.style.transform="rotate(0)";
+            setTimeout(function(){searchBox.style.display = "block";},300);
+            flag =false;
+        }else {
+            searchBox.style.bottom="0";
+            searchBox.style.opacity=0;
+            searchBox.style.height = 0;
+            arrow.style.transform="rotate(180deg)";
+            setTimeout(function(){searchBox.style.display = "none";},300);
+            flag =true;
+        }
+    }
+      //页面延时显示
+    setTimeout(function(){document.body.style.display="block";},10);
+</script>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <!--触发标准模式，这个是最有效的方法。-->
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <meta name=”renderer” content=”webkit|ie-comp|ie-stand” />
+    <title>analyze</title>
+    <link rel="stylesheet" href="css/layercss/layui.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/layR.css" />
+    <style>
+        .container-right{
+            margin-left: 0;
+            _left:0;
+        }
+        .container-main{
+            margin: 20px;
+            overflow: hidden;
+
+        }
+        .cellBox{
+            padding: 20px;
+            background: white;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .cellBox_1,.cellBox_2{
+            width: 100%;
+        }
+        .cellBox .layui-table th{
+            border-top: 1px solid #CCCCCC;
+        }
+        .cellBox .layui-table th{
+            background: #eeeeee;
+        }
+        .cellBox .layui-table td,.cellBox .layui-table th{
+            border-left: 1px solid #CCCCCC;
+            border-right: 1px solid #CCCCCC;
+        }
+        .cellBox .layui-table tr{
+            border-bottom: 1px solid #CCCCCC;
+        }
+        .icon_ana{
+            height: 24px;
+            width: 24px;
+            margin: -2px 10px 0 0;
+            float: left;
+            vertical-align: middle;
+            background-image: url("img/icon_ana_1.gif");
+        }
+        .cellBox_title{
+            font-size: 16px;
+            font-weight: bold;
+            color: #627d99;
+            margin-bottom: 20px;
+        }
+        .icon_1{background-position:0 -24px;}
+        .LeftBox{
+            float: left;
+            width: 49%;
+            +width: 46%;
+        }
+        .RightBox{
+            margin-left: 2%;
+            float: left;
+            width: 49%;
+            +width:46%;
+        }
+        .centerBox{
+            width: 100%;
+        }
+       .topNav{
+            line-height: 44px;
+       }
+        .topNav.active{
+            box-sizing: border-box;
+            border-bottom: 5px solid #1990EC;
+            color: #1990EC;
+        }
+        .ana_tips,.ana_tips2{
+            margin: 0 6px;
+            width: 16px;
+            vertical-align: middle;
+            margin-top: -4px;
+        }
+        .tableData{
+            width: 80%;
+            text-align: center;
+            color: #333;
+            margin: 52px 10%;
+        }
+        .tableData td,.tableData th{
+            border-left: 1px solid #CCCCCC;
+        }
+        .tableData td{
+            font-weight: bold;
+            font-size: 33px;
+            line-height: 60px;
+        }
+        .titleSelect{
+            font-size: 16px;
+            font-weight: bold;
+            color: #627d99;
+            border:none;
+            cursor: pointer;
+            transition: .2s;
+        }
+        .titleSelect:hover{
+            background: #e6ecf0;
+        }
+        .layui-input-inline{
+            _float: left;
+            width: 104px!important;
+        }
+       .layui-input{_height: 24px;_line-height: 24px;width: 100px;!important;}
+       .con-right-top-2{
+       	    height: 50px;
+    		line-height: 50px;
+    		width: 100%;
+    		border-bottom: 1px solid #ccc;
+    		background: #fff;
+       }
+       .con-right-top-2 span {
+    		color: #5d5d5d;
+    		margin-left: 20px;
+    		font-size: 15px;
+    		cursor: pointer;
+		}		
+    </style>
+
+</head>
+<body>
+
+<div class="container" style="clear:both">
+   <div class="container-right">
+        <div class="con-right-top">
+            <span id="outpatient">门诊</span>
+			<span id="userManage">孕妇档案</span>
+			<span id="standardRecipes">营养方案</span>
+			<span class="active" id="statistics">统计</span>
+			<span id="settings">设置</span>
+			<span id="noRead" style="float:right;margin-right:66px;"><img style="width:30px;" alt="" src="img/email.png"><span style="margin-left:0px;">（0）</span></span>
+        </div>
+       <div class="con-right-top-2">
+           <span class="topNav fl active statistics">门诊统计</span><span class="topNav fl statisticsWeight">体重异常统计</span>
+       </div>
+        <div class="container-main">
+            <div class="LeftBox">
+                <div class="cellBox cellBox_1">
+                    <h1 class="cellBox_title"><i class="icon_ana icon_1"></i><span>今日数据<img class="ana_tips" src="img/q.gif" alt=""></span><span style="color: #CCCCCC;font-weight: normal;">（更新时间：<span class="refreshTime">2017-05-15 08:40</span>）</span></h1>
+                    <div style="width: 100%;">
+                        <table class="tableData">
+                            <tr>
+                                <th style="border-left: none;">门诊人数</th>
+                                <th>初诊人数</th>
+                                <th>复诊人数</th>
+                            </tr>
+                            <tr>
+                                <td style="border-left: none;" class="dayOutpNum"></td>
+                                <td class="dayFirstOutpNum"></td>
+                                <td class="dayRepeatNum"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <div class="RightBox">
+                <div class="cellBox cellBox_2">
+                    <h1 class="cellBox_title"><i class="icon_ana icon_1"></i><span>本月数据<img class="ana_tips2" src="img/q.gif" alt=""></span></h1>
+                    <div style="width: 100%;">
+                        <table class="tableData">
+                            <tr>
+                                <th style="border-left: none;">门诊人数</th>
+                                <th>初诊人数</th>
+                                <th>复诊人数</th>
+                            </tr>
+                            <tr>
+                                <td style="border-left: none;" class="monthOutpNum"></td>
+                                <td class="monthFirstOutpNum"></td>
+                                <td class="monthRepeatNum"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="centerBox">
+
+                <div class="cellBox cellBox_1">
+                    <h1 class="cellBox_title"><i class="icon_ana icon_1"></i>
+                        <span>
+                            <select class="titleSelect" name="" id="statisticsType">
+                                <option value="0">门诊人数</option>
+                                <option value="1">初诊人数</option>
+                                <option value="2">复诊人数</option>
+                                <option value="3">累计门诊人数</option>
+                                <option value="4">累计门诊人次</option>
+                            </select>
+                       </span>
+                    </h1>
+                    <div class="layui-form-item ov">
+                        <label class="fl"  style="margin-top:8px;_margin-top:1px;">选择时间范围：</label>
+                        <div class="layui-input-inline" style="_width:80px;">
+                            <select class="layui-input" name="" id="selectTian" style="line-height: 40px;">
+                                <option value="0">最近7天</option>
+                                <option value="1">最近30天</option>
+                                <option value="2">自定义</option>
+                            </select>
+                        </div>
+                        <div class="dateBox" style="display: none;">
+                            <label class="fl" style="margin-top:8px;_margin-top:1px;margin-left: 20px;"> 选择日期范围：</label>
+                            <div class="layui-input-inline" style="_width:80px;">
+                                <input class="layui-input" placeholder="开始日" id="startDate" readonly="readonly">
+                            </div>
+                            <div class="layui-input-inline" style="_width:80px;">
+                                <input class="layui-input" placeholder="截止日" id="endDate" readonly="readonly">
+                            </div>
+                            <button class="layui-btn fl checkSearchBtn" style="_height: 25px;_line-height: 26px;_width: 60px; ">确定</button>
+                        </div>
+                    </div>
+                    <hr style="margin: 20px 0">
+                    <div id="container_8" style="height: 500px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<script src="../sfile/js/json2.js"></script>
+<script type="text/javascript" src="js/jquery-1.7.2.min.js" ></script>
+<script type="text/javascript" src="js/layui/layui.js"></script>
+<script type="text/javascript" src="js/layer/layer.js"></script>
+<script src="../sfile/js/highcharts.js"></script>
+<script type="text/javascript" src="js/highchartsThemes/GirdLight.js"></script>
+<!-- ie不支持 -->
+<!-- <link rel="import" href="common/foot.html"> -->
+<script src="../sfile/js/jquery.cookie.js"></script>
+<script src="../sfile/js/common.js"></script>
+<script src="../sfile/js/main.js"></script>
+<script type="text/javascript" src="js/ajax/statistics.js"></script>
+<script>
+    $(function () {
+		//select选择
+		$('#selectTian').on('change', function() {
+			if ($(this).val() == 2) {
+				$('.dateBox').css('display', 'block');
+			} else {
+				$('.dateBox').css('display', 'none');
+			}
+		});
+		//日期js
+		layui.use('laydate', function() {
+			var laydate = layui.laydate;
+			var start = {
+				min : laydate.now(-371),
+				max : laydate.now(),
+				istoday : false,
+				choose : function(datas) {
+					end.min = datas; //开始日选好后，重置结束日的最小日期
+					end.start = datas; //将结束日的初始值设定为开始日
+				}
+			};
+
+			var end = {
+				min : laydate.now(-371),
+				max : laydate.now(),
+				istoday : false,
+				choose : function(datas) {
+					start.max = datas; //结束日选好后，重置开始日的最大日期
+				}
+			};
+
+			document.getElementById('startDate').onclick = function() {
+				start.elem = this;
+				laydate(start);
+			};
+			document.getElementById('endDate').onclick = function() {
+				end.elem = this;
+				laydate(end);
+			}
+		});
+		//动态获取视窗高度
+		var heights = $(window).height() - 60;
+		$(".container-left,.container,.container-right").height(heights);
+
+		$('.ana_tips').mouseover(function() {
+			layer.tips('今日实时数据的统计时间为今日零时截至当前更新时间' + '<br>'
+					+ '门诊人数：在统计时间内，到医院进行初诊和复诊的人数' + '<br>'
+					+ '初诊人数：在统计时间内，到医院进行初诊的人数' + '<br>'
+					+ '复诊人数：在统计时间内，到医院进行复诊的人数', '.ana_tips', {
+				tips : [ 3, '#1990ec' ],
+				width : 400,
+				time : 6000
+			});
+			$('.layui-layer-tips').css('width', '326px');
+		});
+		$('.ana_tips2').mouseover(function() {
+			layer.tips('本月数据的统计时间为本月1号零时截至当前更新时间' + '<br>'
+					+ '门诊人数：在统计时间内，到医院进行初诊和复诊的人数' + '<br>'
+					+ '初诊人数：在统计时间内，到医院进行初诊的人数' + '<br>'
+					+ '复诊人数：在统计时间内，到医院进行复诊的人数', '.ana_tips2', {
+				tips : [ 3, '#1990ec' ],
+				width : 400 + 'px',
+				time : 6000
+			});
+			$('.layui-layer-tips').css('width', '326px');
+		});
+		$('.ana_tips,.ana_tips2').mouseout(function() {
+			$('.layui-layer-tips').hide(200);
+		});
+
+	});
+	$(window).resize(function() {
+		var heights = $(window).height() - 60;
+		$(".container-left,.container,.container-right").height(heights);
+	});
+</script>
+</html>
+

@@ -1,0 +1,255 @@
+
+<form id="submitForm" style="display: none;">
+   	<!-- 判断是否保存成功，成功的话就关闭弹框 -->
+   	<input type="hidden" value="0" name="isSuccess">
+	<div class="con-right-cen">
+		<div class="cen-conter pB20">
+			<p class="text">基本信息</p>
+			<table class="cen-table inputConten" border="0" cellspacing="0">
+				<tr>		
+					<td>
+						<label for="mobile">手机号码</label>
+						<div  class="divelative">
+							<input class="inputWidth100" style="width:90px !important;" id="mobile" name="mobile" type="text" placeholder="" readonly="readonly" maxlength="11"/>
+						</div>
+						<em class="errorP"></em>
+					</td>
+					<td>
+						<label for="realName">姓名</label>
+						<div  class="divelative">
+							<input class="inputWidth100" id="realName" name="realName" type="text" placeholder=""/>
+						</div>
+						<em class="errorP"></em>
+					</td>
+					<td>
+						<label for="birthday">出生日期</label>
+						<div  class="divelative">
+							<input class="inputWidth100" id="birthday" name="birthday" type="text" placeholder="" readonly="readonly"/>
+						</div>
+						<em class="errorP"></em>
+					</td>
+					<td class="niancenger" style="word-break:keep-all;width:80px;text-align: left;">
+						<span>年龄：</span><span class="age"></span>
+					</td>
+					<td>
+						<label for="weight">孕前体重</label>
+						<div  class="divelative">
+							<input type="text" id="weight" name="weight"/>
+							<span class="unit">kg</span>
+						</div>
+						<em class="errorP"></em>
+					</td>
+					<td>
+						<label for="height">身高</label>
+						<div  class="divelative">
+							<input type="text" id="height" name="height"/>
+							<span class="unit">cm</span>
+						</div>
+						<em class="errorP"></em>
+					</td>
+				</tr>
+				<tr>		
+					<td>
+						<label for="pregnantType">怀孕类型</label>
+						<div>
+							<select class="fl" style="margin-left: 4px;font-size: 12px" id="pregnantType" name="pregnantType">
+								<option value="0">单胎</option>
+								<option value="1">多胎</option>
+							</select>
+						</div>
+						<em class="errorP"></em>
+					</td>
+					<td>
+						<label for="lastPeriod">末次月经</label>
+						<div  class="divelative">
+							<input class="inputWidth100" name="lastPeriod" id="lastPeriod"  type="text" placeholder="" readonly="readonly"/>
+						</div>
+						<em class="errorP"></em>
+					</td>
+					<td>
+						<label for="expectedDate">预产期</label>
+						<div  class="divelative">
+							<input class="inputWidth100" name="expectedDate" id="expectedDate" type="text" placeholder="" readonly="readonly"/>
+						</div>
+						<em class="errorP"></em>
+					</td>
+					<td class="niancenger" style="text-align: left;">
+						<span>孕周：</span><span class="pregnantWeek"></span>
+					</td>
+					<td style="text-align: left;">
+						<span class="">孕前BMI：</span>
+						<span style="padding-left:10px" class="pregBmi"></span> <span class="green pregWeightStatus"></span>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="con-right-cen">
+		<div class="cen-conter pB20">
+			<p class="text">门诊信息</p>
+			<table class="cen-table inputConten" border="0" cellspacing="0" style="width:100%;">
+				<tr>		
+					<td colspan="2">
+						<label for="outpatientDate" class="outpatientDate-lab" style="width: auto;text-align: left;">门诊日期</label>
+						<div  class="divelative">
+							<input class="inputWidth100" name="outpatientDate" id="outpatientDate" type="text" placeholder="" readonly="readonly"/>
+						</div>
+						<em class="errorP"></em>
+					</td>
+					<td colspan="2">
+						<label for="outpatientNum" style="_margin-left:0;width: 58px;">就诊卡号</label>
+						<div  class="divelative">
+							<input class="inputWidth100" id="outpatientNum" name="outpatientNum" type="text" placeholder="选填"/>
+						</div>
+						<em class="errorP" style="margin-left:-22%;_margin-left:0;"></em>
+					</td>
+					<td colspan="2">
+						<label for="healthNum" style="_margin-left:0;width: 58px;">保健号</label>
+						<div  class="divelative">
+							<input class="inputWidth100" id="healthNum" name="healthNum" type="text" placeholder="选填"/>
+						</div>
+						<em class="errorP" style="margin-left:-22%;_margin-left:0;"></em>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	
+	<div class="con-right-cen">
+		<div class="cen-conter pB20">
+			<p class="text">体检信息   <!-- <span class="lianbut">连接硬件</span> --></p>
+			<table class="cen-table inputConten" border="0" cellspacing="0" style="width:100%;">
+				<tr>		
+					<td>
+						<label for="averageValue">目前体重</label>
+						<div  class="divelative">
+							<input type="text" id="averageValue" name="averageValue"/>
+							<span class="unit">kg</span>
+						</div>
+						<em class="errorP"></em>
+					</td>
+					<td style="text-align: left;">
+						<span >目前BMI：</span>
+						<span style="padding-left:10px" class="currBmi"></span> <span class="green currWeightStatus"></span>
+					</td>
+					<td>
+						<label for="muscle">肌肉率</label>
+						<div  class="divelative">
+							<input type="text" id="muscle" name="muscle" placeholder="选填"/>
+							<span class="unit">%</span>
+						</div>
+						<em class="errorP"></em>
+					</td>
+					<td>
+						<label for="bodyFatRate">体脂率</label>
+						<div  class="divelative">
+							<input type="text" id="bodyFatRate" name="bodyFatRate" placeholder="选填"/>
+							<span class="unit">%</span>
+						</div>
+						<em class="errorP"></em>
+					</td>
+					<td>
+						<label for="moistureContent">水分率</label>
+						<div  class="divelative">
+							<input type="text" id="moistureContent" name="moistureContent" placeholder="选填"/>
+							<span class="unit">%</span>
+						</div>
+						<em class="errorP"></em>
+					</td>
+					<td>
+						<label for="basalMetabolism">基础代谢</label>
+						<div  class="divelative">
+							<input type="text" id="basalMetabolism" name="basalMetabolism" placeholder="选填"/>
+							<span class="unit">kcal</span>
+						</div>
+						<em class="errorP"></em>
+					</td>
+				</tr>
+				<tr>
+					<td  colspan="2">
+						<label for="mealType">餐次</label>
+						<div>
+							<select class="fl" style="margin-left: 4px;font-size: 12px" id="mealType" name="mealType">
+								<option value="0">早餐前</option>
+								<option value="1">早餐后</option>
+								<option value="2">午餐前</option>
+								<option value="3">午餐后</option>
+								<option value="4">晚餐前</option>
+								<option value="5">晚餐后</option>
+								<option value="6">睡前</option>
+							</select>
+						</div>
+						<em class="errorP"></em>
+					</td>
+					<td colspan="2">
+						<label for="sugarValue">目前血糖</label>
+						<div  class="divelative">
+							<input type="text" id="sugarValue" name="sugarValue" placeholder="选填" />
+							<span class="unit" style="width:50px;">mmol/l</span>
+						</div>
+						<em class="errorP"></em>
+					</td>
+					<td colspan="2">
+						<label for="isDiabetes" style="white-space:nowrap;">妊娠期糖尿病</label>
+						<div>
+							<select class="fl" style="margin-left: 4px;font-size: 12px;width:58px;" id="isDiabetes" name="isDiabetes">
+								<option value="0">否</option>
+								<option value="1">是</option>
+							</select>
+						</div>
+						<em class="errorP"></em>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<script type="text/javascript">
+		function myBrowser() {
+		 	var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+		 	var isOpera = userAgent.indexOf("Opera") > -1; //判断是否Opera浏览器
+		    var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera; //判断是否IE浏览器
+			var a = $(window).width();
+			var b = $(".errorP");
+			if (a <= 1280) {
+				b.css("left", "37%");
+			} else if (1280 < a && a <= 1600) {
+				b.css("left", "37%");
+			} else if (1600 < a && a <= 1820) {
+				b.css("left", "35%");
+			} else if (1820 < a && a <= 1920) {
+				b.css("left", "35%");
+			}
+			if (isIE) {
+				var a = $(window).width();
+		        var IE5 = IE55 = IE6 = IE7 = IE8 = false;
+		        var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+		        reIE.test(userAgent);
+		        var fIEVersion = parseFloat(RegExp["$1"]);
+		        IE55 = fIEVersion == 5.5;
+		        IE6 = fIEVersion == 6.0;
+		        IE7 = fIEVersion == 7.0;
+		        IE8 = fIEVersion == 8.0;
+		        if (IE6) {
+		             if(a<1442){
+		            	$(".divelative")
+		            	.css("flaot","right")
+		            	.css("margin-top","-20px")
+		            	.css("margin-left","82px");
+		            	
+		             }else if(a>1442){
+		            	$(".divelative")
+		            	.css("flaot","left")
+		            	.css("margin-top","0")
+		            	.css("margin-left","20");
+		             }
+		        }
+	    	}
+		}
+		$(window).resize(function() {myBrowser();});
+		$(function() {
+			myBrowser();
+		});
+		
+	</script>
+</form>

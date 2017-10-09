@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta charset="utf-8" />
+        <!--触发标准模式，这个是最有效的方法。-->
+        <meta http-equiv="X-UA-Compatible" content="edge" />
+        <meta name=”renderer” content=”webkit|ie-comp|ie-stand” />
+		<title>查看报告</title>
+		<style>
+		*{box-sizing: border-box;}
+		body {margin: 0;padding: 0;font-size: 15px;font-family: '微软雅黑';color: #333; background:#ebebeb;width: 100%;}
+		table{border-collapse:collapse;border-spacing:0;} 
+		a{text-decoration: none;color: #45b3e6;_cursor:hand ;cursor:pointer;}
+		.report-contain{background: #ebebeb; width:100% ;min-width: 1280px; height: 100%; overflow: hidden;}
+		.report-head{background: #fff;border-bottom:1px solid #ddd;height: 50px; width:100% ;margin-bottom:15px ;position: fixed;top: 0px;z-index: 2;}
+		.report-returnbtn{height: 50px;line-height: 50px; margin-left: 70%; }
+		.report-but{cursor:pointer;border: 1px solid #1990ec;color: #1990ec;padding:6px 15px;border-radius: 3px;font-weight: normal;margin-left: 10px;}
+		.report-but:hover{background: #1990ec;color: #fff;}
+		.report-content-all{width: 21cm;word-break: break-all;background: #fff; margin: 10px auto;overflow: hidden;}
+		.report-content{width: 21cm;margin: auto; background: #fff;padding:20px;margin-bottom:15px ;}
+		.report-content p{margin-bottom: 0;font-size: 16px;}
+		p.report-hospital{ font-weight: bold;height: 50px;line-height: 50px; text-align: center;font-size: 32px;}
+		p.report-hospital2{margin-top: 0;height: 50px;line-height: 50px; text-align: center;font-size: 22px;}
+		.report-title {height: 42px;line-height: 42px;border-bottom: 1px dashed #1990EC;font-weight: bold;_width:95%;}
+		.report-title2 {height: 50px;line-height: 50px;border-bottom: 1px dashed #198ae0;font-weight: bold;text-align: center;_width:95%;}
+		.report-title3 {height: 50px;line-height: 50px;border-bottom: 1px dashed #198ae0;font-weight: bold;text-align: center;_width:95%;}
+		.xin_img{margin:0 8px;}
+		.pTitleImg{margin-right: 4px;}
+		.report-inf{margin: 5px 0;}
+		.report-inf img{width: 790px; text-align:center ; margin:auto ;}
+		table.threeinf{width: 755px;}
+		table.threeinf td{width: 33%;height: 35px;line-height: 35px;}
+		table.report-table{ border: 1px solid #ddd; margin-top: 15px;width:755px;}
+		table.report-table th,table.report-table td{height: 35px;line-height: 35px;}
+		table.report-table th{border-bottom: 1px solid #ddd;background:#eee ;}
+		table.report-table td{border-bottom: 1px dashed #ddd; text-align: center;}
+		.record-doctorname{ height: 80px;line-height: 180px;margin-top: 15px; width: 100%; text-align:right ;}
+		.record-doctorname p{ margin-right: 200px;}
+		table.report-table-diet th{width:33.33%;}
+		table.report-table-sport th{width:25%;}
+		.record-doctorw{height:180px;}
+		.record-adv{
+			border: 2px solid #cde9ff;
+			padding:8px;
+			border-radius:8px;
+			_width:735px;
+			_float:left;
+			margin-top:20px;
+		}
+		</style>
+	</head>
+	<body>
+			<div class="report-head">
+				<div class="report-returnbtn">
+					<a class="report-but" id="report-back-outpatient">返回门诊</a>
+					<a href="javascript:void(0);" class="report-but" id="report-print">打印</a>
+				</div>
+			</div>
+		<div class="report-content-all" style="overflow:hidden;_zoom:1;clear:both;">
+			<div class="report-content">
+				<p class="report-title2" style="border:none;"><span style="float: left;font-size: 14px;color:#999;font-weight: normal;" id="reportNumber">报告编号：20158954256952</span></p>
+				<p class="report-hospital" id="hospitalName">深圳市宝安区妇幼保健院</p>
+				<p class="report-hospital2" >个体营养检测分析报告</p>
+				<p class="report-title"><img class="pTitleImg" src="img/pTitle_03.gif" />基本信息</p>
+				<div class="report-inf">
+					<table class="threeinf">
+						<tr>
+							<td>姓名：<span id="realName">林珊珊</span></td>
+							<td>年龄：<span id="age">22 岁</span></td>
+							<td>门诊日期：<span id="addTime">2017-03-13</span></td>
+						</tr>
+					</table>
+				</div>
+				<p class="report-title"><img class="pTitleImg" src="img/pTitle_03.gif" />体检信息</p>
+				<div class="report-inf">
+					<table class="threeinf">
+						<tr>
+							<td>孕前体重：<span id="weight"></span> kg</td>
+							<td>身高：<span id="height"></span> cm</td>
+							<td>孕前BMI：<span id="beforeBMI">21.56 </span> kg/m²</td>
+						</tr>
+						<tr>
+							<td>孕期：<span id="pregnantStage">孕早期</span></td>
+							<td>孕周：<span id="pregnantWeek">6周 + 1天</span></td>
+							<td>体脂率：<span id="bodyFatRate">50%</span></td>
+						</tr>
+						<tr>
+							<td>肌肉率：<span id="muscle">/</span></td>
+							<td>水分率：<span id="moistureContent">/</span></td>
+							<td>基础代谢：<span id="basalMetabolism">/</span></td>
+						</tr>
+					</table>
+				</div>
+				<p class="report-title"><img class="pTitleImg" src="img/pTitle_03.gif" />孕期体重增长目标</p>
+				<div class="report-inf">
+					<table class="threeinf">
+						<tr>
+							<td>目前体重：<span id="currentWeight">55 </span> kg</td>
+							<td>目前BMI：<span id="currentBMI">22 </span> kg/m²</td>
+						</tr>
+						<tr>
+							<td>推荐孕期体重增长：<span id="suggestWeightAdd">/</span> kg</td>
+							<td>目前体重增长：<span id="currentWeightAdd">/</span> kg</td>
+						</tr>
+					</table>
+				</div>
+				<!--体重增长曲线-->
+				<div class="box_rep">
+					<div id="container-weight" style="min-width:400px;_width:780px;height:500px" chartType="1"></div>
+				</div>
+				<p class="report-title" id="dietSurvey"><img class="pTitleImg" src="img/pTitle_03.gif" />膳食调查</p>
+				<div id="dietSurveyArea"></div>
+				<div class="box_rep analyze_nutrition">
+					<p class="report-title" id=""><img class="pTitleImg" src="img/pTitle_03.gif" />各类食物摄入量分析</p>
+	                <div id="container_1" style="min-width:400px;height:300px;_width:760px;"></div>
+					<p class="report-title" id=""><img class="pTitleImg" src="img/pTitle_03.gif" />能量来源分析</p>
+					<table class="report-table">
+                        <thead>
+                        	<tr><th>营养素</th><th>摄入量</th><th>推荐量</th><th>百分比（%）</th><th>评价</th></tr>
+                        </thead>
+                        <tbody>
+	                        <tr><td>能量（kcal）</td><td id="energyIntake"></td><td id="energyRecommend"></td><td id="energyPer"></td><td id="energyStatus"></td></tr>
+	                        <tr><td>蛋白质（g）</td><td id="proteinIntake"></td><td id="proteinRecommend"></td><td id="proteinPer"></td><td id="proteinStatus"></td></tr>
+	    					<tr><td>脂肪（g）</td><td id="fatIntake"></td><td id="fatRecommend"></td><td id="fatPer"></td><td id="fatStatus"></td></tr>
+					    	<tr><td>碳水化合物（g）</td><td id="carbonIntake"></td><td id="carbonRecommend"></td><td id="carbonPer"></td><td id="carbonStatus"></td></tr>
+                        </tbody>
+                    </table>
+					<p class="report-title" id=""><img class="pTitleImg" src="img/pTitle_03.gif" />三大能源物质来源分析</p>
+					<div style="overflow: hidden;">
+						<div id="container_2" style="width:420px;height:300px;float: left;_margin-left:40px;"></div>
+	                	<div id="container_3" style="width:280px;height:300px;float: left"></div>
+					</div>
+					<p class="report-title" id=""><img class="pTitleImg" src="img/pTitle_03.gif" />餐次供能比</p>
+					<div id="container_4" style="height:300px;_width:780px;"></div>
+					<p class="report-title" id=""><img class="pTitleImg" src="img/pTitle_03.gif" />营养素摄入量分析</p>
+					<table class="report-table">
+                        <thead>
+                        	<tr><th>营养素</th><th>摄入量</th><th>推荐量</th><th>百分比（%）</th><th>评价</th></tr>
+                        </thead>
+                        <tbody>
+	                        <tr><td>钙（mg）</td><td id="caIntake"></td><td id="caRecommend"></td><td id="caPer"></td><td id="caStatus"></td></tr>
+					    	<tr><td>铁（mg）</td><td id="feIntake"></td><td id="feRecommend"></td><td id="fePer"></td><td id="feStatus"></td></tr>
+					    	<tr><td>锌（mg）</td><td id="znIntake"></td><td id="znRecommend"></td><td id="znPer"></td><td id="znStatus"></td></tr>
+					    	<tr><td>硒（μg）</td><td id="seIntake"></td><td id="seRecommend"></td><td id="sePer"></td><td id="seStatus"></td></tr>
+					    	<tr><td>铜（mg）</td><td id="cuIntake"></td><td id="cuRecommend"></td><td id="cuPer"></td><td id="cuStatus"></td></tr>
+					    	<tr><td>钠（mg）</td><td id="naIntake"></td><td id="naRecommend"></td><td id="naPer"></td><td id="naStatus"></td></tr>
+					    	<tr><td>碘（mg）</td><td id="iIntake"></td><td id="iRecommend"></td><td id="iPer"></td><td id="iStatus"></td></tr>
+					    	<tr><td>磷（mg）</td><td id="pIntake"></td><td id="pRecommend"></td><td id="pPer"></td><td id="pStatus"></td></tr>
+					    	<tr><td>钾（mg）</td><td id="kIntake"></td><td id="kRecommend"></td><td id="kPer"></td><td id="kStatus"></td></tr>
+					    	<tr><td>镁（mg）</td><td id="mgIntake"></td><td id="mgRecommend"></td><td id="mgPer"></td><td id="mgStatus"></td></tr>
+					    	<tr><td>锰（mg）</td><td id="mnIntake"></td><td id="mnRecommend"></td><td id="mnPer"></td><td id="mnStatus"></td></tr>
+					    	<tr><td>维生素A（μgRE）</td><td id="vaIntake"></td><td id="vaRecommend"></td><td id="vaPer"></td><td id="vaStatus"></td></tr>
+					    	<tr><td>维生素B1（mg）</td><td id="vb1Intake"></td><td id="vb1Recommend"></td><td id="vb1Per"></td><td id="vb1Status"></td></tr>
+					    	<tr><td>维生素B2（mg）</td><td id="vb2Intake"></td><td id="vb2Recommend"></td><td id="vb2Per"></td><td id="vb2Status"></td></tr>
+					    	<tr><td>维生素B6（mg）</td><td id="vb6Intake"></td><td id="vb6Recommend"></td><td id="vb6Per"></td><td id="vb6Status"></td></tr>
+					    	<tr><td>维生素C（mg）</td><td id="vcIntake"></td><td id="vcRecommend"></td><td id="vcPer"></td><td id="vcStatus"></td></tr>
+					    	<tr><td>维生素E（mg）</td><td id="veIntake"></td><td id="veRecommend"></td><td id="vePer"></td><td id="veStatus"></td></tr>
+                        </tbody>
+                    </table>
+					<div id="" style="margin-top:5px;">注：以上分析基于膳食调查的平均摄入量</div>
+				</div>
+				<p class="report-title" id="sportSurvey"><img class="pTitleImg" src="img/pTitle_03.gif" />运动调查</p>
+				<div id="sportSurveyArea"></div>
+				<div class="box_rep analyze_sport">
+					<p class="report-title" id=""><img class="pTitleImg" src="img/pTitle_03.gif" />各类运动时长占比分析</p>
+					<div id="container_5" style="_width:780px;"></div>
+				</div>
+				<div class="box_rep analyze_sport">
+					<p class="report-title" id=""><img class="pTitleImg" src="img/pTitle_03.gif" />各类运动消耗能量占比分析</p>
+					<div id="container_6" style="_width:780px;"></div>
+				</div>
+				<p class="report-title" id="recipesPlan"><img class="pTitleImg" src="img/pTitle_03.gif" />营养方案</p>
+				<p class="report-title3"><img class="xin_img" src="img/xin.gif">饮食建议<img class="xin_img" src="img/xin.gif"></p>
+				<p class="record-adv" id="dietAdvice">
+					无
+				</p>
+				<p class="report-title3"><img class="xin_img" src="img/xin.gif">医生建议<img class="xin_img" src="img/xin.gif"></p>
+				<p class="record-adv" id="doctorAdvice">
+					无
+				</p>
+				<div class="record-doctorname">
+					<p class="record-doctorw">医生签字：</p>
+				</div>				
+			</div>
+			<div id="exchange" class="report-content-all" style="min-height: 1122px;_height: 1122px;">
+			<!--<p class="report-title">食物交换份</p>-->
+				<div class="report-inf">
+					<img src="img/foodchange.jpg" />
+				</div>
+			</div>
+			<div id="foodtab" class="report-content-all" style="min-height: 1122px;_height: 1122px;">
+				<!--<p class="report-title">营养食物表</p>-->
+				<div class="report-inf">
+					<img src="img/foodnat.jpg" />
+				</div>	
+		</div>
+		</div>
+		
+	</body>
+	<script src="../sfile/js/json2.js"></script>
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js" ></script>
+	<script src="../sfile/js/jquery.cookie.js"></script>
+	<script src="../sfile/js/common.js"></script>
+	<script src="../sfile/js/main.js"></script>
+	<script src="../sfile/js/highcharts.js"></script>
+    <script type="text/javascript" src="../sfile/js/highchartsThemes/GirdLight.js"></script>
+	<script type="text/javascript" src="js/ajax/reportView.js"></script>
+	<script type="text/javascript" src="js/ajax/reportWeightChart.js"></script>
+	<script type="text/javascript" src="js/ajax/nutritionCharts.js"></script>
+	<script type="text/javascript" src="js/ajax/sportAnalyze.js"></script>
+	<script>
+		//去掉图表数据边框
+		setTimeout(function(){
+			$("tspan.highcharts-text-outline").css("fill","none");
+			$("tspan.highcharts-text-outline").css("stroke","none");
+		},1200);
+	</script>
+</html>
+	

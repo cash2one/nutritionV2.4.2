@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.jumper.weight.nutrition.user.mapper.PregnantHealthySettingMapper">
+	<resultMap id="BaseResultMap" type="com.jumper.weight.nutrition.user.entity.PregnantHealthySetting">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="project" property="project" jdbcType="INTEGER" />
+		<result column="state" property="state" jdbcType="INTEGER" />
+		<result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, project, state, add_time
+	</sql>
+	<select id="findById" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from jumper_anglesound.pregnant_healthy_setting
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<insert id="insert" parameterType="com.jumper.weight.nutrition.user.entity.PregnantHealthySetting">
+		insert into jumper_anglesound.pregnant_healthy_setting (id, user_id, project,
+		state, add_time)
+		values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER},
+		#{project,jdbcType=INTEGER},
+		#{state,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP})
+	</insert>
+	<update id="update" parameterType="com.jumper.weight.nutrition.user.entity.PregnantHealthySetting">
+		update jumper_anglesound.pregnant_healthy_setting
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="project != null">
+				project = #{project,jdbcType=INTEGER},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=INTEGER},
+			</if>
+			<if test="addTime != null">
+				add_time = #{addTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 批量添加 -->
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into jumper_anglesound.pregnant_healthy_setting 
+		(
+		user_id, project, state, add_time
+		)
+		values
+		<foreach collection="list" item="setting" separator=",">
+			(
+			#{setting.userId,jdbcType=INTEGER},	#{setting.project,jdbcType=INTEGER},
+			#{setting.state,jdbcType=INTEGER}, #{setting.addTime,jdbcType=TIMESTAMP}
+			)
+		</foreach>
+	</insert>
+	
+</mapper>

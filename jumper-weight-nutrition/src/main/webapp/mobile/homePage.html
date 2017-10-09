@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--css文件加载顺序不能动-->
+    <link href="css/css.css" rel="stylesheet">
+    <link href="css/style-kcal.css" rel="stylesheet">
+    <link href="css/reset.css" rel="stylesheet">
+    <title>用户首页</title>
+    <style>
+         body{
+            font-family: "Microsoft Yahei";
+            background: #ebebeb;
+            position: relative;
+        }
+        .lis-btn{
+        	cursor: pointer;
+        }
+    </style>
+</head>
+<body style="display: none;">
+    <div class="content-box" >
+        <div class="top-box">
+            <div id="indicatorContainerWrap">
+                <div id="indicatorContainer"></div>
+                <img src="images/img-kcal/top-img-1.png"  id="prgLogo"/>
+                <h2 id="kcalNum"></h2>
+            </div>
+            <ul class="three-num">
+                <li>
+                    <p>孕前体重</p>
+                    <p class="num-1" id="beforeWeight" data-1></p>
+                </li>
+                <li>
+                    <p>目标摄入量</p>
+                    <p class="num-2" id="suggestIntake" data-2></p>
+                </li>
+                <li>
+                    <p>孕前BMI</p>
+                    <p class="num-3" id="beforeBMI" data-3></p>
+                </li>
+            </ul>
+            <img src="images/img-kcal/top-img-2.png" style="width: 100%;position: absolute;bottom: 0;left: 0;" alt="">
+        </div>
+        <div class="lis-box">
+            <ul>
+                <li class="lis-btn" id="dietSurvey">
+                    <img src="images/img-kcal/icon-1.png" alt="" class="fl">
+                    <div class="fl list-content">
+                        <h1>饮食记录</h1>
+                        <p>已摄入<span id="eatKcal">0</span>kcal</p>
+                    </div>
+                    <i class="fr arrow-r"></i>
+                </li>
+                <li class="lis-btn sports" id="sportSurvey">
+                    <img src="images/img-kcal/icon-2.png" alt="" class="fl">
+                    <div class="fl list-content">
+                        <h1>运动记录</h1>
+                        <p>已运动<span id="sportTimeLength">0</span>分钟，消耗<span id="sportKcal">0</span>kcal</p>
+                    </div>
+                    <i class="fr arrow-r"></i>
+                </li>
+                <li class="lis-btn weight" id="weightRecord">
+                    <img src="images/img-kcal/icon-3.png" alt="" class="fl">
+                    <div class="fl list-content">
+                        <h1>体重记录</h1>
+                        <p>目标体重： <span id="safeWeight"></span></p>
+                        <p>最近体重：<span id="currWeight"></span></p>
+                    </div>
+                    <i class="fr arrow-r" style="margin-top: 19px;"></i>
+                </li>
+                <li class="lis-btn" style="margin-top: 8px;" id="viewRecipes">
+                    <img src="images/img-kcal/icon-4.png" alt="" class="fl">
+                    <div class="fl list-content">
+                        <h1>我的食谱</h1>
+                        <p>查看医生制定的食谱</p>
+                    </div>
+                    <i class="fr arrow-r"></i>
+                </li>
+                <!-- <li class="lis-btn" style="margin:8px 0;">
+                    <img src="images/img-kcal/icon-5.png" alt="" class="fl">
+                    <div class="fl list-content">
+                        <h1>孕期饮食</h1>
+                        <p>了解食物营养，健康饮食</p>
+                    </div>
+                    <i class="fr arrow-r"></i>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+<!--标尺模块-->
+<div id="shade" style="display: none;"></div>
+<div class="food" style="bottom: -360px">
+    <div class="food-content">
+        <div class="circle">
+            <p>今天</p>
+            <p id="today"></p>
+        </div>
+        <p class="foot-p">一天只需要测量一次体重</p>
+        <!--标尺-->
+        <div class="page" data-page="profile1">
+            <div class="page-main">
+                <input type="hidden" name="first_screen" value="30##150##50">
+                <div class="row">
+                    <label class="label">
+                        <span class="bmi"></span>
+                        <span class="number width-num" initial-value="8" value="50">50</span>
+                        <span class="letter">kg</span>
+                    </label>
+                    <div class="ruler ruler-weight">
+                        <div class="main" value="416" style="transform: translateX(-416px);">
+                            <ul data-initial="true">
+                                <li><span class="num">30</span></li>
+                                <li><span class="num">35</span></li>
+                                <li><span class="num">40</span></li>
+                                <li><span class="num">45</span></li>
+                                <li><span class="num">50</span></li>
+                                <li><span class="num">55</span></li>
+                                <li><span class="num">60</span></li>
+                                <li><span class="num">65</span></li>
+                                <li><span class="num">70</span></li>
+                                <li><span class="num">75</span></li>
+                                <li><span class="num">80</span></li>
+                                <li><span class="num">85</span></li>
+                                <li><span class="num">90</span></li>
+                                <li><span class="num">95</span></li>
+                                <li><span class="num">100</span></li>
+                                <li><span class="num">105</span></li>
+                                <li><span class="num">110</span></li>
+                                <li><span class="num">115</span></li>
+                                <li><span class="num">120</span></li>
+                                <li><span class="num">125</span></li>
+                                <li><span class="num">130</span></li>
+                                <li><span class="num">135</span></li>
+                            </ul>
+                        </div>
+                        <div class="arrow"></div>
+                    </div>
+                </div>
+                <p class="foot-p del del-weight" record-id="" curr-weight=""><img src="images/search_detele@2x.png" alt="">删除这条记录</p>
+            </div>
+        </div>
+    </div>
+    <div class="btn-box">
+        <button class="food-btn btn-weight-cancel">取消</button>
+        <button class="food-btn btn-weight-ok">确定</button>
+    </div>
+</div>
+<!-- <div class="sport-num" style="bottom: -320px;height: 320px;">
+    <div class="food-content">
+        <p class="foot-p" style="color:#333;">添加运动</p>
+        <div class="add-sports">
+            <img src="" alt="" class="fl">
+            <ul class="fl">
+                <li>步行</li>
+                <li>4000kcal/h</li>
+            </ul>
+        </div>
+        <p class="foot-p kcal-p" style="color:#ff6e82;font-size: 24px;">5000</p>
+        标尺
+        <select name="" id="h"></select><label for="h">小时</label>
+        <select name="" id="m"></select><label for="m">分钟</label>
+    </div>
+    <div class="btn-box">
+        <button class="food-btn">取消</button>
+        <button class="food-btn">确定</button>
+    </div>
+</div> -->
+</body>
+
+<script src="../sfile/js/jquery-1.10.1.min.js"></script>
+<script src="../sfile/js/jquery.cookie.js"></script>
+<script src="../sfile/js/common.js"></script>
+<script src="js/in01.js"></script>
+<script src="js/radialIndicator.min.js"></script>
+<script src="js/ajax/homePage.js"></script>
+<script type="text/javascript" charset="utf-8">
+	var eatKcal=0;//已摄入的kcal；
+	var suggestIntake=2000;//目标kcal；
+    //全局移动端自适应
+    $(function () {
+        $(window).resize(function(){autoScale();});
+        var autoScale = function () {
+            setTimeout(function(){
+                var winW = $(window).width();
+                var scale = (winW/320).toFixed(4);
+                var mainCssText = 'width:320px;-webkit-transform:scale('+ scale+');-webkit-transform-origin:0 0';
+                $('.content-box').attr('style', mainCssText);
+            },200);
+        };
+        autoScale();
+        window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", autoScale , false); //切换横竖屏
+        setTimeout(function () {
+            $('body').show();
+        },210);
+        
+        var kg=50;
+        var o=$('#indicatorContainer');
+        setTimeout(function(){
+        	 //原形进度条
+            o.radialIndicator({
+                minValue: 0,
+                maxValue: suggestIntake,
+                radius: 120,
+                barWidth: 4,
+                barBgColor:'#ff8b9c',
+                barColor: '#ffd955',
+                displayNumber: false
+            });
+            var radialObj = o.data('radialIndicator');
+            radialObj.animate(eatKcal);
+        },200);
+       
+        //页面头部数据显示；
+        //list手机点击交互
+        $('.lis-box li,.btn-weight-cancel,.btn-weight-ok').on('touchstart',function(){
+            $(this).css({'background':'#fafafa'}); //隐藏div
+        });
+        $('.lis-box li,.btn-weight-cancel,.btn-weight-ok').on('touchend',function(){
+            $(this).css({'background':'#fff'}); //隐藏div
+        });
+        
+        setTimeout(function(){
+        	var currWeight = $(".del-weight").attr("curr-weight");
+        	if(currWeight != null && currWeight != ""){
+        		kg = currWeight;
+        	}
+        	$('.row .number').attr('initial-value',(kg-30)/2.5).text(kg);//初始化标尺数值
+        	getCurrBMI(kg);
+        },200);
+        
+      	//体重弹框交互
+        //弹出
+        $('#weightRecord').on('click',function(){
+            $('#shade').show();
+            $('.food').css('bottom','0');
+            $('body').css('overflow','hidden');
+        });
+     
+        //收起
+        $('.btn-weight-cancel,.btn-weight-ok,.del-weight').on('click',function(){
+            $('body').css('overflow','auto');
+            $('#shade').hide();
+            $('.food').css('bottom','-360px');
+          
+        });
+      
+    });
+</script>
+</html>

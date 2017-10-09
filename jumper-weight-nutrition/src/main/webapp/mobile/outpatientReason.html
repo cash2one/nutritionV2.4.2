@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--css文件加载顺序不能动-->
+    <link href="css/mui.min.css" rel="stylesheet">
+    <link href="css/css.css" rel="stylesheet">
+    <link href="css/reset.css" rel="stylesheet">
+    <link href="css/muiReset.css" rel="stylesheet">
+    <title>体重营养管理</title>
+    <style>
+       /* .mui-icon-checkmarkempty{
+            margin: -20px 0 0 -20px;
+            font-size: 140px;
+            text-align: center;
+            color: #89c777;
+        }*/
+
+        .mui-btn{
+            /* position: absolute;
+            bottom: 10%; */
+            width: 80%;
+            left: 10%;
+            margin-bottom: 0;
+        }
+       .pText2{
+           font-size: 12px;
+           width: 84%;
+           margin: 0 0 0 8%;
+           line-height: 24px;
+       }
+       .pText2{
+           /* position: absolute;
+           bottom: 4%; */
+           text-align: center;
+       }
+       .mui-btn {
+           font-size: 16px;
+           padding: 8px;
+           margin: 3px;
+       }
+       h5.mui-content-padded {
+           margin-left: 3px;
+           margin-top: 4px !important;
+           margin-bottom: 10px !important;
+       }
+        #cause{
+            border: 1px solid #CCCCCC !important;
+
+        }
+        .content-box{
+            padding: 10px;
+        }
+
+       .mui-table-view-cell:after,.mui-table-view:after{
+           background: none;
+       }
+       .mui-checkbox.mui-left input[type=checkbox], .mui-radio.mui-left input[type=radio]{left: 0;}
+       .mui-table-view-cell.mui-checkbox.mui-left, .mui-table-view-cell.mui-radio.mui-left{padding-left: 34px;}
+       .mui-table-view-cell{padding: 10px 15px;}
+       .mui-checkbox input[type=checkbox]:before, .mui-radio input[type=radio]:before{font-size: 22px;margin-top: 4px;color: #ff8d9a;}
+       .mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before{color: #ff8d9a;}
+    </style>
+</head>
+<body style="background: white">
+    <div class="content-box">
+        <h5 class="mui-content-padded">就诊原因</h5>
+        <ul class="mui-table-view" id="outpReason">
+            
+        </ul>
+        <div>
+            <p style="margin-top: 20px">目前体重</p>
+            <input id="averageValue"
+            		oninput="if(value.length>5)value=value.slice(0,5);" 
+                    onafterpaste="this.value=this.value.replace(/[^\.\d]/g,'');if(value.length>5)value=value.slice(0,5);"
+                    type="number"
+                    name="averageValue"
+                    class="mui-input-clear"
+                    placeholder="请输入目前体重"
+                    maxlength="5"/>
+        </div>
+    </div>
+    <button type="button" class="mui-btn mui-btn-danger mui-btn-block" id="submitOutpReason">提交</button>
+    <p class="pText2">点击「提交」按钮进入队列等候就诊</p>
+  </body>
+<script src="js/Zepto.js"></script>
+<script src="js/mui.min.js"></script>
+<script src="js/mui.picker.min.js"></script>
+<script src="js/mui.poppicker.js"></script>
+<script src="js/rem.js"></script>
+<!-- iOS不支持import -->
+<!-- <link rel="import" href="foot.html"> -->
+<script src="../sfile/js/jquery-1.10.1.min.js"></script>
+<script src="../sfile/js/jquery.cookie.js"></script>
+<script src="../sfile/js/common.js"></script>
+<script src="js/ajax/outpatientReason.js"></script>
+</html>

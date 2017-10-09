@@ -1,0 +1,210 @@
+/*公共样式*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html,body{
+    height: 100%;
+}
+li{
+    list-style: none;
+}
+.fl{float: left;}
+.fr{float: right;}
+/*layer title弹框样式重置*/
+
+.layer-message .layui-layer-title{
+    background-color:#1990ec;
+    font-weight: bold;
+    color: white;
+    height: 60px;
+    line-height: 60px;
+    font-size: 16px;
+    font-family: "Microsoft YaHei", "simsun", "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+.layer-message{
+    overflow: hidden;
+    border-radius: 8px;
+}
+.layer-message .layui-layer-setwin a{
+    width: 22px;
+    height: 22px;
+}
+.layer-message .layui-layer-setwin{
+    top:18px;
+    right: 18px;
+}
+.layer-message .layui-layer-setwin .layui-layer-close1{
+    background-position: 0;
+}
+.layer-message .layui-layer-ico{
+    background: url(../img/btn_close.gif) no-repeat;
+}
+
+/*box样式*/
+#messBox,#chatBox{
+    overflow: hidden;
+    font-size: 14px;
+    font-family: "Microsoft YaHei", "simsun", "Helvetica Neue", Arial, Helvetica, sans-serif;
+    background: #f1f8ff;
+    _height: 590px;
+}
+.L-t{
+    float: left;
+}
+#messBox .mess-1L,#chatBox .mess-1L{
+    padding: 0 20px;
+    font-size: 14px;
+    width: 100%;
+    height: 74px;
+    line-height: 40px;
+    border-bottom: 1px solid #CCCCCC;
+}
+#messBox .mess-1L .ul-list,#chatBox .mess-1L .ul-list{
+	float:left;
+    margin-top: 6px;
+    width: 790px;
+    height: 60px;
+    overflow: auto;
+}
+#messBox .mess-1L .ul-list li,#chatBox .mess-1L .ul-list li{
+    float: left;
+    padding: 0 4px;
+    background: #cde2f7;
+    border-radius: 4px;
+    height: 26px;
+    line-height: 26px;
+    margin: 2px 2px;
+}
+.mess-2L{
+    overflow: hidden;
+}
+.mess-2L-l{
+    float: left;
+    width: 545px;
+    height: 524px;
+    position: relative;
+}
+.messButton{
+    height: 36px;
+    width: 69px;
+    background: #1990ec;
+    border-radius: 4px;
+    color: white;
+    float: right;
+    border: none;
+    font-size: 14px;
+    font-family: "Microsoft YaHei", sans-serif;
+    margin: 20px 12px 0 0;
+    cursor: pointer;
+}
+.messButton:hover{
+    background: #389DEB;
+}
+.mess-2L-l-1{
+
+    height: 450px;
+    border-bottom: 1px solid #CCCCCC;
+    padding:0 20px;
+    overflow-y: auto;
+}
+.textNum{
+    position: absolute;
+    bottom: 80px;
+    right: 10px;
+}
+.mess-2L-l-2{
+    height: 75px;
+    width: 545px;
+}
+.mess-list{
+    overflow: hidden;
+    padding: 16px 0;
+}
+.mess-list textarea{
+    resize:none;
+    background: none;
+    border: navajowhite;
+    width: 504px;
+    height: 390px;
+    line-height: 26px;
+    font-size: 16px;
+    color: #333333;
+    outline: none;
+    font-family: "Microsoft YaHei", "simsun", "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+.mess-list .mess-list-name{
+    float: left;
+    font-weight: bold;
+}
+.mess-list .mess-list-main{
+    float: left;
+    width: 420px;
+    line-height: 20px;
+    _line-height: 26px;
+}
+.mess-2L-r{
+    float: left;
+    border-left: 1px solid #cccccc;
+    padding: 0 12px;
+    width: 338px;
+    _width: 310px;
+    height: 524px;
+}
+.mess-2L-r h6{
+    height: 50px;
+    line-height: 50px;
+}
+.mess-2L-r h6 span{
+    font-size: 14px;
+    font-weight: normal;
+    text-align: center;
+    width: 104px;
+    display: block;
+    float: left;
+    color: #848282;
+}
+.r-line{
+    display: block;
+    margin-top: 25px;
+    background: #dbdbdb;
+    height: 1px;
+    width: 100px;
+    _font-size:1px;
+}
+.mess-list-r{
+    text-align: justify;
+    background: #cde2f7;
+    color: #666;
+    border-radius: 12px;
+    line-height: 20px;
+    padding: 4px;
+    cursor: pointer;
+    transition:.2s ease;
+    margin-bottom: 10px;
+
+}
+/* .mess-listBox{
+    overflow-y: auto;
+    height: 500px;
+} */
+.mess-list-r:hover{
+    background: #9dccfa;
+}
+.mess-list-r .mess-list-name{
+    font-weight: bold;
+    color: #333;
+}
+.mess-list-r-box{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    padding: 6px;
+    max-height: 70px;
+    _height: 40px;
+}
+.layui-layer-hui{
+    _background: #333333;
+}

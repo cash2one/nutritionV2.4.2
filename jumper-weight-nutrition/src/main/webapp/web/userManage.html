@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>孕妇管理</title>
+		<!--触发标准模式，这个是最有效的方法。-->
+		<meta http-equiv="X-UA-Compatible" content="edge" />
+		<meta name=”renderer” content=”webkit|ie-comp|ie-stand” />
+		<link rel="stylesheet" href="css/layui.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/layR.css" />
+		<link rel="stylesheet" href="css/message.css" />
+		<!--[if lte IE 6]>
+			<style>
+				.cen-table tr td{height:30px;}
+
+				.con-right-ul{
+					height:38px;
+					line-height:38px;
+				}
+				.container-right{
+					background:#dbe7ef;
+				}
+				.forminline{
+					display: inherit;
+				}
+				.layui-laypage{
+					vertical-align: middle;
+					overflow: hidden;
+				}
+				.con-right-cen{
+					height:700px;
+				}
+			</style>
+		<![endif]-->
+		<style>
+			html body{
+	        	_overflow: hidden;/* 为了在ie6iframe时有高度的滚动条 */
+	        }
+			.con-right-cen{
+				overflow: hidden;
+			}
+			.con-right-cen .cen-conter{
+				padding-bottom: 0;
+			}
+	
+			.search2 {
+				margin: 20px 0 18px 0!important;
+			}
+			.bor2{
+				border: 1px solid #ddd!important;
+				height: 30px;
+				margin-right: -6px;
+			}
+			.layui-form-radio span {font-size: 16px;}
+				/* font-size: 14px; */
+			.layui-form-label{
+				width: 62px;
+				padding: 10px 2px 0 0;
+			}
+			 .searchIcon{
+            	+margin-left:5px;
+            	+margin-top: 0;
+            	+height:33px;
+            }
+            #pageList .noResultTd{
+            	text-align: center;
+            }
+            .layui-table tr{
+            	cursor: pointer;
+            }
+            @-moz-document url-prefix(){
+            	.con-right-cen{
+            		height:860px!important;
+            	}
+            }
+            .tr_1{
+            	-moz-user-select: none;
+				-webkit-user-select: none;
+				-ms-user-select: none;
+				-khtml-user-select: none;
+				user-select: none;
+            }
+            .tr_1 th:hover{
+            	border-bottom:1px solid #ccc;
+            }
+            .tableSort{
+            	height:10px;
+            	width:8px;
+            	display:block;
+            	float:left;
+            	margin-top: 18px;
+            	margin-left:8px;
+            	background-image: url("img/icon_11.gif");
+	            background-repeat: no-repeat;
+	            /* background-position: 18px 0; */
+            }
+            .tableTh{
+            	display:block;
+            	float:left;
+            }
+             .delTr{
+                cursor: pointer;
+                font-size: 20px;
+                color: #1990ec;
+            }
+            .delTr:active{
+                color: #386ca1;
+            } 
+            .layui-table td{
+			    padding: 3px 6px;
+			}
+			html body{
+				_overflow: hidden;
+			}
+			.container{
+				_height:940px; 
+				_overflow: hidden;
+			}
+			.con-right-cen{
+				position: relative;
+				height: 640px;
+			}
+			.weight-status0{
+            	color:blue;
+            }
+            .weight-status1{
+            	color:green;
+            }
+            .weight-status2{
+            	color:red;
+            }
+			.tabnav2 li a{
+            	padding: 0 32px;
+            	border-radius: 4px 4px 0 0;
+            }
+            .sendMessage{
+            	margin-right: 14px;
+            }
+             .layui-table .checkIn{
+                width: 15px;
+                height: 15px;
+                border:none;
+                cursor: pointer;
+                margin-right: 5px;
+                vertical-align: middle;
+                margin-top:2px;
+                float:left!important;
+            }
+            #chatTemplate{
+            	width: 580px;
+    			height: 606px;
+    			overflow: hidden;
+    			border:none;
+   
+            }
+			.mess-2L-r{
+				border-left:none;
+			}
+			html body .pright{
+				background-color:#f0f7fe;
+				box-shadow:none;
+			}
+			#msgPage1 .layui-laypage-total,#msgPage .layui-laypage-total{
+				display:none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="container-right">
+				<div  class="con-right-top">
+					<span id="outpatient">门诊</span>
+					<span class="active" id="userManage">孕妇档案</span>
+					<span id="standardRecipes">营养方案</span>
+					<span id="statistics">统计</span>
+					<span id="settings">设置</span>
+					<span id="noRead" style="float:right;margin-right:66px;"><img style="width:30px;" alt="" src="img/email.png"><span style="margin-left:0px;">（0）</span></span>
+				</div>
+				<div class="container-right-conten"> <!--增加布局DIV，使内容与头部分开-->
+				<div class="con-right-cen" style="height:860px;position: relative;">
+					<div class="cen-conter">
+						<div class="search2" style="margin-left:15px;width: 100%;">
+							<input class="bInput bor2" style="width:180px;_margin-left:-20px;" type="text" name="query" placeholder="输入姓名或手机进行搜索">
+							<button class="searchIcon layui-btn enterBtnEvent" id="search-btn1"><i class="layui-icon"></i></button>
+						</div>
+					 	<div class="layui-form-item">
+ 						 	<div class="forminline">
+      							<label class="layui-form-label">体重增速</label>
+      							<div class="layui-input-inline" style="width:90px;">
+        							<select id="weightStatus">
+        								<option value="" selected="true">请选择</option>
+          								<option value="0">偏慢</option>
+          								<option value="1">正常</option>
+          								<option value="2">偏快</option>
+          								<!-- <option value="3">肥胖</option> -->
+        							</select>
+     							</div>
+   							</div>
+   							<div class="forminline">
+      							<label class="layui-form-label">未称重</label>
+      							<div class="layui-input-inline" style="width:90px;">
+        							<select name="modules" lay-verify="required" lay-search="" id="weightExceptionType">
+        								<option value="" selected="true">请选择</option>
+        								<option value="2">3天</option>
+          								<option value="3">5天</option>
+          								<option value="4">7天</option>
+          								<option value="5">14天</option>
+        							</select>
+     							</div>
+   							 </div>
+   							<div class="forminline">
+    							<label class="layui-form-label">预产日期</label>
+    							<div class="layui-input-inline" style="width: 90px;">
+     								<input class="layui-input" placeholder="开始日期" id="startExpDate" style="width: 90px;" readonly="readonly">
+   								</div>
+   								<div class="layui-input-inline" style="width: 90px;">
+      								<input class="layui-input" placeholder="结束日期" id="endExpDate" style="width: 90px;" readonly="readonly">
+    							</div>	
+    							
+  							</div>
+     						<div class="layui-inline">
+								<a class="mainbtn" style="*float: left;" id="search-btn2">确认</a>
+    						</div>
+ 						</div>	
+ 						<ul class="tabnav2" id="userMealsInfo">
+							<li class="active"><a class="userMealsOption">全部</a></li>
+							<li isDiabetes="1"><a class="userMealsOption">妊娠期糖尿病</a></li>
+						</ul>
+						<div class="tabstyle2">
+			                <div class="record con-right-cen">
+			                	<!--<p class="text">孕妇列表</p>-->
+	  							<div class="table-outborder">
+	  								<table id="styletable" class="layui-table" style="margin-top: 0;">
+	  									<thead>
+		  									<tr class="tr_1 orderRowTr" style="background: white;">
+			  									<th orderRow="real_name"><span class="tableTh">姓名</span><span class="tableSort"></span></th>
+			  									<th orderRow="birthday"><span class="tableTh">年龄</span><span class="tableSort"></span></th>
+			  									<th><span class="tableTh">手机号</span></th>
+			  									<th orderRow="p_week"><span class="tableTh">孕周</span><span class="tableSort"></span></th>
+			  									<th orderRow="expected_date"><span class="tableTh">预产期</span><span class="tableSort"></span></th>
+			  									<th orderRow="height"><span class="tableTh">身高(厘米)</span><span class="tableSort"></span></th>
+			  									<th orderRow="current_weight"><span class="tableTh">目前体重(千克)</span><span class="tableSort"></span></th>
+			  									<th orderRow="weight"><span class="tableTh">孕前体重(千克)</span><span class="tableSort"></span></th>
+			  									<th orderRow="last_weight_time"><span class="tableTh">称重时间</span><span class="tableSort"></span></th>
+			  									<th class="currentSugar" style="display: none;" orderRow="current_sugar"><span class="tableTh">最近血糖(毫摩尔/升)</span><span class="tableSort"></span></th>
+			  									<th orderRow="weight_status"><span class="tableTh">体重增速</span><span class="tableSort"></span></th>
+			  									<th><span class="tableTh">操作</span></th>
+		  									</tr>
+	  									</thead>
+	  									<!-- 分页数据 -->
+	                                	<tbody id="pageList"></tbody>
+	  								</table>
+	  								
+								</div>
+								<div class="endText1 fl">
+			                            <div class="endText2">
+			                                <label for="selectAll">
+			                                    <input type="checkbox" id="selectAll"/>
+			                                    <span class="selectAll">全选</span>
+			                                </label>
+			                                <a class="sendMsgBatch">批量发送通知</a> 
+			                                <!-- <a class="delOutpBatch">删除</a> -->
+			                            </div>
+			                        </div>
+								<!-- 分页信息 -->
+	  							<div id="page" style="position: absolute;right:-13px;bottom:-14px;z-index: 99;_bottom:0;"></div>
+			                </div>
+			                <!-- <div class="record con-right-cen"  style="display:none;">2</div> -->
+			                 
+	   					</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
+		
+		<!-- 发送短信弹框 -->
+		<div id="messBox" style="display: none;">
+		    <div class="mess-1L">
+		        <span class="L-t">收信人：</span>
+		        <ul class="ul-list recipient">
+		        	
+		        </ul>
+		    </div>
+		    <div class="mess-2L">
+		        <div class="mess-2L-l">
+		            <div class="counter textNum"><span id="counter2">0</span>/55<br/></div>
+		            <div class="mess-2L-l-1">
+		                <div class="mess-list">
+		                    <textarea readonly="readonly"  class="bigBlockInput" rows="3" cols="30" type="text" id="msgContent" name="msgContent" maxlength="55" autofocus></textarea>
+		                </div>
+		            </div>
+		            <div class="mess-2L-l-2">
+		                <button type="button" class="messButton sendMsgBtn">发送</button>
+		            </div>
+		        </div>
+		        <div class="mess-2L-r">
+		            <h6><i class="r-line fl"></i><span>通知模板</span><i class="r-line fr"></i></h6>
+		            <div class="mess-listBox msgTemplate"></div>
+		            <!-- 分页信息 -->
+	                <div id="msgPage" style="float: right;"></div>
+		        </div>
+		    </div>
+		</div>
+		
+		<!-- 发送短信弹框 2-->
+		<div id="chatBox" style="display: none;">
+<!-- 		    <div class="mess-1L">
+		        <span class="L-t">收信人：</span>
+		        <ul class="ul-list recipient">
+		        	
+		        </ul>
+		    </div> -->
+		    <div class="mess-2L">
+		        <div class="mess-2L-l" style="height:606px;width:580px;">
+		        	<iframe id="chatTemplate" src=""></iframe>
+		            <!-- <div class="counter textNum"><span id="counter2">0</span>/55<br/></div>
+		            <div class="mess-2L-l-1">
+		                <div class="mess-list">
+		                    <textarea readonly="readonly"  class="bigBlockInput" rows="3" cols="30" type="text" id="msgContent" name="msgContent" maxlength="55" autofocus></textarea>
+		                </div>
+		            </div>
+		            <div class="mess-2L-l-2">
+		                <button type="button" class="messButton sendMsgBtn">发送</button>
+		            </div> -->
+		        </div>
+		        <div class="mess-2L-r">
+		            <h6><i class="r-line fl"></i><span>通知模板</span><i class="r-line fr"></i></h6>
+		             <div class="mess-listBox msgTemplate"></div>
+		            <!-- 分页信息 -->
+	                <div id="msgPage1" style="float: right;"></div>
+		        </div>
+		    </div>
+		</div>
+	</body>
+	<script src="../sfile/js/json2.js"></script>
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js" ></script>
+	<script type="text/javascript" src="js/layer/layer.js"></script>
+	<script type="text/javascript" src="js/layui/layui.js"></script>
+	<!-- <script type="text/javascript" src="js/common.js"></script> -->
+	<script>
+		/*--------------------  layui 日历     ---------------------- --*/
+		layui.use('laydate', function() {
+			var laydate = layui.laydate;
+			var start = {
+				min : '2015-01-01',
+				max : '2099-12-31',
+				istoday : false,
+				choose : function(datas) {
+					end.min = datas; //开始日选好后，重置结束日的最小日期
+					end.start = datas //将结束日的初始值设定为开始日
+				}
+			};
+	
+			var end = {
+				min : '2015-01-01',
+				max : '2099-12-31',
+				istoday : false,
+				choose : function(datas) {
+					start.max = datas; //结束日选好后，重置开始日的最大日期
+				}
+			};
+	
+			document.getElementById('startExpDate').onclick = function() {
+				start.elem = this;
+				laydate(start);
+			}
+			document.getElementById('endExpDate').onclick = function() {
+				end.elem = this
+				laydate(end);
+			}
+			
+			//table input 全选/不全选
+			$("#selectAll").click(function() {
+				if ($(this).is(':checked')) {
+					$('tbody').find('input').prop('checked', true).parents("tr").addClass('activeBg');
+				} else {
+					$('tbody').find('input').prop('checked', false).parents("tr").removeClass('activeBg');
+				}
+			});
+			//checkbox冒泡事件阻止
+			$(document).on("click", "input[type='checkbox']", function(e) {
+				e.stopPropagation();
+			});
+			$(document).on("click", "#styletable input[type='checkbox']", function(e) {
+				if ($(this).is(":checked")) {
+					$(this).parents("tr").addClass('activeBg');
+				} else {
+					$(this).parents("tr").removeClass('activeBg');
+				}
+			});
+	
+		});
+		//th排序交互样式；
+		/* $(function(){
+			var onOff=true;
+			$('.tr_1 th').click(function(){
+				if(onOff){
+					$(this).css('color','#1990ec').children('.tableSort').css('background-position','-8px 0');
+					$(this).siblings().css('color','#333').children('.tableSort').css('background-position','0 0');
+					onOff=false;
+				}else{
+					$(this).css('color','#1990ec').children('.tableSort').css('background-position','-17px 0');
+					$(this).siblings().css('color','#333').children('.tableSort').css('background-position','0 0');
+					onOff=true;
+				}
+			});
+		}); */
+	</script>
+	<script src="../sfile/js/jquery.cookie.js"></script>
+	<script src="../sfile/js/common.js"></script>
+	<script type="text/javascript" src="js/ajax/userManage.js"></script>
+	<script src="../sfile/js/main.js"></script>
+	<script src="js/ajax/msgTemplate.js"></script>
+</html>

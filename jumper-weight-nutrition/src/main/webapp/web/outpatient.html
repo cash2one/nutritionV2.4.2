@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+	<head>
+        <meta charset="utf-8" />
+        <!--触发标准模式，这个是最有效的方法。-->
+        <meta http-equiv="X-UA-Compatible" content="edge" />
+        <meta name=”renderer” content=”webkit|ie-comp|ie-stand” />
+        <title>门诊</title>
+        <link rel="stylesheet" href="css/layui.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/layR.css" />
+        <link rel="stylesheet" href="css/message.css" />
+        <!--[if lte IE 6]>
+        <style>
+            .cen-table tr td{height:30px;}
+
+            .con-right-ul{
+                height:60px;
+                line-height:38px;
+            }
+            .container-right{
+                background:#dbe7ef;
+            }
+        </style>
+        <![endif]-->
+        <style>
+        	/* .layui-table tr:hover, .layui-table[lay-even] tr:nth-child(even){
+				background-color:#c1e4f1
+			} */
+			.tr-hover{
+				background-color:#c1e4f1 !important;
+			}
+            .con-right-ul{
+                height:70px;
+                line-height:30px;
+            }
+            .record li{
+                display: inline-block;
+                line-height: inherit;
+            }
+            .layui-table .checkIn{
+                width: 15px;
+                height: 15px;
+                border:none;
+                cursor: pointer;
+                margin-right: 5px;
+                vertical-align: middle;
+                margin-top:2px;
+                float:left!important;
+            }
+            .layui-table .realName{
+            	float:left; 
+            }
+            .delTr{
+                cursor: pointer;
+                font-size: 20px;
+                color: #1990ec;
+            }
+            .delTr:active{
+                color: #386ca1;
+            }
+            .endText2{
+                margin-left: 20px;
+            }
+            .endText2 input,.endText2 .selectAll{
+                height: 16px;
+                width: 16px;
+                padding: 3px 10px;
+                background: none;
+                color: #1990ec;
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            .bor2{
+				border: 1px solid #ddd!important;
+				height: 30px;
+				margin-right: -6px;
+			}
+            .endText2 input:hover{
+                background: #f5f7fa;
+            }
+            .endText2 input:active{
+                background: #f0f6fc;
+            }
+            .searchIcon{
+            	margin-left:5px;
+            	+margin-top: 0;
+            	+height:33px;
+            }
+            #pageList .noResultTd{
+            	text-align: center;
+            }
+            #pageList .realName {
+            	width: 100px;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;
+			    display: block;
+            }
+            .container-right{
+            	overflow: hidden;
+            }
+            .container{
+            	position: static;
+            	
+            }
+            .sendMessage{
+            	margin-right: 14px;
+            }
+            .sendMsgBatch{
+            	margin-right: 8px;
+            }
+            .weight-status0{
+            	color:blue;
+            }
+            .weight-status1{
+            	color:green;
+            }
+            .weight-status2{
+            	color:red;
+            }
+            .tabnav2 li a{
+            	padding: 0 32px;
+            	border-radius: 4px 4px 0 0;
+            }
+            #msgPage .layui-laypage-total{
+				display:none;
+			}
+        </style>
+	</head>
+	<body>
+		
+		<div class="container" style="clear:both;height: 900px;_margin-top: 120px;">
+           
+			<div class="container-right">
+                <div  class="con-right-top">
+					<span class="active" id="outpatient">门诊</span>
+					<span id="userManage">孕妇档案</span>
+					<span id="standardRecipes">营养方案</span>
+					<span id="statistics">统计</span>
+					<span id="settings">设置</span>
+					<span id="noRead" style="float:right;margin-right:66px;"><img style="width:30px;" alt="" src="img/email.png"><span style="margin-left:0px;">（0）</span></span>
+                </div>
+                <div class="record con-right-cen con-right-ul">
+                    <div class="fl" style="margin-left: 20px;margin-top: 18px;+margin-top: 20px;display: inline;" >
+                        <input class="bInput bor2" type="text" name="query" style="width: 180px;" placeholder="输入姓名或手机进行搜索"><button class="searchIcon layui-btn enterBtnEvent" id="search-btn"><i class="layui-icon">&#xe615;</i></button>
+                    </div>
+                    <input type="button" class="layui-btn layui-btn-normal fr" id="bookbuild" style="background: #2e8fdd;margin-top: 16px;margin-right: 20px;" value="新建档案">
+                </div>
+                <div class="con-right-cen"> 
+                	<!-- table 容器-->
+	                <div class="" style="margin:0 20px 20px;">
+						<ul class="tabnav2" id="userMealsInfo">
+							<li class="active" status="0"><a class="userMealsOption">初诊</a></li>
+							<li status="1"><a class="userMealsOption">复诊</a></li>
+						</ul>
+						<div class="tabstyle2">
+			                <div class="record con-right-cen">
+			                	<!--内容-->
+			                    <div class="tableBox backW">
+			                        <div class="" style="height: 560px;overflow-y:auto;width: auto;">
+			                            <table class="layui-table menZhen table-outborder" style="width: 100%;margin-top: 0;">
+			                                <thead>
+			                                    <tr>
+			                                        <th>姓名</th>
+			                                        <th>就诊卡号</th>
+			                                        <th>年龄</th>
+			                                        <th>手机号</th>
+			                                        <th>孕周</th>
+			                                        <th>预产期</th>
+			                                        <th>身高(厘米)</th>
+			                                        <th>目前体重(千克)</th>
+			                                        <th>孕前体重(千克)</th>
+			                                        <th>称重时间</th>
+			                                        <th>体重增速</th>
+			                                        <th>门诊日期</th>
+			                                        <th>就诊原因</th>
+			                                        <th>操作</th>
+			                                    </tr>
+			                                </thead>
+			                                <!-- 分页数据 -->
+			                                <tbody id="pageList">
+			                                	
+			                                </tbody>
+			                            </table>
+			                        </div>
+			                        <div class="endText1 fl">
+			                            <div class="endText2">
+			                                <label for="selectAll">
+			                                    <input type="checkbox" id="selectAll"/>
+			                                    <span class="selectAll">全选</span>
+			                                </label>
+			                                <a class="sendMsgBatch">批量发送通知</a> 
+			                                <a class="delOutpBatch">删除</a>
+			                            </div>
+			                        </div>
+			                        
+			                        <!-- 分页信息 -->
+			                        <div id="page" style="float: right;"></div>
+			                    </div>
+			                    <!--内容-->
+			                </div>
+			               <!--  <div class="record con-right-cen">
+			                	2
+			                </div> -->
+	   					</div>
+					</div>
+					<!-- table 容器-->
+				</div>	
+			</div>
+		</div>
+		
+		<!-- 发送短信弹框 -->
+		<div id="messBox" style="display: none;">
+		    <div class="mess-1L">
+		        <span class="L-t">收信人：</span>
+		        <ul class="ul-list recipient">
+		        	
+		        </ul>
+		    </div>
+		    <div class="mess-2L">
+		        <div class="mess-2L-l">
+		            <div class="counter textNum"><!-- <span id="counter2">0</span>/55<br/> --></div>
+		            <div class="mess-2L-l-1">
+		                <div class="mess-list">
+		                    <textarea readonly="readonly"  class="bigBlockInput" rows="3" cols="30" type="text" id="msgContent" name="msgContent" maxlength="55" onkeydown='countChar("msgContent","counter2");' onkeyup='countChar("msgContent","counter2");' autofocus></textarea>
+		                </div>
+		            </div>
+		            <div class="mess-2L-l-2">
+		                <button type="button" class="messButton sendMsgBtn">发送</button>
+		            </div>
+		        </div>
+		        <div class="mess-2L-r">
+		            <h6><i class="r-line fl"></i><span>通知模板</span><i class="r-line fr"></i></h6>
+		            <div class="mess-listBox msgTemplate"></div>
+		            <!-- 分页信息 -->
+	                <div id="msgPage" style="float: right;"></div>
+		        </div>
+		    </div>
+		</div>
+		
+	</body>
+	<script src="../sfile/js/json2.js"></script>
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js" ></script>
+	<script type="text/javascript" src="js/layer/layer.js"></script>
+	<script type="text/javascript" src="js/layui/layui.js"></script>
+	<!-- <script type="text/javascript" src="js/fn.js"></script> -->
+	<!-- ie不支持 -->
+	<!-- <link rel="import" href="common/foot.html"> -->
+	<script src="../sfile/js/jquery.cookie.js"></script>
+	<script src="../sfile/js/common.js"></script>
+	<script src="../sfile/js/main.js"></script>
+	<script type="text/javascript" src="js/ajax/outpatient.js"></script>
+	<script src="js/ajax/msgTemplate.js"></script>
+	<script>
+		$(function() {
+			//table 切换方法
+			/* $('.tabnav2 li').click(function(){
+				var _index = $(this).index();
+				$(this).addClass('active').siblings().removeClass('active');
+				$('.tabstyle2 .con-right-cen').eq(_index).show().siblings().hide();
+			}); */
+			//table input 全选/不全选
+			$("#selectAll").click(function() {
+				if ($(this).is(':checked')) {
+					$('tbody').find('input').prop('checked', true).parents("tr").addClass('activeBg');
+				} else {
+					$('tbody').find('input').prop('checked', false).parents("tr").removeClass('activeBg');
+				}
+			});
+			//checkbox冒泡事件阻止
+			$(document).on("click", "input[type='checkbox']", function(e) {
+				e.stopPropagation();
+			});
+			$(document).on("click", ".menZhen input[type='checkbox']", function(e) {
+				if ($(this).is(":checked")) {
+					$(this).parents("tr").addClass('activeBg');
+				} else {
+					$(this).parents("tr").removeClass('activeBg');
+				}
+			});
+			
+			//鼠标覆盖移除样式
+			$(document).on("mouseover", ".userInfoTr", function() {
+				$(this).addClass("tr-hover");
+				$(this).attr("ismouseover", 1);
+			});
+			$(document).on("mouseout", ".userInfoTr", function() {
+				$(this).removeClass("tr-hover");
+				$(this).removeAttr("ismouseover");
+			});
+		});
+		
+		function countChar(textareaName,spanName) {
+	        var textNam = document.getElementById(textareaName);
+	        var spanNam =  document.getElementById(spanName);
+	        spanNam.innerHTML = textNam.value.length;
+	        if(textNam.value.length >= 55) {
+	            textNam.value = textNam.value.substring(0, 55);
+	            spanNam.innerHTML = 55;
+	        }
+	    }
+		
+		//动态加载
+		setTimeout(function() {
+			$.getScript("../sfile/js/highcharts.js");
+		}, 5000);
+	</script>
+</html>
+

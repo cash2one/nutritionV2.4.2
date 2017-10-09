@@ -1,0 +1,118 @@
+a:active{color: inherit;}
+body{
+    line-height: inherit;
+    color: #666;
+}
+input[type='button']:enabled:active, input[type='button'].mui-active:enabled, input[type='submit']:enabled:active, input[type='submit'].mui-active:enabled, input[type='reset']:enabled:active, input[type='reset'].mui-active:enabled, button:enabled:active, button.mui-active:enabled, .mui-btn:enabled:active, .mui-btn.mui-active:enabled {
+    color: #666666;
+    background-color: #e6e6e6;
+}
+.mui-btn-danger:enabled:active{
+    color: #fff;
+    border: 1px solid #ff7181;
+    background-color: #ff7181;
+}
+.mui-btn-danger, .mui-btn-negative, .mui-btn-red {
+    color: #fff;
+    border: 1px solid #ff8d9a;
+    background-color: #ff8d9a;
+}
+.mui-btn-outlined.mui-btn-danger{
+    color: #ff8d9a;
+    border: 1px solid #ff8d9a;
+    background-color: white;
+}
+
+/*mui input表单样式重置*/
+.mui-input-row .mui-input-clear ~ .mui-icon-clear
+{right: 30px;top:6px;padding: 6px;height: inherit;width: inherit}
+.mui-input-row label ~ input{
+    padding-right: 60px;
+}
+.mui-input-group .mui-input-row{
+    height: inherit;
+}
+
+.mui-input-group .mui-input-row:after{
+    right: 15px;
+}
+
+input, textarea, select{
+    font-size: inherit;
+}
+select, textarea, input[type='text'], input[type='search'], input[type='password'], input[type='datetime'], input[type='datetime-local'], input[type='date'], input[type='month'], input[type='time'], input[type='week'], input[type='number'], input[type='email'], input[type='url'], input[type='tel'], input[type='color']
+{padding: 0 15px;height: 45px}
+.mui-unit{
+    position: absolute;
+    top: 14px;
+    right: 15px;
+    z-index: 1;
+    font-size: 16px;
+    color: #666;
+    text-align: center;
+}
+.ResultBox,.ResultBox2,.ResultBox3{
+    float: right;
+    width: 65%;
+    margin-bottom: 0;
+    padding-left: 0;
+    border: 0;
+    font-size: 16px;
+    height: 45px;
+    line-height: 46px;
+}
+.ResultBox:after,.ResultBox3:after{
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    display: block;
+    right: 20px;
+    top:0;
+    margin-top: 17px;
+    border-width: 6px 0 6px 6px;
+    border-style:solid;
+    border-color:transparent transparent transparent #c4c7cc;
+
+}
+.mui-input-row label{
+    color:#666;
+    font-size: 16px;
+    padding: 0 15px;
+    line-height: 45px;
+    font-weight: 400;
+}
+.mui-input-row{
+    font-size: 16px;
+    color: #333;
+}
+
+/*mui按钮样式重置*/
+.mui-content-padded{
+    margin: 20px;
+}
+.mui-btn-block{
+    padding: 6px 0;
+    height: 40px;
+    border-radius: 20px;
+}
+.mui-btn-outlined.mui-btn-danger:enabled:active{
+    background: #ffe0e8;
+    color: #ff6789;
+}
+.pText{
+    width: 100%;
+    text-align: center;
+}
+.mui-segmented-control .mui-control-item.mui-active{
+    background-color: #ff8d9a;
+}
+.mui-segmented-control .mui-control-item {
+    color: #ff8d9a;
+    border-color: #ff8d9a;
+    border-left: 1px solid #ff8d9a;
+}
+.mui-segmented-control{
+    border: 1px solid #ff8d9a;
+    width: 100%;
+}

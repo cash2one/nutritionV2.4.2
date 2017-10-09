@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jumper.weight.nutrition.sport.mapper.SportSurveyMapper">
+	<resultMap id="BaseResultMap"
+		type="com.jumper.weight.nutrition.sport.entity.SportSurvey">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="hospital_id" property="hospitalId" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="outpatient_id" property="outpatientId"
+			jdbcType="INTEGER" />
+		<result column="survey_date" property="surveyDate" jdbcType="DATE" />
+		<result column="survey_list" property="surveyList" jdbcType="VARCHAR" />
+		<result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, hospital_id, user_id, outpatient_id, survey_date, survey_list,
+		add_time
+	</sql>
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from sport_survey
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from sport_survey
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="com.jumper.weight.nutrition.sport.entity.SportSurvey" flushCache="true">
+		insert into sport_survey 
+		(
+		hospital_id, user_id, outpatient_id, survey_date, survey_list, add_time
+		)
+		values (
+		#{hospitalId,jdbcType=INTEGER},	#{userId,jdbcType=INTEGER},
+		#{outpatientId,jdbcType=INTEGER}, #{surveyDate,jdbcType=DATE}, 
+		#{surveyList,jdbcType=VARCHAR},	#{addTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<update id="update"
+		parameterType="com.jumper.weight.nutrition.sport.entity.SportSurvey" flushCache="true">
+		update sport_survey
+		<set>
+			<if test="hospitalId != null">
+				hospital_id = #{hospitalId,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="outpatientId != null">
+				outpatient_id = #{outpatientId,jdbcType=INTEGER},
+			</if>
+			<if test="surveyDate != null">
+				survey_date = #{surveyDate,jdbcType=DATE},
+			</if>
+			<if test="surveyList != null">
+				survey_list = #{surveyList,jdbcType=VARCHAR},
+			</if>
+			<if test="addTime != null">
+				add_time = #{addTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<!-- 通过门诊id查询运动调查记录 -->
+	<select id="listSurveyByOutpId" parameterType="int" resultMap="BaseResultMap">
+		select id, survey_date, survey_list from sport_survey 
+		where outpatient_id = #{outpatientId} order by survey_date desc
+	</select>
+	<!-- 通过日期和门诊id查询出唯一一条 -->
+	<select id="findByDateOutp" resultMap="BaseResultMap">
+		select id, survey_date, survey_list from sport_survey 
+		where outpatient_id = #{outpatientId} and survey_date = #{surveyDate} limit 1
+	</select>
+	
+	<!-- 通过门诊id删除运动调查 -->
+	<delete id="deleteByOutpId" parameterType="int">
+		delete from sport_survey
+		where outpatient_id = #{outpatientId}
+	</delete>
+</mapper>

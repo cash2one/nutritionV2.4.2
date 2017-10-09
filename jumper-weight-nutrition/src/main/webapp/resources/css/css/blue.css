@@ -1,0 +1,39 @@
+.pleft{
+	background-color: #1bb1e3;
+}
+.rightM .centerM .messageB{
+	background-color: #1BB1E3;
+	color: #fff;
+}
+.leftM .centerM .messageB{
+	background-color: #fff;
+	color:#808080;
+}
+
+.pleft ul .active{
+	color: #666;
+	background: #e6e9ef;
+}
+.pleft ul .hover_active{
+	background:#72c6e2;
+}
+
+
+.rightM .pointM{
+    background: url(../../../resources/img/arrow4.gif) no-repeat 0;
+}
+
+.leftM .pointM{
+    background: url(../../../resources/img/arrow3.gif) no-repeat 0;
+}
+
+.sendMessageBotton{
+	background-color:#19a7d6;
+	color: #fff;
+}
+.sendMessageBotton:active{
+    background-color: #1694ba;
+}
+body .pright{
+     box-shadow: 0 4px 10px rgba(0,0,0, .3);
+}

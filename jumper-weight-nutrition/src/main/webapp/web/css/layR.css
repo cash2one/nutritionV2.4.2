@@ -1,0 +1,128 @@
+
+.layui-tab-content{
+    background: #d8e3eb;
+    min-height: 410px!important;
+    overflow: hidden;
+    margin-top: -8px;
+    +margin-top: -14px;
+}
+.layui-tab-card .layui-tab-title .layui-this{
+    background: #d8e3eb;
+    color: #5cb1e6;
+}
+.layui-tab{
+    overflow: hidden;
+}
+.layui-icon{
+    color: #999999;
+    vertical-align: middle;
+}
+/*.layui-tab-title .layui-this:after{
+    border: none;
+}*/
+.layui-table{
+    max-height: 500px;
+    overflow: auto;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.layui-table input{
+    padding: 2px;
+    width: 40px;
+    height: 24px;
+    font-size: 12px;
+    line-height: 24px;
+}
+.layui-show{
+    overflow: hidden;
+    width: 100%;
+}
+.layui-table td, .layui-table th{
+    border: none;
+    text-align: left;
+    font-size: 12px;
+    padding: 4px 6px;
+}
+.layui-tab-card .layui-tab-title{
+    background: #fafafa;
+}
+.layui-tab-card .layui-tab-title li:hover{
+    background: #edf6fa;
+}
+.layui-input, .layui-textarea{
+	padding-left: 4px;
+}
+.layui-btn-normal{
+    background: #1990ec;
+}
+.layui-tab-title li .pen:hover {
+    border-radius: 2px;
+    background-color: #1992ec;
+    color: #fff!important;
+}
+.layui-tab-title .layui-this{
+    line-height: 40px;
+    background: #d8e3eb;
+    color: #5cb1e6;
+    margin-top: 0;
+}
+.layui-tab-title .layui-this:after
+{
+    border:none;
+}
+.layui-tab-title{
+    overflow-x: auto;
+    height: 50px;
+    border-bottom: none;
+    +position: static;
+}
+.layui-laypage .layui-laypage-curr .layui-laypage-em{
+    background-color: #1990ec;
+}
+.layui-table thead tr{
+    background: white;
+}
+.layui-tab-title li{
+    top: 2px;
+    display: block;
+    float: left;
+    border-radius: 2px 2px 0 0;
+    background: #e6e9eb;
+    line-height: 30px;
+    padding: 0 16px;
+    text-decoration: none;
+    color: grey;
+    margin-top: 10px;
+    margin-right: 1px;
+    transition: all .2s;
+    -webkit-transition: all .2s;
++position: static;
+}
+.layui-tab-title li:hover{
+    background: #d8e3eb;
+    color: #1990EC;
+    line-height: 40px;
+    margin-top: 0;
+}
+.site-demo-active{
+    + margin-top: -52px;
+    + padding:0 4px;
+}
+.layui-btn {
+    background:#1990EC;
+  }
+.layui-laypage .layui-laypage-curr .layui-laypage-em{
+	width: 36px;
+	height: 28px;
+}
+.layui-laypage .layui-laypage-total{
+	+vertical-align: middle;
+}
+.layui-layer-hui {
+	background: #666666 !important;
+}
+.layui-table tr:hover, .layui-table[lay-even] tr:nth-child(even){
+	background: #d1eaff;
+}

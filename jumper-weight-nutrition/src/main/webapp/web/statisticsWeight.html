@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <!--触发标准模式，这个是最有效的方法。-->
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <meta name=”renderer” content=”webkit|ie-comp|ie-stand” />
+    <title>体重异常统计</title>
+    <link rel="stylesheet" href="css/layercss/layui.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/layR.css" />
+    <style>
+        .container-right{
+            margin-left: 0;
+            _left:0;
+        }
+        .container-main{
+            margin: 20px;
+            overflow: hidden;
+
+        }
+        .cellBox{
+            padding: 20px;
+            background: white;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .cellBox_1{
+            width: 100%;
+        }
+        .cellBox .layui-table th{
+            border-top: 1px solid #CCCCCC;
+        }
+        .cellBox .layui-table th{
+            background: #eeeeee;
+        }
+        .cellBox .layui-table td,.cellBox .layui-table th{
+            border-left: 1px solid #CCCCCC;
+            border-right: 1px solid #CCCCCC;
+        }
+        .cellBox .layui-table tr{
+            border-bottom: 1px solid #CCCCCC;
+        }
+        .icon_ana{
+            height: 24px;
+            width: 24px;
+            margin: -2px 10px 0 0;
+            float: left;
+            vertical-align: middle;
+            background-image: url("img/icon_ana_1.gif");
+        }
+        .cellBox_title{
+            font-size: 16px;
+            font-weight: bold;
+            color: #627d99;
+            margin-bottom: 20px;
+        }
+        .icon_1{background-position:0 -24px;}
+        .centerBox{
+            width: 100%;
+        }
+       .topNav{
+            line-height: 44px;
+       }
+        .topNav.active{
+            box-sizing: border-box;
+            border-bottom: 5px solid #1990EC;
+            color: #1990EC;
+        }
+        .tableData th,.tableData td{
+            padding: 36px;
+            color: white;
+        }
+        .tableData th{padding-bottom: 11px;font-size: 16px;}
+        .tableData td{padding-top: 0;}
+        .tableData .th1,.tableData .td1{border-right:20px solid;border-color:white;background: #f8dc87;}
+        .tableData .th2,.tableData .td2{border-right:20px solid;border-color:white;background: #82dafb;}
+        .tableData .th3,.tableData .td3{background: #ffb588;}
+        .tableData{
+            width: 92%;
+            text-align: center;
+            color: #333;
+            margin: 20px 4%;
+        }
+
+        body .tableData td span{
+            font-weight: bold;
+            font-size:36px;
+            line-height: 50px;
+        }
+        .titleSelect{
+            font-size: 16px;
+            font-weight: bold;
+            color: #627d99;
+            border:none;
+            cursor: pointer;
+            transition: .2s;
+        }
+        .titleSelect:hover{
+            background: #e6ecf0;
+        }
+        .layui-input-inline{
+            _float: left;
+            width: 104px!important;
+        }
+        .layui-input{_height: 24px;_line-height: 24px;width: 100px;!important;}
+        .tdLook{
+        	display:block;
+        	height:10px;
+        	float:right;
+            font-size: 14px;
+            font-weight: normal;
+            cursor: pointer;
+        }
+        .ana_tips{
+            margin: 0 6px;
+            width: 16px;
+            vertical-align: middle;
+            margin-top: -4px;
+            float: left;
+        }
+        .con-right-top-2{
+       	    height: 50px;
+    		line-height: 50px;
+    		width: 100%;
+    		border-bottom: 1px solid #ccc;
+    		background: #fff;
+       }
+       .con-right-top-2 span {
+    		color: #5d5d5d;
+    		margin-left: 20px;
+    		font-size: 15px;
+    		cursor: pointer;
+	   }	
+    </style>
+
+</head>
+<body>
+
+<div class="container" style="clear:both">
+   <div class="container-right">
+        <div class="con-right-top">
+            <span id="outpatient">门诊</span>
+			<span id="userManage">孕妇档案</span>
+			<span id="standardRecipes">营养方案</span>
+			<span class="active" id="statistics">统计</span>
+			<span id="settings">设置</span>
+			<span id="noRead" style="float:right;margin-right:66px;"><img style="width:30px;" alt="" src="img/email.png"><span style="margin-left:0px;">（0）</span></span>
+        </div>
+        <div class="con-right-top-2">
+           <span class="topNav fl statistics">门诊统计</span><span class="topNav fl statisticsWeight active">体重异常统计</span>
+       </div>
+        <div class="container-main">
+           <div class="centerBox">
+               <div class="cellBox cellBox_1">
+                   <h1 class="cellBox_title"><span><img class="ana_tips" src="img/q.gif" alt=""></span></h1>
+                   <table class="tableData">
+                       <tr>
+                           <th class="th1">体重增速异常</th>
+                           <th class="th2">体重增速偏慢</th>
+                           <th class="th3">体重增速偏快</th>
+                       </tr>
+                       <tr>
+                           <td class="td1"><span class="excWeightNum"></span><span style="font-size: 12px;">人</span></td>
+                           <td class="td2">
+                               <p style='font-size:36px;'><span class="lowWeightNum"></span><span style="font-size: 12px;">人</span></p>
+                               <p class="tdLook" weightStatus="0">查看 ></p>
+                           </td>
+                           <td class="td3">
+                               <p style='font-size:36px;'><span class="highWeightNum"></span><span style="font-size: 12px;">人</span></p>
+                               <p class="tdLook" weightStatus="2">查看 ></p>
+                           </td>
+                       </tr>
+                   </table>
+               </div>
+           </div>
+            <div class="centerBox">
+
+                <div class="cellBox cellBox_1">
+                    <h1 class="cellBox_title"><i class="icon_ana icon_1"></i>
+                        <span>
+                            <select class="titleSelect" name="" id="statisticsType">
+                                <option value="0">体重增速异常</option>
+                                <option value="1">体重增速偏慢</option>
+                                <option value="2">体重增速偏快</option>
+                            </select>
+                       </span>
+                    </h1>
+                    <div class="layui-form-item ov">
+                        <label class="fl"  style="margin-top:8px;_margin-top:1px;">选择时间范围：</label>
+                        <div class="layui-input-inline" style="_width:80px;">
+                            <select class="layui-input" name="" id="selectTian" style="line-height: 40px;">
+                                <option value="0">最近7天</option>
+                                <option value="1">最近30天</option>
+                                <option value="2">自定义</option>
+                            </select>
+                        </div>
+                        <div class="dateBox" style="display: none;">
+                            <label class="fl" style="margin-top:8px;_margin-top:1px;margin-left: 20px;"> 选择日期范围：</label>
+                            <div class="layui-input-inline" style="_width:80px;">
+                                <input class="layui-input" placeholder="开始日" id="startDate">
+                            </div>
+                            <div class="layui-input-inline" style="_width:80px;">
+                                <input class="layui-input" placeholder="截止日" id="endDate">
+                            </div>
+                            <button class="layui-btn fl checkSearchBtn" style="_height: 25px;_line-height: 26px;_width: 60px; ">确定</button>
+                        </div>
+                    </div>
+                    <hr style="margin: 20px 0">
+                    <div id="container_8" style="height: 500px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<script src="../sfile/js/json2.js"></script>
+<script type="text/javascript" src="js/jquery-1.7.2.min.js" ></script>
+<script type="text/javascript" src="js/layui/layui.js"></script>
+<script type="text/javascript" src="js/layer/layer.js"></script>
+<script src="../sfile/js/highcharts.js"></script>
+<script type="text/javascript" src="js/highchartsThemes/GirdLight.js"></script>
+<!-- ie不支持 -->
+<!-- <link rel="import" href="common/foot.html"> -->
+<script src="../sfile/js/jquery.cookie.js"></script>
+<script src="../sfile/js/common.js"></script>
+<script src="../sfile/js/main.js"></script>
+<script type="text/javascript" src="js/ajax/statisticsWeight.js"></script>
+<script>
+    $(function () {
+		//select选择
+		$('#selectTian').on('change', function() {
+			if ($(this).val() == 2) {
+				$('.dateBox').css('display', 'block');
+			} else {
+				$('.dateBox').css('display', 'none');
+			}
+		});
+		//日期js
+		layui.use('laydate', function() {
+			var laydate = layui.laydate;
+			var start = {
+				min : laydate.now(-371),
+				max : laydate.now(),
+				istoday : false,
+				choose : function(datas) {
+					end.min = datas; //开始日选好后，重置结束日的最小日期
+					end.start = datas; //将结束日的初始值设定为开始日
+				}
+			};
+
+			var end = {
+				min : laydate.now(-371),
+				max : laydate.now(),
+				istoday : false,
+				choose : function(datas) {
+					start.max = datas; //结束日选好后，重置开始日的最大日期
+				}
+			};
+
+			document.getElementById('startDate').onclick = function() {
+				start.elem = this;
+				laydate(start);
+			};
+			document.getElementById('endDate').onclick = function() {
+				end.elem = this;
+				laydate(end);
+			}
+		});
+		//动态获取视窗高度
+		var heights = $(window).height() - 60;
+		$(".container-left,.container,.container-right").height(heights);
+
+		$('.ana_tips').mouseover(function() {
+			layer.tips('体重增速异常：统计体重增速偏慢和体重增速偏快的人数'
+					+ '<br>' + '体重增速偏慢：目前体重低于推荐体重增长范围的人数'
+					+ '<br>' + '体重增速偏快：目前体重高于推荐体重增长范围的人数',
+					'.ana_tips', {
+						tips : [ 3, '#1990ec' ],
+						time : 6000
+					});
+			$('.layui-layer-tips').css('width', '536px');
+		});
+		$('.ana_tips').mouseout(function() {
+			$('.layui-layer-tips').hide(200);
+		});
+
+	});
+	$(window).resize(function() {
+		var heights = $(window).height() - 60;
+		$(".container-left,.container,.container-right").height(heights);
+	});
+</script>
+</html>
+

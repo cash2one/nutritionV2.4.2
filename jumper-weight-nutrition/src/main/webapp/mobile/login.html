@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>用户登录</title>
+		<link href="css/mui.min.css" rel="stylesheet">
+		<link href="css/mui.picker.min.css" rel="stylesheet">
+		<link href="css/login_style.css" rel="stylesheet">
+	</head>
+	<body>
+		<div id="bg" style="display: none;"></div>
+		<div class="mui-content">
+			<div id='login-form' class="mui-input-group">
+				<div class="mui-input-row row-img">
+					<label><img src="images/phone@2x.png"></label>
+					<input id='mobile' type="tel" class="mui-input-clear mui-input" placeholder="请输入您的手机号" maxlength="11">
+				</div>
+				<!--提示-->
+				<p class="tis" id="mobileTis"></p>
+				<div class="mui-input-row row-img">
+					<label><img src="images/yanz.png"></label>
+					<input  type="tel" class="mui-input input-right" id="code" placeholder="请输入验证码" maxlength="6">
+					<input type="button" class="yzbutton" value="获取验证码">
+				</div>
+				<!--提示-->
+				<p class="tis" id="codeTis"></p>
+			</div>
+			<div class="mui-content-padded">
+				<button type="button" id="login" data-loading-text="提交中" class="mui-btn mui-btn-block mui-btn-primary">登录</button>
+			</div>
+			<div class="mui-content-padded oauth-area"></div>
+		</div>
+		
+		<script src="js/mui.min.js"></script>
+		<script src="js/mui.picker.min.js"></script>
+		<script src="js/mui.poppicker.js"></script>
+		<script src="js/city.data-3.js"></script>
+		<script src="js/Zepto.js"></script>
+		<script src="../sfile/js/jquery-1.10.1.min.js"></script>
+		<script src="../sfile/js/jquery.cookie.js"></script>
+		<script src="../sfile/js/common.js"></script>
+		<script src="js/ajax/login.js"></script>
+	</body>
+</html>

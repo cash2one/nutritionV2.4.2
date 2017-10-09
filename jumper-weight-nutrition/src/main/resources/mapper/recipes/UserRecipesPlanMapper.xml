@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jumper.weight.nutrition.recipes.mapper.UserRecipesPlanMapper" >
+  <resultMap id="BaseResultMap" type="com.jumper.weight.nutrition.recipes.entity.UserRecipesPlan" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="hospital_id" property="hospitalId" jdbcType="INTEGER" />
+    <result column="outpatient_id" property="outpatientId" jdbcType="INTEGER" />
+    <result column="recipes_name" property="recipesName" jdbcType="VARCHAR" />
+    <result column="recipes_msg" property="recipesMsg" jdbcType="LONGVARCHAR" />
+    <result column="intake_calorie" property="intakeCalorie" jdbcType="INTEGER" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, hospital_id, outpatient_id, recipes_name, recipes_msg, intake_calorie, 
+    add_time
+  </sql>
+  
+  <!-- 查询本次门诊用户食谱记录 -->
+  <select id="findUserRecipesPlans" parameterType="int" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+    from user_recipes_plan
+    where outpatient_id=#{outpatientId} order by add_time
+  </select>
+  
+  <!-- 查询最近用户正在使用的食谱列表 -->
+  <select id="findUserLeastRecipesPlans" parameterType="map" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+    from user_recipes_plan
+    where user_id=#{userId} and hospital_id=#{hospitalId} and outpatient_id=(
+    	select max(outpatient_id) from user_recipes_plan where user_id=#{userId} and hospital_id=#{hospitalId}
+    )
+  </select>
+  
+  <!-- 批量插入用户食谱信息 -->
+  <insert id="insertBatch" parameterType="list">
+  	insert into user_recipes_plan
+  		(user_id, hospital_id, outpatient_id, recipes_name, recipes_msg, intake_calorie, add_time)
+  			values
+		  		<foreach collection="list" item="recipes" separator=",">
+		  			(#{recipes.userId},#{recipes.hospitalId},#{recipes.outpatientId},#{recipes.recipesName},#{recipes.recipesMsg},#{recipes.intakeCalorie},
+		  				#{recipes.addTime})
+		  		</foreach>
+  </insert>
+  
+  <!-- 删除用户某次门诊食谱记录 -->
+  <delete id="deleteUserRecipesPlans" parameterType="map">
+  	delete from user_recipes_plan where outpatient_id=#{outpatientId}
+  </delete>
+  
+  <!-- 根据用户食谱id删除记录 --> 
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from user_recipes_plan
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <!-- 通过id查询用户食谱记录 -->
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_recipes_plan
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 插入用户食谱信息 -->
+  <insert id="insert" parameterType="com.jumper.weight.nutrition.recipes.entity.UserRecipesPlan" flushCache="true" 
+  	keyColumn="GENERATED_KEY" keyProperty="id" useGeneratedKeys="true">
+    insert into user_recipes_plan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="hospitalId != null" >
+        hospital_id,
+      </if>
+      <if test="outpatientId != null" >
+        outpatient_id,
+      </if>
+      <if test="recipesName != null" >
+        recipes_name,
+      </if>
+      <if test="recipesMsg != null" >
+        recipes_msg,
+      </if>
+      <if test="intakeCalorie != null" >
+        intake_calorie,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="hospitalId != null" >
+        #{hospitalId,jdbcType=INTEGER},
+      </if>
+      <if test="outpatientId != null" >
+        #{outpatientId,jdbcType=INTEGER},
+      </if>
+      <if test="recipesName != null" >
+        #{recipesName,jdbcType=VARCHAR},
+      </if>
+      <if test="recipesMsg != null" >
+        #{recipesMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="intakeCalorie != null" >
+        #{intakeCalorie,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 修改用户食谱信息 -->
+  <update id="update" parameterType="com.jumper.weight.nutrition.recipes.entity.UserRecipesPlan" >
+    update user_recipes_plan
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="hospitalId != null" >
+        hospital_id = #{hospitalId,jdbcType=INTEGER},
+      </if>
+      <if test="outpatientId != null" >
+        outpatient_id = #{outpatientId,jdbcType=INTEGER},
+      </if>
+      <if test="recipesName != null" >
+        recipes_name = #{recipesName,jdbcType=VARCHAR},
+      </if>
+      <if test="recipesMsg != null" >
+        recipes_msg = #{recipesMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="intakeCalorie != null" >
+        intake_calorie = #{intakeCalorie,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

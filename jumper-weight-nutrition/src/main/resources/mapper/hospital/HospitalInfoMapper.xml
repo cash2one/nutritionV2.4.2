@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jumper.weight.nutrition.hospital.mapper.HospitalInfoMapper">
+	<resultMap id="BaseResultMap" type="com.jumper.weight.nutrition.hospital.entity.HospitalInfo">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="introduction" jdbcType="VARCHAR" property="introduction" />
+		<result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+		<result column="address" jdbcType="VARCHAR" property="address" />
+		<result column="province_id" jdbcType="INTEGER" property="provinceId" />
+		<result column="city_id" jdbcType="INTEGER" property="cityId" />
+		<result column="order_key" jdbcType="VARCHAR" property="orderKey" />
+		<result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+		<result column="level" jdbcType="INTEGER" property="level" />
+		<result column="parent_id" jdbcType="INTEGER" property="parentId" />
+		<result column="phone" jdbcType="VARCHAR" property="phone" />
+		<result column="is_valid" jdbcType="INTEGER" property="isValid" />
+		<result column="order_by" jdbcType="INTEGER" property="orderBy" />
+		<result column="is_remote" jdbcType="INTEGER" property="isRemote" />
+		<result column="is_consultant" jdbcType="INTEGER" property="isConsultant" />
+		<result column="remotes" jdbcType="INTEGER" property="remotes" />
+		<result column="consultants" jdbcType="INTEGER" property="consultants" />
+		<result column="is_weight" jdbcType="INTEGER" property="isWeight" />
+		<result column="is_blood" jdbcType="INTEGER" property="isBlood" />
+		<result column="is_school" jdbcType="INTEGER" property="isSchool" />
+		<result column="is_lease" jdbcType="TINYINT" property="isLease" />
+		<result column="is_class" jdbcType="TINYINT" property="isClass" />
+		<result column="is_video" jdbcType="TINYINT" property="isVideo" />
+		<result column="is_mobile" jdbcType="TINYINT" property="isMobile" />
+		<result column="is_payment" jdbcType="TINYINT" property="isPayment" />
+		<result column="is_autonomy" jdbcType="INTEGER" property="isAutonomy" />
+		<result column="is_network" jdbcType="TINYINT" property="isNetwork" />
+		<result column="hospital_key" jdbcType="VARCHAR" property="hospitalKey" />
+		<result column="is_integrated_service" jdbcType="TINYINT"
+			property="isIntegratedService" />
+		<result column="is_doctor_nst" jdbcType="BIT" property="isDoctorNst" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, name, introduction, img_url, address, province_id,
+		city_id,
+		order_key, add_time,
+		level, parent_id, phone, is_valid,
+		order_by, is_remote, is_consultant,
+		remotes, consultants,
+		is_weight,
+		is_blood, is_school, is_lease, is_class, is_video, is_mobile,
+		is_payment,
+		is_autonomy, is_network, hospital_key,
+		is_integrated_service, is_doctor_nst
+	</sql>
+
+	<select id="findById" parameterType="java.lang.Integer"	resultMap="BaseResultMap">
+		select id, name	from jumper_anglesound.hospital_info where id = #{id,jdbcType=INTEGER}
+	</select>
+
+</mapper>

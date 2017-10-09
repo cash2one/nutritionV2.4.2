@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jumper.weight.nutrition.diet.mapper.DietSurveyMapper" >
+  <resultMap id="BaseResultMap" type="com.jumper.weight.nutrition.diet.entity.DietSurvey" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="hospital_id" property="hospitalId" jdbcType="INTEGER" />
+    <result column="outpatient_id" property="outpatientId" jdbcType="INTEGER" />
+    <result column="eat_date" property="eatDate" jdbcType="DATE" />
+    <result column="diet_msg" property="dietMsg" jdbcType="LONGVARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, hospital_id, outpatient_id, eat_date, diet_msg, add_time
+  </sql>
+  
+  <!-- 根据门诊id查询用户膳食调查记录 -->
+  <select id="findUserDietSurveyList" resultType="int" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"></include> 
+  	from diet_survey where outpatient_id=#{outpatientId} order by eat_date desc
+  </select>
+  
+  <!-- 通过id查询用户膳食调查记录 -->
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from diet_survey
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 插入用户膳食调查记录 -->
+  <insert id="insert" parameterType="com.jumper.weight.nutrition.diet.entity.DietSurvey" 
+  	flushCache="true" keyColumn="GENERATED_KEY" keyProperty="id" useGeneratedKeys="true">
+    insert into diet_survey
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="hospitalId != null" >
+        hospital_id,
+      </if>
+      <if test="outpatientId != null" >
+        outpatient_id,
+      </if>
+      <if test="eatDate != null" >
+        eat_date,
+      </if>
+      <if test="dietMsg != null" >
+        diet_msg,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="hospitalId != null" >
+        #{hospitalId,jdbcType=INTEGER},
+      </if>
+      <if test="outpatientId != null" >
+        #{outpatientId,jdbcType=INTEGER},
+      </if>
+      <if test="eatDate != null" >
+        #{eatDate,jdbcType=DATE},
+      </if>
+      <if test="dietMsg != null" >
+        #{dietMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 修改用户膳食调查记录 -->
+  <update id="update" parameterType="com.jumper.weight.nutrition.diet.entity.DietSurvey" >
+    update diet_survey
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="hospitalId != null" >
+        hospital_id = #{hospitalId,jdbcType=INTEGER},
+      </if>
+      <if test="outpatientId != null" >
+        outpatient_id = #{outpatientId,jdbcType=INTEGER},
+      </if>
+      <if test="eatDate != null" >
+        eat_date = #{eatDate,jdbcType=DATE},
+      </if>
+      <if test="dietMsg != null" >
+        diet_msg = #{dietMsg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 删除用户膳食调查记录 -->
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from diet_survey
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <!-- 根据门诊id删除用户膳食调查记录 -->
+  <delete id="deleteUserDietSurveyByOutpId" parameterType="int">
+  	delete from diet_survey where outpatient_id=#{outpatientId}
+  </delete>
+  
+</mapper>

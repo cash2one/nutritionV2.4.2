@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+        <!--触发标准模式，这个是最有效的方法。-->
+        <meta http-equiv="X-UA-Compatible" content="edge" />
+        <meta name=”renderer” content=”webkit|ie-comp|ie-stand” />
+		<title>膳食调查</title>
+		<link rel="stylesheet" href="css/layui.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/layR.css" />
+		<link href="../sfile/css/jquery.autocomplete.css" rel="stylesheet">
+		
+		<!--[if lte IE 6]>
+			<style>
+				.cen-table tr td{height:30px;}
+
+				.con-right-ul{
+					height:38px;
+					line-height:38px;
+				}
+				.container-right{
+					background:#dbe7ef;
+				}
+			</style>
+		<![endif]-->
+        <style>
+			.layui-tab-content{
+				_height:460px;
+			}
+			.showReport {
+			    background: #23c266;
+    			border-color: #23c266;
+			}
+			html body{
+	        	_overflow: hidden;/* 为了在ie6iframe时有高度的滚动条 */
+	        	_height:860px;
+	        }
+	       
+        </style>
+	</head>
+	<body>
+		<!-- <div class="head" style="overflow: hidden;">
+			<div class="head-left">
+				<img src="img/LOGO.jpg" alt="logo" />
+			</div>
+			<div class="head-right">
+				<ul class="ultext">
+					<li><div class="this-text">消息:</div><div class="this">12</div></li>
+					<li><span>当前管理医院：</span><span>天使医生高级好医院</span></li>
+					<li class="iconli"><img class="icon-img" src="img/s.jpg"><span>欢迎您：</span><span>谁的发送到</span></li>
+				</ul>
+			</div>
+		</div> -->
+		<div class="container" style="clear:both">
+			<!-- <div class="container-left">
+				<div class="navside">menu</div>
+				<ul>
+					<li class="active">
+						<img src="img/icon-left1.gif" />
+						体重营养
+					</li>
+					<li>
+						<img src="img/icon-left2.gif" />
+						胎心监护
+					</li>
+					<li>
+						<img src="img/icon-left3.gif" />
+						孕妇学校
+					</li>
+				</ul>
+			</div> -->
+			<div class="container-right">
+				<div  class="con-right-top">
+					<span class="active" id="outpatient">门诊</span>
+					<span id="userManage">孕妇档案</span>
+					<span id="standardRecipes">营养方案</span>
+					<span id="statistics">统计</span>
+					<span id="settings">设置</span>
+					<span id="noRead" style="float:right;margin-right:66px;"><img style="width:30px;" alt="" src="img/email.png"><span style="margin-left:0px;">（0）</span></span>
+				</div>
+				<!-- 头部用户信息 -->	
+				<div class="headinfo" id="headUserInfo">
+					
+				</div>
+				
+				<div class="con-right-cen con-right-ul">
+					<ul>
+						<li class="active" style="border-right:none">1 . 填写信息</li>
+						<li class="active">2 . 膳食调查 <img src="img/a.jpg" class="titleArrow"/></li>
+						<li>3 . 运动调查</li>
+						<li style="border-right:none">4 . 方案制定</li>
+					</ul>
+				</div>
+				<div class="con-right-cen">
+					<div class="cen-conter" style="height:580px;">
+						<p class="text">膳食调查列表</p>
+                        <!-- <button class="layui-btn site-demo-active fr" id="addDietSurvey" style="background: #2e8fdd;margin-top: -50px;">新增调查天数</button> -->
+                        <div class="fr" style="margin-top: -44px;_margin-top: -50px;">
+                            <input id="addDay"  type="text" style=""/>
+                            <label id="addDietSurvey" for="addDay" class="layui-btn addDayLab" style="background: #2e8fdd;">新增调查天数</label>
+                            <a href='#'><label id="lookNutritionAnalyze" for="lookAnalyze" class="layui-btn addDayLab showReport">查看营养分析</label></a>
+                        </div>
+                        <!--tab-->
+                        <div class="layui-tab" lay-filter="demo" lay-allowclose="true">
+                        <input type="hidden" id="eatDate" value=""/>
+                            <ul class="layui-tab-title" id="dietSurveyOptions">
+                                <li class="layui-this dietSurvey" dietSurveyId="0">
+                                    <span class="tabelTitleN" id="yesterday"></span>
+                                    <i class="layui-icon pen">&#xe642;</i>
+                                </li>
+                            </ul>
+                            <div class="layui-tab-content rightPlanDetail">
+                                <div class="layui-tab-item layui-show ">
+                                    <div class="mainL box fl bor1 backW select-meals-type">
+                                        <div class="inputBox1">
+                                             <label><input type="radio" name="1" value="1" meals-name="早餐" checked="checked">早餐</label>
+                                             <label><input type="radio" name="1" value="2" meals-name="早点">早点</label>
+                                         </div>
+                                         <div class="inputBox1">
+                                             <label><input type="radio" name="1" value="3" meals-name="午餐">午餐</label>
+                                             <label><input type="radio" name="1" value="4" meals-name="午点">午点</label>
+                                         </div>
+                                         <div class="inputBox1">
+                                             <label><input type="radio" name="1" value="5" meals-name="晚餐">晚餐</label>
+                                             <label><input type="radio" name="1" value="6" meals-name="晚点">晚点</label>
+                                         </div>
+                                        <div class="chaXun">
+                                            <label >查询
+                                                <input type="text" placeholder="请输入食物名称" id="search-food-input">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="tableBox backW bor1 ov fl tBox_6" style="height: 458px;_height: 460px;border-left:none; ">
+                                        <div class=" fl" style="height: 420px;overflow-y:auto;width: 100% ">
+                                            <table class="layui-table" id="table-food-list" style="width: 97%">
+                                                <thead>
+                                                <tr>
+                                                    <th>餐次</th>
+                                                    <th>食物名称</th>
+                                                    <th>用量(g)</th>
+                                                    <th>操作</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody id="mealsInfoList">
+                                                <!-- <tr><td>早餐</td><td>玉米(1根=200克)</td><td><label><input type="text"></label></td><td><a class="btn_blue trDel">删除</a></td></tr> -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <p class="endText1 fr" style="padding-right:20px;">目前食谱包含 <span id="countFood">0</span> 种食物种类</p>
+                                    </div>
+                                    <div class="bor1 tabR fr tBox_2" id="analyzeTable" style="height: 458px;overflow-y: auto;width: 34%">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+					</div>
+				</div>
+                <div class="btnBottom">
+                    <a id="goBack">返回</a>
+                    <a id="goNext">下一步</a>
+                    <a id="jumperOver">跳过</a>
+                </div>
+			</div>
+		</div>
+		<!-- 跳转类型，0表示弹出层，1表示页面跳转 -->
+	   	<input type="hidden" value="0" name="jumpType">	
+		<!--------------------  弹出层     ---------------------- --->
+		<div id="userInfoHtml"></div>
+	</body>
+	<script src="../sfile/js/json2.js"></script>
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js" ></script>
+	<script src="../sfile/js/jquery.cookie.js"></script>
+	<script src="../sfile/js/common.js"></script>
+	<script src="../sfile/js/main.js"></script>
+	<script type="text/javascript" src="js/layer/layer.js"></script>
+	<script type="text/javascript" src="js/layui/layui.js"></script>
+    <!-- <script type="text/javascript" src="js/fn.js"></script> -->
+    <script type="text/javascript" src="../sfile/js/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="../sfile/js/jquery.autocomplete.js"></script>
+	<script type="text/javascript" src="js/ajax/dietSurvey.js"></script>
+	<script src="js/ajax/foodAnalyze.js"></script>
+	<script src="../sfile/js/jquery.validate.min.js"></script>
+    <script src="../sfile/js/messages_zh.js"></script>
+	<script src="js/ajax/saveUserInfo.js"></script>
+	<!-- 让ie6-ie8兼容响应式 -->
+	<script src="../sfile/js/respond.js"></script>
+	<script>
+		/*--------------------  layui 日历     ---------------------- --*/
+		layui.use('laydate', function(){
+		    var laydate = layui.laydate;
+		});
+		
+		
+	</script>
+</html>
+

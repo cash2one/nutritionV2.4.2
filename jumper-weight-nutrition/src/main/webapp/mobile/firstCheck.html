@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--css文件加载顺序不能动-->
+    <link href="css/mui.min.css" rel="stylesheet">
+    <link href="css/css.css" rel="stylesheet">
+    <link href="css/reset.css" rel="stylesheet">
+    <link href="css/muiReset.css" rel="stylesheet">
+    <title>确认完成</title>
+    <style>
+       /* .mui-icon-checkmarkempty{
+            margin: -20px 0 0 -20px;
+            font-size: 140px;
+            text-align: center;
+            color: #89c777;
+        }*/
+        .muIconBox{
+            margin: 26% auto;
+            text-align: center;
+        }
+        .mui-btn{
+            position: absolute;
+            bottom: 10%;
+            width: 80%;
+            left: 10%;
+            margin-bottom: 0;
+        }
+        .pText{
+            margin-top: 40px;
+            width: 100%;
+            font-size: 16px;
+            padding:0 14px;
+            color:#333;
+        }
+    </style>
+</head>
+<body style="background: #f5f5f5">
+    <div class="muIconBox">
+        <img src="images/finish.png" alt="" width="40%">
+        <p class="pText" id="remindContent">您已成功提交信息，请耐心等待候诊。</p>
+    </div>
+    <!-- <button type="button" class="mui-btn mui-btn-danger mui-btn-block">确认</button> -->
+</body>
+<script src="../sfile/js/jquery-1.10.1.min.js"></script>
+<script src="../sfile/js/jquery.cookie.js"></script>
+<script src="../sfile/js/common.js"></script>
+<script type="text/javascript">
+	var outpatientId = GetQueryString("outpatientId");
+	$(function(){
+		$.ajax({
+			url:basePath+"/settings/findHospitalOutpatientReasonByOutpId",
+			type:"POST",
+			dataType:"json",
+			data:{outpatientId:outpatientId},
+			success:function(json){
+				if(json.msg == 1){
+					var data = json.data;
+					var html = data.tips;
+					$("#remindContent").html(html);
+				}
+			}
+		});
+	});
+</script>
+</html>

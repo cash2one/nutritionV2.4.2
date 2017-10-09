@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jumper.weight.nutrition.hospital.mapper.HospitalOutpatientReasonMapper" >
+  <resultMap id="BaseResultMap" type="com.jumper.weight.nutrition.hospital.entity.HospitalOutpatientReason" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="hospital_id" property="hospitalId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="outpatient_reason" property="outpatientReason" jdbcType="VARCHAR" />
+    <result column="tips" property="tips" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="is_delete" property="isDelete" jdbcType="BIT" />
+    <result column="can_delete" property="canDelete" jdbcType="BIT" />
+    <result column="is_skip_diet" property="isSkipDiet" jdbcType="BIT" />
+    <result column="is_skip_sport" property="isSkipSport" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, hospital_id, type, outpatient_reason, tips, add_time, is_delete, can_delete, is_skip_diet, is_skip_sport
+  </sql>
+  
+  <!-- 查询医院就诊原因 -->
+  <select id="findHospitalOutpatientReason" parameterType="map" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from hospital_outpatient_reason where hospital_id=#{hospitalId} and is_delete=0
+    <if test="type!=-1">
+    	 and type=#{type}
+    </if>
+    order by add_time asc
+  </select>
+  
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from hospital_outpatient_reason
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insert" parameterType="com.jumper.weight.nutrition.hospital.entity.HospitalOutpatientReason" 
+  	flushCache="true" keyColumn="GENERATED_KEY" keyProperty="id" useGeneratedKeys="true">
+    insert into hospital_outpatient_reason
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hospitalId != null" >
+        hospital_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="outpatientReason != null" >
+        outpatient_reason,
+      </if>
+      <if test="tips != null" >
+        tips,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="canDelete != null" >
+        can_delete,
+      </if>
+      <if test="isSkipDiet != null" >
+        is_skip_diet,
+      </if>
+      <if test="isSkipSport != null" >
+        is_skip_sport,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hospitalId != null" >
+        #{hospitalId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="outpatientReason != null" >
+        #{outpatientReason,jdbcType=VARCHAR},
+      </if>
+      <if test="tips != null" >
+        #{tips,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="canDelete != null" >
+        #{canDelete,jdbcType=BIT},
+      </if>
+      <if test="isSkipDiet != null" >
+        #{isSkipDiet,jdbcType=BIT},
+      </if>
+      <if test="isSkipSport != null" >
+        #{isSkipSport,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.jumper.weight.nutrition.hospital.entity.HospitalOutpatientReason" >
+    update hospital_outpatient_reason
+    <set >
+      <if test="hospitalId != null" >
+        hospital_id = #{hospitalId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="outpatientReason != null" >
+        outpatient_reason = #{outpatientReason,jdbcType=VARCHAR},
+      </if>
+      <if test="tips != null" >
+        tips = #{tips,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="canDelete != null" >
+        can_delete = #{canDelete,jdbcType=BIT},
+      </if>
+      <if test="isSkipDiet != null" >
+        is_skip_diet = #{isSkipDiet,jdbcType=BIT},
+      </if>
+      <if test="isSkipSport != null" >
+        is_skip_sport = #{isSkipSport,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
